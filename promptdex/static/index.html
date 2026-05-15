@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PromptDex</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Local prompt index</p>
+          <h1>PromptDex</h1>
+        </div>
+        <div class="dex-light" aria-hidden="true">
+          <span></span>
+        </div>
+      </header>
+
+      <section class="controls" aria-label="Prompt filters">
+        <label class="search-box">
+          <span>Search</span>
+          <input id="searchInput" type="search" placeholder="Debug agents, landing copy..." />
+        </label>
+
+        <label>
+          <span>Category</span>
+          <select id="categoryFilter">
+            <option value="">All categories</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Tag</span>
+          <input id="tagFilter" type="search" placeholder="codex" />
+        </label>
+
+        <button id="favoriteFilter" class="toggle" type="button" aria-pressed="false">
+          <span class="star">★</span>
+          Favorites
+        </button>
+      </section>
+
+      <section class="workspace">
+        <aside class="editor-panel" aria-label="Prompt editor">
+          <div class="panel-title">
+            <h2 id="formTitle">New prompt</h2>
+            <button id="resetForm" class="ghost" type="button">Clear</button>
+          </div>
+
+          <form id="promptForm">
+            <input id="promptId" type="hidden" />
+
+            <label>
+              <span>Title</span>
+              <input id="titleInput" required maxlength="160" placeholder="Code review lens" />
+            </label>
+
+            <label>
+              <span>Category</span>
+              <select id="categoryInput" required></select>
+            </label>
+
+            <label>
+              <span>Tags</span>
+              <input id="tagsInput" placeholder="codex, review, python" />
+            </label>
+
+            <label>
+              <span>Prompt</span>
+              <textarea
+                id="bodyInput"
+                required
+                rows="10"
+                placeholder="Paste the prompt you want to keep close."
+              ></textarea>
+            </label>
+
+            <div class="form-row">
+              <fieldset class="rating-field">
+                <legend>Rating</legend>
+                <div id="ratingInput" class="stars" aria-label="Rating"></div>
+              </fieldset>
+
+              <label class="favorite-check">
+                <input id="favoriteInput" type="checkbox" />
+                <span>Favorite</span>
+              </label>
+            </div>
+
+            <button class="primary" type="submit">Save prompt</button>
+          </form>
+        </aside>
+
+        <section class="list-panel" aria-live="polite">
+          <div class="panel-title">
+            <h2>Prompt cards</h2>
+            <p id="promptCount">0 prompts</p>
+          </div>
+          <div id="promptList" class="prompt-grid"></div>
+          <div id="emptyState" class="empty" hidden>
+            <strong>No prompts found.</strong>
+            <span>Adjust the filters or add a new keeper.</span>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <template id="promptCardTemplate">
+      <article class="prompt-card">
+        <div class="card-head">
+          <div>
+            <span class="badge"></span>
+            <h3></h3>
+          </div>
+          <button class="icon favorite-button" type="button" aria-label="Toggle favorite">☆</button>
+        </div>
+
+        <p class="body-preview"></p>
+        <div class="tags"></div>
+
+        <div class="card-meta">
+          <div class="card-stars" aria-label="Prompt rating"></div>
+          <span class="last-used"></span>
+        </div>
+
+        <div class="card-actions">
+          <button class="copy-button" type="button">Copy</button>
+          <button class="edit-button secondary" type="button">Edit</button>
+          <button class="delete-button danger" type="button">Delete</button>
+        </div>
+      </article>
+    </template>
+
+    <script src="/static/app.js" type="module"></script>
+  </body>
+</html>
