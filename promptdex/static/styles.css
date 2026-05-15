@@ -95,6 +95,7 @@ h2 {
 h3 {
   margin: 10px 0 0;
   font-size: 1.05rem;
+  overflow-wrap: anywhere;
 }
 
 .dex-light {
@@ -323,7 +324,7 @@ button:hover {
 
 .prompt-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 245px), 1fr));
   gap: 16px;
 }
 
@@ -340,8 +341,14 @@ button:hover {
 
 .card-head {
   display: flex;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 10px;
+  min-width: 0;
+}
+
+.card-head > div {
+  min-width: 0;
 }
 
 .badge {
@@ -358,14 +365,14 @@ button:hover {
 }
 
 .icon {
-  flex: 0 0 40px;
-  width: 40px;
-  height: 40px;
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
   color: var(--ink);
   background: #ffffff;
   border: 2px solid var(--ink);
   border-radius: 999px;
-  font-size: 1.35rem;
+  font-size: 1.15rem;
 }
 
 .favorite-button.is-favorite {
@@ -379,8 +386,18 @@ button:hover {
   overflow: hidden;
   color: #293744;
   line-height: 1.45;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
+}
+
+.body-preview.is-expanded {
+  display: block;
+  max-height: 420px;
+  overflow: auto;
+  padding-right: 4px;
+  -webkit-line-clamp: unset;
 }
 
 .tags {
@@ -403,6 +420,7 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 10px;
   color: var(--muted);
   font-size: 0.82rem;
@@ -416,7 +434,7 @@ button:hover {
 
 .card-actions {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
   gap: 8px;
   margin-top: auto;
 }
@@ -469,8 +487,25 @@ button:hover {
     height: 38px;
   }
 
-  .card-actions,
   .form-row {
     grid-template-columns: 1fr;
+  }
+
+  .prompt-card {
+    padding: 14px;
+  }
+
+  .card-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .primary,
+  .secondary,
+  .danger,
+  .ghost,
+  .toggle,
+  .copy-button {
+    min-width: 0;
+    padding-inline: 8px;
   }
 }

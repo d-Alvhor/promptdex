@@ -4,6 +4,7 @@ const state = {
   rating: 3,
   favoriteOnly: false,
   copiedId: null,
+  expandedIds: new Set(),
   visiblePrompts: [],
 };
 
@@ -130,9 +131,13 @@ function renderPrompts() {
 
   for (const prompt of prompts) {
     const card = selectors.template.content.firstElementChild.cloneNode(true);
+    const bodyPreview = card.querySelector(".body-preview");
+    const isExpanded = state.expandedIds.has(prompt.id);
+
     card.querySelector(".badge").textContent = prompt.category;
     card.querySelector("h3").textContent = prompt.title;
-    card.querySelector(".body-preview").textContent = prompt.body;
+    bodyPreview.textContent = prompt.body;
+    bodyPreview.classList.toggle("is-expanded", isExpanded);
     card.querySelector(".last-used").textContent = formatDate(prompt.last_used_at);
 
     const favoriteButton = card.querySelector(".favorite-button");
@@ -158,11 +163,25 @@ function renderPrompts() {
     copyButton.textContent = state.copiedId === prompt.id ? "Copiado" : "Copiar";
     copyButton.addEventListener("click", () => copyPrompt(prompt));
 
+    const readButton = card.querySelector(".read-button");
+    readButton.textContent = isExpanded ? "Cerrar" : "Leer";
+    readButton.setAttribute("aria-expanded", String(isExpanded));
+    readButton.addEventListener("click", () => togglePromptBody(prompt.id));
+
     card.querySelector(".duplicate-button").addEventListener("click", () => duplicatePrompt(prompt.id));
     card.querySelector(".edit-button").addEventListener("click", () => fillForm(prompt));
     card.querySelector(".delete-button").addEventListener("click", () => deletePrompt(prompt));
     selectors.list.append(card);
   }
+}
+
+function togglePromptBody(id) {
+  if (state.expandedIds.has(id)) {
+    state.expandedIds.delete(id);
+  } else {
+    state.expandedIds.add(id);
+  }
+  renderPrompts();
 }
 
 function resetForm() {
