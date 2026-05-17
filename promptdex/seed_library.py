@@ -264,4 +264,277 @@ Responde con esta estructura: conclusion breve, supuestos, pasos recomendados, r
 EN:
 Answer with this structure: brief conclusion, assumptions, recommended steps, risks, and example. If critical information is missing, ask at most 3 questions; if you can proceed with reasonable assumptions, do so and state them.""",
         ),
+        PromptCreate(
+            title="Performance investigation plan / Plan de investigacion de rendimiento",
+            category="Debugging",
+            tags=[*shared, "performance", "profiling", "observability"],
+            rating=5,
+            body="""ES:
+Ayudame a investigar un problema de rendimiento. Primero define el sintoma medible (latencia, CPU, memoria, I/O) y el objetivo. Luego propone:
+1) Hipotesis (max 5) ordenadas por probabilidad/impacto
+2) Instrumentacion minima (logs, metrics, traces) para confirmar/refutar cada hipotesis
+3) Experimentos reproducibles y como evitar sesgos
+4) Cambio minimo para corregir la causa raiz
+5) Prueba/alerta de regresion y como monitorear despues
+Devuelve una lista accionable con comandos sugeridos y criterios de exito.
+
+EN:
+Help me investigate a performance issue. First define the measurable symptom (latency, CPU, memory, I/O) and the goal. Then propose:
+1) Hypotheses (max 5) ordered by probability/impact
+2) Minimal instrumentation (logs, metrics, traces) to confirm/refute each hypothesis
+3) Reproducible experiments and how to avoid bias
+4) Minimal change to fix the root cause
+5) Regression test/alert and post-fix monitoring plan
+Return an actionable checklist with suggested commands and success criteria.""",
+        ),
+        PromptCreate(
+            title="Security threat model / Modelo de amenazas",
+            category="Architecture",
+            tags=[*shared, "security", "threat-model", "risk"],
+            rating=5,
+            body="""ES:
+Haz un threat model para este sistema/feature. Define activos, limites de confianza, actores, vectores de ataque y supuestos. Luego produce:
+- Tabla STRIDE (amenaza, impacto, probabilidad, mitigacion, owner)
+- Controles minimos recomendados (auth, autorizacion, validacion, logging, rate limits)
+- Lista de "no hacer" (antipatrones)
+No inventes requisitos: si falta info, pregunta maximo 3 cosas y continua con supuestos claramente marcados.
+
+EN:
+Do a threat model for this system/feature. Define assets, trust boundaries, actors, attack vectors, and assumptions. Then produce:
+- STRIDE table (threat, impact, likelihood, mitigation, owner)
+- Minimal recommended controls (auth, authorization, validation, logging, rate limits)
+- "Do not do" list (anti-patterns)
+Do not invent requirements: if key info is missing, ask at most 3 questions and proceed with clearly labeled assumptions.""",
+        ),
+        PromptCreate(
+            title="PRD one-pager / PRD de una pagina",
+            category="Productivity",
+            tags=[*shared, "product", "requirements", "writing"],
+            rating=4,
+            body="""ES:
+Convierte esta idea en un PRD de una pagina. Incluye: problema, usuario objetivo, objetivos medibles, no-objetivos, alcance (MVP), UX a alto nivel, requisitos funcionales, requisitos no funcionales, riesgos, dependencia y como se medira el exito. Mantenerlo corto es requisito.
+
+EN:
+Turn this idea into a one-page PRD. Include: problem, target user, measurable goals, non-goals, scope (MVP), high-level UX, functional requirements, non-functional requirements, risks, dependencies, and how success will be measured. Keeping it short is a requirement.""",
+        ),
+        PromptCreate(
+            title="User story mapping / Mapa de historias de usuario",
+            category="Productivity",
+            tags=[*shared, "product", "user-stories", "prioritization"],
+            rating=4,
+            body="""ES:
+Crea un user story map para este producto/feature. Define: actividades del usuario, pasos (journey), historias por paso, prioridades (MVP / despues), criterios de aceptacion y riesgos. Devuelve una tabla y una lista de entregables por iteracion.
+
+EN:
+Create a user story map for this product/feature. Define: user activities, journey steps, stories per step, priorities (MVP / later), acceptance criteria, and risks. Return a table plus a deliverables list per iteration.""",
+        ),
+        PromptCreate(
+            title="UX copy tone guide / Guia de tono para UX copy",
+            category="Design",
+            tags=[*shared, "ux-writing", "copy", "tone"],
+            rating=4,
+            body="""ES:
+Define una guia de tono para este producto. Incluye: personalidad, palabras a usar/evitar, ejemplos de microcopy (errores, vacio, confirmaciones), longitud objetivo, y reglas para mensajes de error (accionable, sin culpar, con siguiente paso). Devuelve ejemplos listos para pegar.
+
+EN:
+Define a tone guide for this product. Include: personality, words to use/avoid, microcopy examples (errors, empty states, confirmations), target length, and error-message rules (actionable, no blame, clear next step). Return copy-ready examples.""",
+        ),
+        PromptCreate(
+            title="Email campaign outline / Esquema de campana de email",
+            category="Marketing",
+            tags=[*shared, "email", "campaign", "copy"],
+            rating=4,
+            body="""ES:
+Disena una campana de email de 3-5 correos para este producto. Define segmento, propuesta de valor, objetivo por email, asunto (3 opciones), estructura, CTA, y como medir resultados. Evita promesas exageradas; se especifico.
+
+EN:
+Design a 3-5 email campaign for this product. Define segment, value proposition, goal per email, subject lines (3 options), structure, CTA, and how to measure results. Avoid hype; be specific.""",
+        ),
+        PromptCreate(
+            title="SEO content brief / Brief de contenido SEO",
+            category="Marketing",
+            tags=[*shared, "seo", "content", "research"],
+            rating=4,
+            body="""ES:
+Crea un brief SEO para un articulo. Incluye: keyword principal, intent, keywords secundarias, estructura H1/H2, preguntas a responder, ejemplos, contraejemplos, y criterios de calidad. Si faltan datos, pide maximo 3 aclaraciones y continua con supuestos.
+
+EN:
+Create an SEO content brief for an article. Include: primary keyword, intent, secondary keywords, H1/H2 outline, questions to answer, examples, counterexamples, and quality criteria. If key data is missing, ask at most 3 clarifying questions and proceed with assumptions.""",
+        ),
+        PromptCreate(
+            title="Data model sanity check / Revision de modelo de datos",
+            category="Architecture",
+            tags=[*shared, "data-model", "database", "consistency"],
+            rating=5,
+            body="""ES:
+Revisa este modelo de datos. Busca: invariantes, normalizacion vs pragmatismo, claves/indices, relaciones, borrado/retencion, migraciones, y consultas mas comunes. Devuelve:
+1) Lista de riesgos (con severidad)
+2) Cambios minimos recomendados
+3) Pruebas de integridad a agregar
+
+EN:
+Review this data model. Check: invariants, normalization vs pragmatism, keys/indexes, relationships, deletion/retention, migrations, and common queries. Return:
+1) Risk list (with severity)
+2) Minimal recommended changes
+3) Integrity tests to add""",
+        ),
+        PromptCreate(
+            title="Agent tool contract / Contrato de herramienta para agente",
+            category="Agents",
+            tags=[*shared, "agents", "tools", "contracts"],
+            rating=5,
+            body="""ES:
+Define un contrato para una herramienta que usara un agente. Incluye: nombre, proposito, entradas (schema), salidas (schema), errores, idempotencia, limites (tiempo/tamano), permisos, y ejemplos. Termina con casos borde y pruebas sugeridas.
+
+EN:
+Define a contract for a tool an agent will use. Include: name, purpose, inputs (schema), outputs (schema), errors, idempotency, limits (time/size), permissions, and examples. End with edge cases and suggested tests.""",
+        ),
+        PromptCreate(
+            title="Prompt evaluation rubric / Rubrica de evaluacion de prompts",
+            category="Prompts for ChatGPT",
+            tags=[*shared, "prompting", "evaluation", "quality"],
+            rating=5,
+            body="""ES:
+Evalua este prompt con una rubrica. Puntua 1-5: claridad del objetivo, contexto, restricciones, formato de salida, criterios de exito, testabilidad, seguridad/privacidad, y esfuerzo del usuario. Devuelve:
+- Tabla (criterio, puntuacion, por que, mejora concreta)
+- Version mejorada del prompt (sin pedir cadena de pensamiento)
+
+EN:
+Evaluate this prompt with a rubric. Score 1-5: goal clarity, context, constraints, output format, success criteria, testability, safety/privacy, and user effort. Return:
+- Table (criterion, score, why, concrete improvement)
+- Improved prompt version (without requesting chain-of-thought)""",
+        ),
+        PromptCreate(
+            title="Codex TDD feature builder / Constructor de feature TDD con Codex",
+            category="Prompts for Codex",
+            tags=[*shared, "codex", "tdd", "tests"],
+            rating=5,
+            favorite=True,
+            body="""ES:
+Implementa esta feature con enfoque TDD. Primero escribe/actualiza pruebas (unit/integration) que fallen por la razon correcta. Luego implementa el minimo para pasar. Itera hasta cubrir bordes. Mantente dentro del repo; no agregues dependencias sin necesidad. Termina con comandos exactos ejecutados y estado de git.
+
+EN:
+Implement this feature using TDD. First write/update unit/integration tests that fail for the right reason. Then implement the minimum to pass. Iterate until edges are covered. Stay within the repo; do not add dependencies unless necessary. Finish with exact commands executed and git status.""",
+        ),
+        PromptCreate(
+            title="Claude structured extraction to JSON / Extraccion estructurada a JSON para Claude",
+            category="Prompts for Claude",
+            tags=[*shared, "claude", "extraction", "json"],
+            rating=5,
+            body="""ES:
+Extrae la informacion solicitada y devuelve SOLO JSON valido (sin markdown). Reglas:
+- Usa solo el texto proporcionado
+- Si un campo no aparece, usa null o \"no consta\" (segun se pida)
+- Incluye un campo \"evidence\" con citas cortas (max 20 palabras) por cada item importante
+Si hay ambiguedad critica, pregunta maximo 3 cosas.
+
+EN:
+Extract the requested information and return ONLY valid JSON (no markdown). Rules:
+- Use only the provided text
+- If a field is missing, use null or \"not found\" (as requested)
+- Include an \"evidence\" field with short quotes (max 20 words) for key items
+If there is critical ambiguity, ask at most 3 questions.""",
+        ),
+        PromptCreate(
+            title="ChatGPT quick decision memo / Memo rapido de decision para ChatGPT",
+            category="Prompts for ChatGPT",
+            tags=[*shared, "chatgpt", "decision", "tradeoffs"],
+            rating=4,
+            body="""ES:
+Ayudame a tomar esta decision. Devuelve: recomendacion, 2 alternativas, criterios, tradeoffs, riesgos, y plan de reversibilidad. Si faltan datos, declara supuestos y pide maximo 3 preguntas al final.
+
+EN:
+Help me make this decision. Return: recommendation, 2 alternatives, criteria, tradeoffs, risks, and reversibility plan. If data is missing, state assumptions and ask at most 3 questions at the end.""",
+        ),
+        PromptCreate(
+            title="Git commit message helper / Ayudante de mensajes de commit",
+            category="Productivity",
+            tags=[*shared, "git", "commits", "writing"],
+            rating=4,
+            body="""ES:
+Genera un mensaje de commit claro. Entradas: resumen del cambio, impacto, riesgos. Salida:
+- 3 opciones (conventional commits si aplica)
+- Una opcion recomendada
+- Cuerpo opcional con bullets (que cambio, por que, como verificar)
+
+EN:
+Generate a clear commit message. Inputs: change summary, impact, risks. Output:
+- 3 options (Conventional Commits if applicable)
+- One recommended option
+- Optional body bullets (what changed, why, how to verify)""",
+        ),
+        PromptCreate(
+            title="Incident status update / Actualizacion de estado de incidente",
+            category="Productivity",
+            tags=[*shared, "incident", "oncall", "communication"],
+            rating=4,
+            body="""ES:
+Redacta una actualizacion de incidente para stakeholders. Incluye: resumen, impacto, alcance, linea temporal breve, mitigacion aplicada, estado actual, siguientes pasos, riesgos, y ETA si existe (o explica por que no). Mantenerlo honesto es requisito.
+
+EN:
+Write an incident update for stakeholders. Include: summary, impact, scope, short timeline, mitigation applied, current status, next steps, risks, and ETA if known (or explain why not). Being honest is a requirement.""",
+        ),
+        PromptCreate(
+            title="Customer interview script / Guion de entrevista a usuarios",
+            category="Research",
+            tags=[*shared, "research", "interviews", "product"],
+            rating=4,
+            body="""ES:
+Crea un guion de entrevista de 30 minutos para este problema. Incluye: objetivos, preguntas abiertas, probes, preguntas de comportamiento pasado, y como evitar sesgos. Termina con una plantilla para capturar notas (quotes, dolor, soluciones actuales).
+
+EN:
+Create a 30-minute customer interview script for this problem. Include: goals, open-ended questions, probes, past-behavior questions, and how to avoid bias. End with a note-taking template (quotes, pain, current solutions).""",
+        ),
+        PromptCreate(
+            title="Competitive teardown / Analisis competitivo profundo",
+            category="Research",
+            tags=[*shared, "competition", "analysis", "marketing"],
+            rating=4,
+            body="""ES:
+Haz un analisis competitivo profundo. Compara 3-5 alternativas en: publico objetivo, propuesta de valor, pricing (si se conoce), UX, integraciones, barreras de cambio y riesgos. Devuelve una tabla y 3 apuestas estrategicas.
+
+EN:
+Do a competitive teardown. Compare 3-5 alternatives on: target audience, value proposition, pricing (if known), UX, integrations, switching costs, and risks. Return a table plus 3 strategic bets.""",
+        ),
+        PromptCreate(
+            title="API error taxonomy / Taxonomia de errores API",
+            category="Architecture",
+            tags=[*shared, "api", "errors", "contracts"],
+            rating=5,
+            body="""ES:
+Define una taxonomia de errores para esta API. Incluye: codigos, estructura JSON, mensajes para usuario vs logs, trazabilidad (request_id), y reglas de mapeo desde excepciones internas. Devuelve ejemplos de 5 errores comunes y como probarlos.
+
+EN:
+Define an error taxonomy for this API. Include: codes, JSON structure, user-facing vs log messages, traceability (request_id), and mapping rules from internal exceptions. Return examples for 5 common errors and how to test them.""",
+        ),
+        PromptCreate(
+            title="Documentation from code / Documentacion desde codigo",
+            category="Coding",
+            tags=[*shared, "docs", "maintenance", "readme"],
+            rating=4,
+            body="""ES:
+Genera documentacion a partir de este codigo. Produce: descripcion, como ejecutarlo, configuracion, ejemplos, y errores comunes. No inventes flags ni endpoints: si no estan en el codigo, marca como \"no consta\" o pide una aclaracion.
+
+EN:
+Generate documentation from this code. Produce: overview, how to run it, configuration, examples, and common errors. Do not invent flags or endpoints: if they are not in the code, mark as \"not found\" or ask for clarification.""",
+        ),
+        PromptCreate(
+            title="Architecture diagram spec / Especificacion de diagrama de arquitectura",
+            category="Architecture",
+            tags=[*shared, "architecture", "diagram", "documentation"],
+            rating=4,
+            body="""ES:
+Convierte esta arquitectura en una especificacion de diagrama (texto). Incluye: componentes, limites de confianza, flujos principales, dependencias externas, y datos persistidos. Devuelve:
+1) Lista de nodos (id, nombre, tipo)
+2) Lista de aristas (origen, destino, tipo de flujo, datos)
+3) Un diagrama Mermaid (flowchart o sequence) si es posible
+No inventes servicios: si falta info, declara supuestos.
+
+EN:
+Turn this architecture into a diagram specification (text). Include: components, trust boundaries, main flows, external dependencies, and persisted data. Return:
+1) Node list (id, name, type)
+2) Edge list (source, target, flow type, data)
+3) A Mermaid diagram (flowchart or sequence) if possible
+Do not invent services: if info is missing, state assumptions.""",
+        ),
     ]
