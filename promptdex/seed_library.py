@@ -537,4 +537,327 @@ Turn this architecture into a diagram specification (text). Include: components,
 3) A Mermaid diagram (flowchart or sequence) if possible
 Do not invent services: if info is missing, state assumptions.""",
         ),
+        PromptCreate(
+            title="Minimal repro request / Pedido de repro minimo",
+            category="Debugging",
+            tags=[*shared, "debugging", "repro", "triage"],
+            rating=5,
+            body="""ES:
+Necesito un ejemplo minimo reproducible. Devuelve:
+- Pasos exactos (1..N)
+- Versiones (OS, lenguaje, framework, dependencias)
+- Entrada minima (datos/sample) y salida actual
+- Salida esperada (criterio de exito)
+- Logs/stacktrace completos (sin recortar)
+- Si es posible: repo minimo o snippet autocontenido
+
+EN:
+I need a minimal reproducible example. Provide:
+- Exact steps (1..N)
+- Versions (OS, language, framework, dependencies)
+- Minimal input (data/sample) and current output
+- Expected output (success criteria)
+- Full logs/stacktrace (no trimming)
+- If possible: a tiny repo or self-contained snippet""",
+        ),
+        PromptCreate(
+            title="Root-cause analysis writeup / Informe de causa raiz",
+            category="Productivity",
+            tags=[*shared, "incident", "rca", "postmortem"],
+            rating=4,
+            body="""ES:
+Escribe un RCA breve (1-2 paginas). Incluye: resumen, impacto, linea temporal, causa raiz, factores contribuyentes,
+por que no se detecto antes, que funciono, que no, acciones (dueno + fecha), y medidas preventivas. Evita culpas.
+
+EN:
+Write a concise RCA (1-2 pages). Include: summary, impact, timeline, root cause, contributing factors, why it wasn't
+detected earlier, what worked, what didn't, actions (owner + due date), and preventative measures. No blame.""",
+        ),
+        PromptCreate(
+            title="Database migration checklist / Checklist de migracion de base de datos",
+            category="Architecture",
+            tags=[*shared, "database", "migrations", "rollout"],
+            rating=5,
+            body="""ES:
+Planifica esta migracion de base de datos. Devuelve:
+1) Cambios de esquema (DDL) y compatibilidad hacia atras
+2) Plan de despliegue en fases (expand/contract si aplica)
+3) Backfill: estrategia, limites, monitorizacion, tiempos
+4) Indices/locks: riesgos y mitigaciones
+5) Plan de rollback y verificacion post-deploy
+
+EN:
+Plan this database migration. Return:
+1) Schema changes (DDL) and backwards compatibility
+2) Phased rollout plan (expand/contract if applicable)
+3) Backfill: strategy, limits, monitoring, timing
+4) Index/lock risks and mitigations
+5) Rollback plan and post-deploy verification""",
+        ),
+        PromptCreate(
+            title="API pagination + filtering design / Diseno de paginacion + filtros API",
+            category="Architecture",
+            tags=[*shared, "api", "pagination", "filters"],
+            rating=5,
+            body="""ES:
+Disena paginacion y filtros para este endpoint. Incluye: cursor vs offset (y por que), orden estable,
+parametros de filtro (tipos + validacion), limites, ejemplos de requests/responses, y como evitar inconsistencias
+cuando cambian los datos. Propone tests (unidad + integracion).
+
+EN:
+Design pagination and filters for this endpoint. Include: cursor vs offset (and why), stable ordering,
+filter parameters (types + validation), limits, request/response examples, and how to avoid inconsistencies
+as data changes. Propose tests (unit + integration).""",
+        ),
+        PromptCreate(
+            title="Async bug triage (Python) / Triage de bug async (Python)",
+            category="Debugging",
+            tags=[*shared, "python", "async", "debugging"],
+            rating=4,
+            body="""ES:
+Diagnostica este bug async en Python. Pide primero: version de Python, event loop, framework, y un snippet minimo.
+Luego: identifica condiciones de carrera, cancelaciones, timeouts, tareas colgadas, y puntos de await peligrosos.
+Propone instrumentacion (logs, traces) y un fix minimo con prueba.
+
+EN:
+Diagnose this async Python bug. First ask for: Python version, event loop, framework, and a minimal snippet.
+Then: identify races, cancellations, timeouts, stuck tasks, and risky await points. Propose instrumentation
+(logs, traces) and a minimal fix with a test.""",
+        ),
+        PromptCreate(
+            title="Test data strategy / Estrategia de datos de tests",
+            category="Coding",
+            tags=[*shared, "testing", "fixtures", "data"],
+            rating=4,
+            body="""ES:
+Define una estrategia de datos de test para este proyecto. Incluye: fixtures vs factories, datos minimos,
+datos realistas (sin PII), seeds deterministas, limpieza, paralelismo, y como evitar tests fragiles. Devuelve
+una guia corta y 3 ejemplos.
+
+EN:
+Define a test data strategy for this project. Include: fixtures vs factories, minimal data, realistic data
+(no PII), deterministic seeds, cleanup, parallelism, and how to avoid brittle tests. Return a short guide
+and 3 examples.""",
+        ),
+        PromptCreate(
+            title="Prompt injection test cases / Casos de prueba de prompt injection",
+            category="Architecture",
+            tags=[*shared, "security", "prompt-injection", "testing"],
+            rating=5,
+            body="""ES:
+Genera casos de prueba de prompt injection para esta app (inputs no confiables). Devuelve:
+- 10 ataques directos (\"ignora instrucciones\", exfiltracion, abuso de tools)
+- 10 ataques indirectos (texto embebido en docs/URLs)
+- Que debe pasar (bloquear, degradar, requerir confirmacion humana)
+- Criterios de logging y alertas (sin capturar secretos)
+
+EN:
+Generate prompt-injection test cases for this app (untrusted inputs). Return:
+- 10 direct attacks (\"ignore instructions\", exfiltration, tool abuse)
+- 10 indirect attacks (instructions embedded in docs/URLs)
+- Expected behavior (block, degrade, require human confirmation)
+- Logging/alerting criteria (without capturing secrets)""",
+        ),
+        PromptCreate(
+            title="Agent tool schema spec / Especificacion de herramienta para agente",
+            category="Agents",
+            tags=[*shared, "agents", "tools", "schema"],
+            rating=5,
+            body="""ES:
+Define una herramienta (tool) para un agente. Devuelve:
+1) Nombre y proposito (1 frase)
+2) Contrato de entrada (campos, tipos, validaciones)
+3) Contrato de salida (campos, tipos, errores)
+4) Ejemplos (2 inputs + 2 outputs)
+5) Limites y guardrails (rate limits, timeouts, PII)
+
+EN:
+Define an agent tool. Return:
+1) Name and purpose (1 sentence)
+2) Input contract (fields, types, validations)
+3) Output contract (fields, types, errors)
+4) Examples (2 inputs + 2 outputs)
+5) Limits and guardrails (rate limits, timeouts, PII)""",
+        ),
+        PromptCreate(
+            title="Agent runbook + guardrails / Runbook + guardrails de agente",
+            category="Agents",
+            tags=[*shared, "agents", "safety", "operations"],
+            rating=4,
+            body="""ES:
+Escribe un runbook para operar este agente en produccion. Incluye: modos de fallo comunes, limites de herramientas,
+politica de reintentos, observabilidad (logs/metrics/traces), criterios de parada (circuit breaker), y checklist de
+privacidad (minimizacion de datos). Termina con un playbook de incidentes.
+
+EN:
+Write a runbook to operate this agent in production. Include: common failure modes, tool limits, retry policy,
+observability (logs/metrics/traces), stop criteria (circuit breaker), and a privacy checklist (data minimization).
+End with an incident playbook.""",
+        ),
+        PromptCreate(
+            title="Docs changelog entry / Entrada de changelog de docs",
+            category="Productivity",
+            tags=[*shared, "docs", "changelog", "writing"],
+            rating=4,
+            body="""ES:
+Redacta una entrada de changelog para este cambio. Devuelve: titulo, bullets (que cambia, a quien afecta),
+breaking changes (si aplica), y como verificar. Tono: claro y conciso, sin marketing.
+
+EN:
+Draft a changelog entry for this change. Return: title, bullets (what changed, who is impacted),
+breaking changes (if any), and how to verify. Tone: clear and concise, no marketing.""",
+        ),
+        PromptCreate(
+            title="Design system tokens / Tokens de sistema de diseno",
+            category="Design",
+            tags=[*shared, "design-system", "tokens", "naming"],
+            rating=4,
+            body="""ES:
+Define tokens de diseno para este producto. Incluye: colores (semantic vs primitive), tipografia, espaciado,
+radio, sombras, y z-index. Propone convencion de nombres, ejemplos, y reglas de versionado para evitar roturas.
+
+EN:
+Define design tokens for this product. Include: colors (semantic vs primitive), typography, spacing, radius,
+shadows, and z-index. Propose a naming convention, examples, and versioning rules to avoid breaking changes.""",
+        ),
+        PromptCreate(
+            title="Accessibility audit checklist / Checklist de accesibilidad",
+            category="Design",
+            tags=[*shared, "a11y", "ux", "audit"],
+            rating=4,
+            body="""ES:
+Haz una auditoria rapida de accesibilidad para esta UI. Devuelve una lista accionable que cubra: navegacion por
+teclado, focus visible, contrastes, labels/aria, headings, mensajes de error, y estados vacios. Incluye ejemplos
+de cambios concretos (HTML/CSS) cuando sea posible.
+
+EN:
+Do a quick accessibility audit for this UI. Return an actionable list covering: keyboard navigation, visible focus,
+contrast, labels/aria, headings, error messages, and empty states. Include concrete change examples (HTML/CSS)
+when possible.""",
+        ),
+        PromptCreate(
+            title="Landing page hero variants / Variantes de hero para landing",
+            category="Marketing",
+            tags=[*shared, "marketing", "copy", "landing"],
+            rating=4,
+            body="""ES:
+Genera 5 variantes de hero para esta landing. Cada variante: titular (<= 10 palabras), subtitulo (<= 20),
+3 bullets de valor, y CTA. Ajusta el tono a: {tono}. Evita claims no verificables.
+
+EN:
+Generate 5 hero variants for this landing page. Each variant: headline (<= 10 words), subheadline (<= 20),
+3 value bullets, and a CTA. Match the tone: {tone}. Avoid unverifiable claims.""",
+        ),
+        PromptCreate(
+            title="Pricing FAQ generator / Generador de FAQ de precios",
+            category="Marketing",
+            tags=[*shared, "pricing", "faq", "copy"],
+            rating=4,
+            body="""ES:
+Crea una FAQ de precios para este producto. Devuelve 12 preguntas + respuestas cortas. Incluye: limites de plan,
+facturacion, cancelacion, seguridad, soporte, y comparacion entre planes. Mantente honesto: si falta info,
+marca supuestos o deja la respuesta como \"por definir\".
+
+EN:
+Create a pricing FAQ for this product. Return 12 Q&As with short answers. Include: plan limits, billing,
+cancellation, security, support, and plan comparison. Be honest: if info is missing, state assumptions
+or mark as \"TBD\".""",
+        ),
+        PromptCreate(
+            title="SEO keyword clustering / Clusterizacion de keywords SEO",
+            category="Marketing",
+            tags=[*shared, "seo", "keywords", "content"],
+            rating=4,
+            body="""ES:
+Agrupa estas keywords en clusters por intencion de busqueda. Devuelve: cluster name, keywords, pagina objetivo,
+angulo de contenido, y prioridad (alto/medio/bajo). Sugiere 3 titulos por cluster.
+
+EN:
+Cluster these keywords by search intent. Return: cluster name, keywords, target page, content angle,
+and priority (high/medium/low). Suggest 3 titles per cluster.""",
+        ),
+        PromptCreate(
+            title="Research search plan / Plan de busqueda de investigacion",
+            category="Research",
+            tags=[*shared, "research", "search", "sources"],
+            rating=4,
+            body="""ES:
+Convierte esta pregunta en un plan de busqueda. Devuelve: subpreguntas, terminos de busqueda, fuentes primarias
+vs secundarias, criterios de calidad, sesgos posibles, y un formato para tomar notas con citas.
+
+EN:
+Turn this question into a research search plan. Return: sub-questions, search terms, primary vs secondary sources,
+quality criteria, potential biases, and a note-taking format with citations.""",
+        ),
+        PromptCreate(
+            title="Synthesis with citations / Sintesis con citas",
+            category="Research",
+            tags=[*shared, "research", "synthesis", "citations"],
+            rating=5,
+            body="""ES:
+Sintetiza estos documentos. Devuelve: resumen ejecutivo, hallazgos clave, puntos de desacuerdo, lagunas,
+y recomendaciones. Para cada hallazgo, incluye 1-2 citas cortas (<= 20 palabras) con referencia al documento.
+No inventes fuentes.
+
+EN:
+Synthesize these documents. Return: executive summary, key findings, disagreements, gaps, and recommendations.
+For each finding, include 1-2 short quotes (<= 20 words) with a document reference. Do not invent sources.""",
+        ),
+        PromptCreate(
+            title="Codex PR reviewer checklist / Checklist de revision de PR con Codex",
+            category="Prompts for Codex",
+            tags=[*shared, "codex", "review", "pr"],
+            rating=4,
+            body="""ES:
+Actua como reviewer senior. Revisa este PR y devuelve:
+1) Riesgos (bugs, datos, seguridad, rendimiento)
+2) Cobertura de pruebas (que falta y como testear)
+3) API/UX: compatibilidad y edge cases
+4) Lista de comentarios accionables (los 5 mas importantes primero)
+Si algo es incierto, pide maximo 3 aclaraciones.
+
+EN:
+Act as a senior reviewer. Review this PR and return:
+1) Risks (bugs, data, security, performance)
+2) Test coverage (what's missing and how to test)
+3) API/UX: compatibility and edge cases
+4) Actionable comments (top 5 first)
+If something is uncertain, ask at most 3 clarifying questions.""",
+        ),
+        PromptCreate(
+            title="ChatGPT interviewer roleplay / Roleplay de entrevistador con ChatGPT",
+            category="Prompts for ChatGPT",
+            tags=[*shared, "chatgpt", "roleplay", "interview"],
+            rating=4,
+            body="""ES:
+Actua como entrevistador para este rol: {rol}. Haz 6 preguntas: 2 de fundamentos, 2 de experiencia, 1 de sistema,
+1 de debugging. Espera mi respuesta tras cada pregunta. Al final, evalua con una rubrica (claridad, rigor,
+tradeoffs, comunicacion) y sugiere mejoras concretas.
+
+EN:
+Act as an interviewer for this role: {role}. Ask 6 questions: 2 fundamentals, 2 experience, 1 system design,
+1 debugging. Wait for my answer after each question. At the end, grade with a rubric (clarity, rigor,
+tradeoffs, communication) and suggest concrete improvements.""",
+        ),
+        PromptCreate(
+            title="Claude long-doc summary with quotes / Resumen de doc largo con citas (Claude)",
+            category="Prompts for Claude",
+            tags=[*shared, "claude", "summarization", "quotes"],
+            rating=4,
+            body="""ES:
+Resume este documento largo sin perder precision. Formato de salida:
+1) Resumen ejecutivo (<= 8 bullets)
+2) Terminos/definiciones
+3) Riesgos y preguntas abiertas
+4) Acciones recomendadas
+Incluye 1-2 citas cortas por seccion (<= 20 palabras) para anclar los puntos. Si falta contexto, pregunta 1-3 cosas.
+
+EN:
+Summarize this long document without losing precision. Output format:
+1) Executive summary (<= 8 bullets)
+2) Terms/definitions
+3) Risks and open questions
+4) Recommended actions
+Include 1-2 short quotes per section (<= 20 words) to ground the points. If context is missing, ask 1-3 questions.""",
+        ),
     ]
