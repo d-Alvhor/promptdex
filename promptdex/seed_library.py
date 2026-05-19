@@ -860,4 +860,373 @@ Summarize this long document without losing precision. Output format:
 4) Recommended actions
 Include 1-2 short quotes per section (<= 20 words) to ground the points. If context is missing, ask 1-3 questions.""",
         ),
+        PromptCreate(
+            title="GitHub issue to patch plan / Issue de GitHub a plan de patch",
+            category="Coding",
+            tags=[*shared, "github", "issue", "plan", "patch"],
+            rating=4,
+            body="""ES:
+Convierte este issue en un plan de implementacion pequeno. Devuelve:
+1) Resumen del problema y criterio de exito
+2) Cambios propuestos (archivos probables y por que)
+3) Riesgos/edge cases
+4) Plan de pruebas (unit/integration/manual)
+5) Mensaje de commit sugerido
+Si falta informacion, pregunta maximo 3 cosas.
+
+EN:
+Turn this issue into a small implementation plan. Return:
+1) Problem summary and success criteria
+2) Proposed changes (likely files and why)
+3) Risks/edge cases
+4) Test plan (unit/integration/manual)
+5) Suggested commit message
+If info is missing, ask at most 3 questions.""",
+        ),
+        PromptCreate(
+            title="Spec to OpenAPI skeleton / De spec a esqueleto OpenAPI",
+            category="Architecture",
+            tags=[*shared, "api", "openapi", "contract"],
+            rating=4,
+            body="""ES:
+Dado este spec informal de una API, genera un esqueleto OpenAPI (YAML) con: paths, metodos, request/response
+schemas, codigos de error, y ejemplos minimos. Si hay ambiguedades, anotalas como TODOs.
+
+EN:
+Given this informal API spec, generate an OpenAPI (YAML) skeleton with: paths, methods, request/response schemas,
+error codes, and minimal examples. If there are ambiguities, note them as TODOs.""",
+        ),
+        PromptCreate(
+            title="Python packaging triage / Triage de packaging Python",
+            category="Debugging",
+            tags=[*shared, "python", "packaging", "uv", "pip"],
+            rating=4,
+            body="""ES:
+Tengo este error de packaging/instalacion. Diagnosticalo por fases:
+1) Hipotesis probables (3 max)
+2) Comandos para inspeccionar entorno (python -V, pip/uv, paths)
+3) Fixes ordenados por seguridad (no destructivo primero)
+4) Como verificar que quedo resuelto
+No asumas que puedo borrar todo; prioriza cambios reversibles.
+
+EN:
+I have this packaging/install error. Diagnose it in phases:
+1) Likely hypotheses (max 3)
+2) Commands to inspect the environment (python -V, pip/uv, paths)
+3) Fixes ordered by safety (non-destructive first)
+4) How to verify it's resolved
+Do not assume I can nuke everything; prioritize reversible changes.""",
+        ),
+        PromptCreate(
+            title="TypeScript error explainer / Explicador de error TypeScript",
+            category="Coding",
+            tags=[*shared, "typescript", "errors", "explain"],
+            rating=4,
+            body="""ES:
+Explica este error de TypeScript como si yo fuera un dev mid. Devuelve:
+1) Que significa en lenguaje simple
+2) La causa raiz mas probable
+3) 2-3 fixes (con pros/contras)
+4) Un ejemplo minimo que lo reproduzca
+Mantente en lo verificable; no inventes tipos que no se ven.
+
+EN:
+Explain this TypeScript error as if I were a mid-level dev. Return:
+1) Plain-language meaning
+2) Most likely root cause
+3) 2-3 fixes (with pros/cons)
+4) A minimal example that reproduces it
+Stick to what is observable; do not invent types you can't see.""",
+        ),
+        PromptCreate(
+            title="CI failure log summary / Resumen de logs de CI",
+            category="Debugging",
+            tags=[*shared, "ci", "logs", "triage"],
+            rating=4,
+            body="""ES:
+Resume este log de CI. Devuelve:
+1) Fallo principal (1 frase)
+2) 3-5 pistas clave (con lineas/palabras relevantes)
+3) Causa probable vs alternativas
+4) Siguiente accion concreta (comando local o cambio sugerido)
+No ocultes incertidumbre: marca lo que es suposicion.
+
+EN:
+Summarize this CI log. Return:
+1) Primary failure (1 sentence)
+2) 3-5 key clues (with relevant lines/keywords)
+3) Likely cause vs alternatives
+4) Next concrete action (local command or suggested change)
+Do not hide uncertainty: label assumptions.""",
+        ),
+        PromptCreate(
+            title="Database index advisor / Asesor de indices",
+            category="Architecture",
+            tags=[*shared, "database", "performance", "indexes"],
+            rating=4,
+            body="""ES:
+Dada esta query lenta y el esquema (tablas + columnas), sugiere indices. Devuelve:
+1) Indices propuestos (por tabla) con justificacion
+2) Riesgos (write amplification, size, lock)
+3) Como validar (EXPLAIN/ANALYZE) y metricas a mirar
+Si faltan datos, lista exactamente que necesitas.
+
+EN:
+Given this slow query and schema (tables + columns), suggest indexes. Return:
+1) Proposed indexes (per table) with justification
+2) Risks (write amplification, size, lock)
+3) How to validate (EXPLAIN/ANALYZE) and what metrics to watch
+If data is missing, list exactly what you need.""",
+        ),
+        PromptCreate(
+            title="Release notes from commits / Notas de version desde commits",
+            category="Productivity",
+            tags=[*shared, "release", "changelog", "writing"],
+            rating=4,
+            body="""ES:
+Genera notas de version basadas en estos commits. Separa en: Added, Changed, Fixed, Deprecated, Removed, Security.
+Usa lenguaje orientado a usuario final. Marca posibles breaking changes y su migracion. Mantente fiel al texto: no
+inventes features.
+
+EN:
+Generate release notes from these commits. Split into: Added, Changed, Fixed, Deprecated, Removed, Security.
+Use end-user language. Flag potential breaking changes and migration guidance. Stay faithful to the text: do not
+invent features.""",
+        ),
+        PromptCreate(
+            title="Support reply template (no PII) / Respuesta de soporte (sin PII)",
+            category="Productivity",
+            tags=[*shared, "support", "writing", "tone"],
+            rating=4,
+            body="""ES:
+Escribe una respuesta de soporte para este ticket. Reglas: no incluyas datos personales, no inventes politicas,
+y pide solo la informacion minima. Devuelve 3 versiones (breve, estandar, muy empatica) y un checklist interno
+de seguimiento.
+
+EN:
+Write a support reply for this ticket. Rules: do not include personal data, do not invent policies, and ask only
+for the minimum needed info. Return 3 versions (brief, standard, very empathetic) and an internal follow-up
+checklist.""",
+        ),
+        PromptCreate(
+            title="Prompt library de-dup audit / Auditoria de duplicados de prompts",
+            category="Prompts",
+            tags=[*shared, "library", "dedup", "quality"],
+            rating=4,
+            body="""ES:
+Analiza esta lista de prompts y detecta duplicados o solapes fuertes. Devuelve:
+1) Grupos de prompts similares (con puntuacion 0-1 de similitud)
+2) Recomendacion: fusionar, renombrar, o mantener (con razon)
+3) Tags/categorias sugeridas para mejorar el orden
+
+EN:
+Analyze this prompt list and detect duplicates or strong overlaps. Return:
+1) Groups of similar prompts (with a 0-1 similarity score)
+2) Recommendation: merge, rename, or keep (with rationale)
+3) Suggested tags/categories to improve organization.""",
+        ),
+        PromptCreate(
+            title="Agent safety guardrails / Guardrails de seguridad para agentes",
+            category="Agents",
+            tags=[*shared, "agents", "safety", "guardrails"],
+            rating=5,
+            body="""ES:
+Define guardrails para un agente que ejecuta tareas en un repo. Incluye:
+- Limites (que nunca hacer)
+- Politicas de datos (no PII, no secretos, no exfiltracion)
+- Reglas de comandos (evitar deletes recursivos, pedir confirmacion)
+- Formato de logs/auditoria
+- Criterios para parar y pedir ayuda humana
+
+EN:
+Define guardrails for an agent that executes tasks in a repo. Include:
+- Limits (what it must never do)
+- Data policies (no PII, no secrets, no exfiltration)
+- Command rules (avoid recursive deletes, ask for confirmation)
+- Logging/audit format
+- Criteria to stop and ask for human help.""",
+        ),
+        PromptCreate(
+            title="Tool-use fallback plan / Plan de fallback si faltan herramientas",
+            category="Agents",
+            tags=[*shared, "tools", "fallback", "planning"],
+            rating=4,
+            body="""ES:
+Para esta tarea, crea un plan A/B/C:
+Plan A: con todas las herramientas disponibles
+Plan B: sin acceso a red
+Plan C: solo lectura (sin escribir archivos)
+Para cada plan, lista pasos, limitaciones y como validar resultados.
+
+EN:
+For this task, create an A/B/C plan:
+Plan A: with all tools available
+Plan B: with no network access
+Plan C: read-only (no file writes)
+For each plan, list steps, limitations, and how to validate results.""",
+        ),
+        PromptCreate(
+            title="System prompt critique / Critica de system prompt",
+            category="Prompts",
+            tags=[*shared, "prompting", "system", "review"],
+            rating=4,
+            body="""ES:
+Revisa este system prompt. Identifica ambiguedades, conflictos, requisitos imposibles y gaps de seguridad.
+Propone una version mejorada con: objetivo claro, limites, formato de salida, y politicas de datos. Mantiene el
+tono y la intencion original.
+
+EN:
+Review this system prompt. Identify ambiguities, conflicts, impossible requirements, and safety gaps.
+Propose an improved version with: clear goal, limits, output format, and data policies. Preserve the original
+tone and intent.""",
+        ),
+        PromptCreate(
+            title="Docs writing checklist / Checklist de escritura de docs",
+            category="Productivity",
+            tags=[*shared, "docs", "writing", "clarity"],
+            rating=4,
+            body="""ES:
+Estoy escribiendo docs tecnicas. Dame un checklist de calidad: objetivos, audiencia, prerequisitos, ejemplos,
+errores comunes, troubleshooting, enlaces, y mantenimiento. Luego aplica el checklist a este borrador y sugiere
+mejoras concretas (sin reescribir todo).
+
+EN:
+I'm writing technical docs. Give me a quality checklist: goals, audience, prerequisites, examples,
+common pitfalls, troubleshooting, links, and maintenance. Then apply the checklist to this draft and suggest
+concrete improvements (without rewriting everything).""",
+        ),
+        PromptCreate(
+            title="Design token naming scheme / Esquema de nombres para design tokens",
+            category="Design",
+            tags=[*shared, "design", "tokens", "naming"],
+            rating=4,
+            body="""ES:
+Propone un esquema de nombres para design tokens (color, typography, spacing, radius, shadow). Reglas:
+consistente, escalable, sin acoplarse a implementacion. Devuelve ejemplos y guidelines de migracion desde nombres
+ad-hoc.
+
+EN:
+Propose a naming scheme for design tokens (color, typography, spacing, radius, shadow). Rules:
+consistent, scalable, not tied to implementation details. Return examples and migration guidelines from
+ad-hoc names.""",
+        ),
+        PromptCreate(
+            title="Accessible alt text generator / Generador de alt text accesible",
+            category="Design",
+            tags=[*shared, "accessibility", "alt-text", "a11y"],
+            rating=4,
+            body="""ES:
+Escribe alt text accesible para estas imagenes. Devuelve 2 versiones por imagen:
+1) Alt corto (<= 125 caracteres)
+2) Descripcion extendida (para longdesc o notas)
+Evita redundancias como \"imagen de\" y respeta el contexto de la pagina.
+
+EN:
+Write accessible alt text for these images. Return 2 versions per image:
+1) Short alt (<= 125 characters)
+2) Extended description (for longdesc or notes)
+Avoid redundancy like \"image of\" and respect the page context.""",
+        ),
+        PromptCreate(
+            title="Meeting minutes to tasks / Acta de reunion a tareas",
+            category="Productivity",
+            tags=[*shared, "meetings", "action-items", "planning"],
+            rating=4,
+            body="""ES:
+Convierte estas notas de reunion en tareas accionables. Devuelve:
+- Decisiones
+- Acciones (owner, deadline, dependencia)
+- Riesgos y follow-ups
+- Preguntas abiertas
+Mantente fiel al texto; no inventes compromisos.
+
+EN:
+Turn these meeting notes into actionable tasks. Return:
+- Decisions
+- Actions (owner, deadline, dependency)
+- Risks and follow-ups
+- Open questions
+Stay faithful to the text; do not invent commitments.""",
+        ),
+        PromptCreate(
+            title="Research claim checker / Verificador de claims con fuentes",
+            category="Research",
+            tags=[*shared, "research", "fact-check", "citations"],
+            rating=5,
+            body="""ES:
+Evalua estas afirmaciones. Para cada una: clasifica (hecho/inferencia/opinion), que evidencia hace falta,
+y como verificaria con fuentes primarias. Si hay una fuente dada, cita exactamente que parte la soporta o no.
+
+EN:
+Evaluate these claims. For each: classify (fact/inference/opinion), what evidence is needed,
+and how you would verify using primary sources. If sources are provided, cite exactly what supports (or doesn't)
+each claim.""",
+        ),
+        PromptCreate(
+            title="Codebase onboarding map / Mapa de onboarding del codebase",
+            category="Architecture",
+            tags=[*shared, "onboarding", "codebase", "architecture"],
+            rating=4,
+            body="""ES:
+Ayudame a onboardear en este repo. Con el arbol de carpetas y 2-3 archivos clave, crea un mapa:
+1) Modulos principales y responsabilidades
+2) Flujos end-to-end (request -> response, build -> deploy)
+3) \"Where to change X\" (3 ejemplos)
+4) Checklist para correr, testear y debugear
+
+EN:
+Help me onboard to this repo. Using the folder tree and 2-3 key files, create a map:
+1) Main modules and responsibilities
+2) End-to-end flows (request -> response, build -> deploy)
+3) \"Where to change X\" (3 examples)
+4) Checklist to run, test, and debug.""",
+        ),
+        PromptCreate(
+            title="Claude strict JSON extraction / Extraccion JSON estricta (Claude)",
+            category="Prompts for Claude",
+            tags=[*shared, "claude", "json", "extraction"],
+            rating=4,
+            body="""ES:
+Extrae los datos a JSON estricto segun este schema. Reglas:
+- Solo JSON valido, sin texto extra
+- Si falta un campo, usa null
+- Si no se puede inferir, agrega un array \"unknowns\" con preguntas
+Schema:
+{schema}
+Texto:
+{text}
+
+EN:
+Extract data into strict JSON per this schema. Rules:
+- Output valid JSON only, no extra text
+- If a field is missing, use null
+- If it can't be inferred, add an \"unknowns\" array with questions
+Schema:
+{schema}
+Text:
+{text}""",
+        ),
+        PromptCreate(
+            title="Codex safe refactor checklist / Checklist de refactor seguro (Codex)",
+            category="Prompts for Codex",
+            tags=[*shared, "codex", "refactor", "safety"],
+            rating=5,
+            body="""ES:
+Quiero refactorizar sin cambiar comportamiento. Sigue este checklist:
+1) Define invariantes observables (tests, outputs, contratos)
+2) Haz cambios pequenos y mecanicos
+3) Ejecuta checks y tests tras cada paso
+4) Evita cambios de estilo no relacionados
+5) Si algo falla, reduce el diff y aisla la causa
+Devuelve el plan y los comandos de verificacion.
+
+EN:
+I want to refactor without changing behavior. Follow this checklist:
+1) Define observable invariants (tests, outputs, contracts)
+2) Make small, mechanical changes
+3) Run checks and tests after each step
+4) Avoid unrelated style changes
+5) If something fails, shrink the diff and isolate the cause
+Return the plan and verification commands.""",
+        ),
     ]
