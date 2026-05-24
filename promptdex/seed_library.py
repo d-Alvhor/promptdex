@@ -2467,4 +2467,612 @@ Incident type:
 System (optional):
 {system}""",
         ),
+        PromptCreate(
+            title="Unit test generator with fixtures / Generador de tests unitarios con fixtures",
+            category="Coding",
+            tags=[*shared, "testing", "unit-tests", "fixtures", "tdd"],
+            rating=5,
+            body="""ES:
+Dado este codigo y su comportamiento esperado, escribe tests unitarios con buena cobertura y fixtures/minimos mocks.
+Entrega:
+1) Lista de casos (happy path + bordes + errores)
+2) Tests listos para ejecutar (elige el framework mas comun del repo)
+3) Datos de ejemplo/fixtures reutilizables
+4) Notas de diseno del test (que NO probar y por que)
+Reglas: no inventes dependencias; si falta contexto, pregunta 2-3 cosas max y propone defaults.
+
+Codigo:
+{code}
+
+Comportamiento esperado:
+{requirements}
+
+EN:
+Given this code and expected behavior, write unit tests with good coverage and fixtures/minimal mocks.
+Deliver:
+1) Case list (happy path + edges + errors)
+2) Tests ready to run (use the repo's most common framework)
+3) Reusable sample data/fixtures
+4) Test design notes (what NOT to test and why)
+Rules: don't invent dependencies; if context is missing, ask 2–3 questions max and propose sane defaults.
+
+Code:
+{code}
+
+Expected behavior:
+{requirements}""",
+        ),
+        PromptCreate(
+            title="Codebase orientation brief / Brief de orientacion del codebase",
+            category="Productivity",
+            tags=[*shared, "onboarding", "codebase", "architecture", "overview"],
+            rating=4,
+            body="""ES:
+Explica este repositorio para una persona nueva en 10 minutos. Entrega:
+1) Mapa mental: modulos principales y responsabilidades
+2) Flujo end-to-end de la feature mas importante
+3) Donde estan: config, DB, API, frontend, jobs, tests
+4) Comandos tipicos (dev, test, lint, build)
+5) 5 riesgos/zonas fragiles a vigilar
+Reglas: cita rutas de archivos; si no encuentras algo, dilo.
+
+Repo (notas / arbol / enlaces):
+{repo_notes}
+
+EN:
+Explain this repository to a newcomer in 10 minutes. Deliver:
+1) Mental map: main modules and responsibilities
+2) End-to-end flow of the most important feature
+3) Where to find: config, DB, API, frontend, jobs, tests
+4) Typical commands (dev, test, lint, build)
+5) 5 risks/brittle areas to watch
+Rules: reference file paths; if you can't find something, say so.
+
+Repo (notes / tree / links):
+{repo_notes}""",
+        ),
+        PromptCreate(
+            title="Commit message helper / Ayuda para mensaje de commit",
+            category="Productivity",
+            tags=[*shared, "git", "commit", "changelog", "communication"],
+            rating=4,
+            body="""ES:
+Genera 5 opciones de mensaje de commit siguiendo Conventional Commits. Entrada: diff/resumen.
+Entrega:
+- 1 opcion concisa (ideal)
+- 2 opciones mas descriptivas
+- 2 opciones con alcance (scope) sugerido
+Reglas: evita exagerar; si el cambio es breaking, indicalo claramente y explica el impacto en 1 linea.
+
+Resumen o diff:
+{diff}
+
+EN:
+Generate 5 Conventional Commits-style commit message options from this diff/summary.
+Deliver:
+- 1 concise ideal option
+- 2 more descriptive options
+- 2 options with suggested scope
+Rules: don't oversell; if it's breaking, mark it clearly and explain impact in 1 line.
+
+Summary or diff:
+{diff}""",
+        ),
+        PromptCreate(
+            title="Dependency risk audit / Auditoria de riesgos de dependencias",
+            category="Architecture",
+            tags=[*shared, "dependencies", "supply-chain", "risk", "maintenance"],
+            rating=5,
+            body="""ES:
+Audita estas dependencias para un proyecto OSS. Entrega una tabla con:
+- dependencia, proposito, criticidad, riesgo (bajo/medio/alto), senales (mantenimiento, licencias), alternativa posible
+Luego:
+1) 5 acciones de mitigacion (pinning, lockfile, vendoring, SBOM, etc.)
+2) Politica propuesta para actualizar dependencias
+Reglas: no inventes vulnerabilidades; si no tienes datos, marca como "desconocido" y sugiere como verificar.
+
+Dependencias:
+{dependencies}
+
+EN:
+Audit these dependencies for an OSS project. Provide a table with:
+- dependency, purpose, criticality, risk (low/med/high), signals (maintenance, licensing), possible alternative
+Then:
+1) 5 mitigation actions (pinning, lockfile, vendoring, SBOM, etc.)
+2) A proposed dependency update policy
+Rules: don't invent vulnerabilities; if data is missing, mark "unknown" and suggest how to verify.
+
+Dependencies:
+{dependencies}""",
+        ),
+        PromptCreate(
+            title="Prompt injection defense checklist / Checklist anti prompt injection",
+            category="Architecture",
+            tags=[*shared, "security", "prompt-injection", "llm", "guardrails"],
+            rating=5,
+            body="""ES:
+Estoy construyendo una app que usa LLM con herramientas y contenido no confiable. Dame un checklist practico para reducir riesgo de prompt injection.
+Incluye:
+1) Modelado de amenazas (activos, atacantes, superficies)
+2) Controles tecnicos (separacion de instrucciones/datos, allowlists, sanitizacion, sandboxing)
+3) Controles de producto (UX, permisos, confirmaciones, logs)
+4) Tests de ataque (10 ejemplos)
+5) Red flags en prompts y en codigo
+Reglas: asume que el contenido externo es malicioso por defecto; evita soluciones magicas.
+
+Contexto de la app:
+{app_context}
+
+EN:
+I'm building an LLM app with tools and untrusted content. Give me a practical checklist to reduce prompt injection risk.
+Include:
+1) Threat model (assets, attackers, surfaces)
+2) Technical controls (instruction/data separation, allowlists, sanitization, sandboxing)
+3) Product controls (UX, permissions, confirmations, logs)
+4) Attack tests (10 examples)
+5) Prompt and code red flags
+Rules: assume external content is malicious by default; avoid magic solutions.
+
+App context:
+{app_context}""",
+        ),
+        PromptCreate(
+            title="RAG retrieval plan / Plan de recuperacion para RAG",
+            category="Architecture",
+            tags=[*shared, "rag", "retrieval", "search", "evaluation"],
+            rating=4,
+            body="""ES:
+Disena un plan de recuperacion (RAG) para este caso. Entrega:
+1) Que indexar y como trocear (chunking)
+2) Metadatos y filtros recomendados
+3) Estrategia de ranking (BM25, embeddings, rerank) y por que
+4) Esquema de prompt (instrucciones vs contexto)
+5) Evaluacion: dataset, metricas, casos de fallo, guardrails
+Reglas: prioriza simplicidad y privacidad; evita depender de servicios externos si no es necesario.
+
+Caso de uso:
+{use_case}
+
+Contenido disponible:
+{content}
+
+EN:
+Design a retrieval (RAG) plan for this use case. Deliver:
+1) What to index and how to chunk
+2) Recommended metadata and filters
+3) Ranking strategy (BM25, embeddings, rerank) and why
+4) Prompt frame (instructions vs context)
+5) Evaluation: dataset, metrics, failure modes, guardrails
+Rules: prioritize simplicity and privacy; avoid external services unless necessary.
+
+Use case:
+{use_case}
+
+Available content:
+{content}""",
+        ),
+        PromptCreate(
+            title="Incident postmortem / Postmortem de incidente",
+            category="Productivity",
+            tags=[*shared, "incident", "postmortem", "root-cause", "ops"],
+            rating=5,
+            body="""ES:
+Escribe un postmortem sin culpas para este incidente. Entrega:
+1) Resumen ejecutivo (que paso, impacto, duracion)
+2) Timeline con horas (UTC) y eventos clave
+3) Causa raiz y factores contribuyentes (tecnicos y de proceso)
+4) Que funciono / que no funciono
+5) Acciones: mitigaciones ya hechas y tareas con owner + fecha objetivo
+6) Lecciones y cambios sistemicos (no solo "tener mas cuidado")
+Reglas: se preciso y accionable; evita datos sensibles.
+
+Datos del incidente:
+{incident_data}
+
+EN:
+Write a blameless postmortem for this incident. Deliver:
+1) Executive summary (what happened, impact, duration)
+2) Timeline with times (UTC) and key events
+3) Root cause and contributing factors (technical + process)
+4) What worked / what didn't
+5) Action items: done mitigations and tasks with owner + target date
+6) Learnings and systemic changes (not just "be careful")
+Rules: be precise and actionable; avoid sensitive data.
+
+Incident data:
+{incident_data}""",
+        ),
+        PromptCreate(
+            title="Feature flag rollout plan / Plan de despliegue con feature flags",
+            category="Architecture",
+            tags=[*shared, "release", "feature-flags", "rollout", "risk"],
+            rating=4,
+            body="""ES:
+Ayudame a desplegar esta feature con el menor riesgo usando feature flags. Entrega:
+1) Estrategia de flags (nombres, defaults, scopes)
+2) Plan de rollout por fases (0% -> 1% -> 10% -> 100%)
+3) Observabilidad: metricas, logs, alertas
+4) Plan de rollback y condiciones para activarlo
+5) Plan de comunicacion (interno + usuarios)
+Reglas: asume que habra regresiones; prioriza pasos reversibles.
+
+Feature:
+{feature}
+
+EN:
+Help me roll out this feature with minimal risk using feature flags. Deliver:
+1) Flag strategy (names, defaults, scopes)
+2) Phased rollout plan (0% -> 1% -> 10% -> 100%)
+3) Observability: metrics, logs, alerts
+4) Rollback plan and triggers
+5) Communication plan (internal + users)
+Rules: assume regressions will happen; prioritize reversible steps.
+
+Feature:
+{feature}""",
+        ),
+        PromptCreate(
+            title="Database migration safety plan / Plan de seguridad para migraciones",
+            category="Coding",
+            tags=[*shared, "database", "migrations", "backfill", "zero-downtime"],
+            rating=5,
+            body="""ES:
+Revisa esta migracion y propone un plan seguro. Entrega:
+1) Riesgos (locks, tiempo, data loss, compatibilidad)
+2) Estrategia zero-downtime si aplica (expand/contract)
+3) Backfill: pasos, batches, verificacion, reintentos
+4) Plan de rollback (incluye como revertir datos)
+5) Checklist de despliegue (staging -> prod)
+Reglas: no ejecutes comandos destructivos; marca claramente lo irreversible.
+
+Migracion:
+{migration}
+
+EN:
+Review this migration and propose a safe plan. Deliver:
+1) Risks (locks, time, data loss, compatibility)
+2) Zero-downtime strategy if applicable (expand/contract)
+3) Backfill: steps, batching, verification, retries
+4) Rollback plan (including data rollback strategy)
+5) Deployment checklist (staging -> prod)
+Rules: don't run destructive commands; clearly flag irreversible steps.
+
+Migration:
+{migration}""",
+        ),
+        PromptCreate(
+            title="CLI UX audit / Auditoria de UX para CLI",
+            category="Design",
+            tags=[*shared, "cli", "ux", "copy", "errors"],
+            rating=4,
+            body="""ES:
+Audita esta CLI como si fuera un producto. Evalua:
+- consistencia de comandos/flags, ayuda, ejemplos, mensajes de error, defaults seguros
+Entrega:
+1) 10 mejoras concretas (con ejemplo de texto)
+2) Propuesta de ayuda `--help` y ejemplos (2-3 comandos)
+3) Recomendaciones de errores (codes, sugerencias, hints)
+Reglas: prioriza claridad y seguridad; evita output ruidoso por defecto.
+
+Descripcion / output actual:
+{cli}
+
+EN:
+Audit this CLI like a real product. Evaluate:
+- command/flag consistency, help, examples, error messages, safe defaults
+Deliver:
+1) 10 concrete improvements (with copy examples)
+2) Proposed `--help` and examples (2–3 commands)
+3) Error recommendations (codes, suggestions, hints)
+Rules: prioritize clarity and safety; avoid noisy output by default.
+
+Current description / output:
+{cli}""",
+        ),
+        PromptCreate(
+            title="Prompt library lint / Linter de libreria de prompts",
+            category="Prompts",
+            tags=[*shared, "prompting", "library", "quality", "consistency"],
+            rating=4,
+            body="""ES:
+Revisa esta libreria de prompts y detecta problemas de calidad/consistencia.
+Entrega:
+1) Duplicados y solapamientos
+2) Titulo/categoria/tags inconsistentes
+3) Placeholders faltantes o ambiguos
+4) Riesgos de privacidad o datos sensibles
+5) Recomendaciones de estandar (plantilla base)
+Reglas: sugiere cambios minimos que mejoren reutilizacion.
+
+Libreria:
+{library}
+
+EN:
+Review this prompt library and detect quality/consistency issues.
+Deliver:
+1) Duplicates and overlaps
+2) Inconsistent title/category/tags
+3) Missing or ambiguous placeholders
+4) Privacy risks or sensitive data patterns
+5) Standardization recommendations (base template)
+Rules: suggest minimal changes that improve reuse.
+
+Library:
+{library}""",
+        ),
+        PromptCreate(
+            title="Agent tool policy / Politica de herramientas para agente",
+            category="Agents",
+            tags=[*shared, "agents", "tools", "policy", "safety"],
+            rating=5,
+            body="""ES:
+Define una politica de herramientas para un agente autonomo en este entorno. Entrega:
+1) Herramientas permitidas y prohibidas (con razones)
+2) Reglas de confirmacion humana (high-risk actions)
+3) Limites de datos (PII, secretos, logs)
+4) Auditoria: que registrar y como
+5) Manejo de errores y reintentos
+Reglas: por defecto, minimo privilegio; explica tradeoffs.
+
+Entorno / herramientas:
+{environment}
+
+EN:
+Define a tool policy for an autonomous agent in this environment. Deliver:
+1) Allowed and disallowed tools (with rationale)
+2) Human confirmation rules (high-risk actions)
+3) Data boundaries (PII, secrets, logs)
+4) Auditing: what to log and how
+5) Error handling and retries
+Rules: default to least privilege; explain tradeoffs.
+
+Environment / tools:
+{environment}""",
+        ),
+        PromptCreate(
+            title="Context budgeter / Presupuestador de contexto",
+            category="Prompts",
+            tags=[*shared, "prompting", "context", "summarization", "budget"],
+            rating=4,
+            body="""ES:
+Tengo mucho contexto y una ventana limitada. Ayudame a empaquetarlo sin perder lo importante.
+Entrega:
+1) Objetivo y restricciones (resumen de 2-3 lineas)
+2) Contexto minimo necesario (bullets)
+3) Detalles opcionales (seccion separada)
+4) Preguntas clave para cerrar huecos (max 5)
+5) Prompt final listo para usar
+Reglas: no incluyas datos privados; cita hechos y supuestos por separado.
+
+Objetivo:
+{goal}
+
+Contexto bruto:
+{context}
+
+EN:
+I have lots of context and a limited window. Help me package it without losing what matters.
+Deliver:
+1) Goal and constraints (2–3 lines)
+2) Minimum necessary context (bullets)
+3) Optional details (separate section)
+4) Key questions to close gaps (max 5)
+5) Final ready-to-use prompt
+Rules: no private data; separate facts vs assumptions.
+
+Goal:
+{goal}
+
+Raw context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Stakeholder update note / Nota de update a stakeholders",
+            category="Productivity",
+            tags=[*shared, "communication", "status", "stakeholders", "writing"],
+            rating=4,
+            body="""ES:
+Escribe una nota corta de estado para stakeholders no tecnicos. Entrega 2 versiones:
+- Version corta (<= 6 lineas)
+- Version larga (<= 15 lineas)
+Incluye: progreso, riesgos, bloqueos, proximos pasos y si necesitas decision.
+Reglas: evita jerga; usa fechas concretas.
+
+Contexto:
+{context}
+
+EN:
+Write a short status update for non-technical stakeholders. Provide 2 versions:
+- Short (<= 6 lines)
+- Long (<= 15 lines)
+Include: progress, risks, blockers, next steps, and any decision needed.
+Rules: avoid jargon; use concrete dates.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Experiment design (A/B) / Diseno de experimento (A/B)",
+            category="Research",
+            tags=[*shared, "experiment", "ab-test", "metrics", "product"],
+            rating=5,
+            body="""ES:
+Disena un experimento A/B para esta hipotesis. Entrega:
+1) Hipotesis y criterio de exito
+2) Variable primaria y guardrails
+3) Segmentacion y asignacion
+4) Tamaño de muestra (estimacion) y duracion
+5) Analisis (que test usar, efectos esperados)
+6) Riesgos y como evitarlos (seasonality, peeking, novelty)
+Reglas: si faltan numeros, pide los minimos y ofrece un rango razonable.
+
+Hipotesis:
+{hypothesis}
+
+Contexto:
+{context}
+
+EN:
+Design an A/B experiment for this hypothesis. Deliver:
+1) Hypothesis and success criteria
+2) Primary metric and guardrails
+3) Segmentation and assignment
+4) Sample size (estimate) and duration
+5) Analysis plan (which test, expected effects)
+6) Risks and how to avoid them (seasonality, peeking, novelty)
+Rules: if numbers are missing, ask for the minimum and provide a reasonable range.
+
+Hypothesis:
+{hypothesis}
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Error message rewrite / Reescritura de mensajes de error",
+            category="Design",
+            tags=[*shared, "ux", "errors", "copy", "accessibility"],
+            rating=4,
+            body="""ES:
+Mejora estos mensajes de error para que sean claros y accionables. Entrega una tabla con:
+- original, problema, version mejorada, sugerencia al usuario, nivel (info/warn/error)
+Reglas: no culpes al usuario; incluye pasos concretos; evita exponer datos sensibles.
+
+Mensajes:
+{messages}
+
+EN:
+Improve these error messages to be clear and actionable. Provide a table with:
+- original, issue, improved version, user hint, level (info/warn/error)
+Rules: don't blame the user; include concrete steps; avoid leaking sensitive data.
+
+Messages:
+{messages}""",
+        ),
+        PromptCreate(
+            title="Regex builder / Constructor de regex",
+            category="Coding",
+            tags=[*shared, "regex", "text", "parsing", "examples"],
+            rating=4,
+            body="""ES:
+Construye una expresion regular para este objetivo. Entrega:
+1) regex final
+2) explicacion paso a paso
+3) 10 ejemplos que matchean
+4) 10 ejemplos que NO matchean
+5) opciones mas seguras (parseo alternativo) si regex es fragil
+Reglas: evita backtracking catastrofico; si el lenguaje importa, pregunta por el motor (PCRE, RE2, etc.).
+
+Objetivo:
+{goal}
+
+Ejemplos:
+{examples}
+
+EN:
+Build a regex for this goal. Deliver:
+1) final regex
+2) step-by-step explanation
+3) 10 matching examples
+4) 10 non-matching examples
+5) safer alternatives if regex is brittle
+Rules: avoid catastrophic backtracking; ask which engine matters (PCRE, RE2, etc.).
+
+Goal:
+{goal}
+
+Examples:
+{examples}""",
+        ),
+        PromptCreate(
+            title="Repo search plan / Plan de busqueda en el repo",
+            category="Debugging",
+            tags=[*shared, "debugging", "search", "ripgrep", "code-reading"],
+            rating=4,
+            body="""ES:
+Necesito encontrar donde se implementa/comporta algo en este repo. Haz un plan de busqueda:
+1) Palabras clave probables (sinonimos)
+2) Comandos `rg` sugeridos (5-10) y por que
+3) Archivos a revisar primero (rutas)
+4) Como validar rapidamente hipotesis
+Reglas: minimiza ruido; prioriza senales (tests, docs, routes, config).
+
+Descripcion del problema:
+{problem}
+
+EN:
+I need to find where something is implemented/behaves in this repo. Make a search plan:
+1) Likely keywords (and synonyms)
+2) Suggested `rg` commands (5–10) and why
+3) Files to inspect first (paths)
+4) How to quickly validate hypotheses
+Rules: minimize noise; prioritize signals (tests, docs, routes, config).
+
+Problem description:
+{problem}""",
+        ),
+        PromptCreate(
+            title="Roadmap prioritization matrix / Matriz de priorizacion de roadmap",
+            category="Productivity",
+            tags=[*shared, "product", "prioritization", "roadmap", "tradeoffs"],
+            rating=5,
+            body="""ES:
+Ayudame a priorizar estas iniciativas. Entrega:
+1) Criterios propuestos (impacto, esfuerzo, riesgo, urgencia, dependencia)
+2) Matriz de priorizacion (RICE o similar) con scores y supuestos
+3) Recomendacion: top 5 ahora, top 5 despues, y que NO hacer (por que)
+4) Riesgos y mitigaciones
+5) Preguntas para desbloquear incertidumbre (max 7)
+Reglas: separa hechos vs supuestos; si faltan datos, estima rangos y marca la confianza.
+
+Iniciativas:
+{initiatives}
+
+Contexto:
+{context}
+
+EN:
+Help me prioritize these initiatives. Deliver:
+1) Proposed criteria (impact, effort, risk, urgency, dependencies)
+2) Prioritization matrix (RICE or similar) with scores and assumptions
+3) Recommendation: top 5 now, top 5 next, and what NOT to do (and why)
+4) Risks and mitigations
+5) Questions to reduce uncertainty (max 7)
+Rules: separate facts vs assumptions; if data is missing, estimate ranges and mark confidence.
+
+Initiatives:
+{initiatives}
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="PR description template / Plantilla de descripcion de PR",
+            category="Productivity",
+            tags=[*shared, "pr", "review", "communication", "templates"],
+            rating=5,
+            body="""ES:
+Redacta una descripcion de PR lista para pegar. Incluye secciones:
+- Contexto
+- Cambios
+- Como probar (pasos exactos)
+- Riesgos / rollbacks
+- Notas para reviewers (que mirar primero)
+Reglas: se conciso; evita prometer cosas no verificadas; incluye comandos de verificacion.
+
+Diff/resumen:
+{diff}
+
+EN:
+Draft a ready-to-paste PR description. Include sections:
+- Context
+- Changes
+- How to test (exact steps)
+- Risks / rollbacks
+- Notes for reviewers (what to look at first)
+Rules: be concise; don't claim unverifiable things; include verification commands.
+
+Diff/summary:
+{diff}""",
+        ),
     ]
