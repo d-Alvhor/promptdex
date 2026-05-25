@@ -3075,4 +3075,600 @@ Rules: be concise; don't claim unverifiable things; include verification command
 Diff/summary:
 {diff}""",
         ),
+        PromptCreate(
+            title="Migration plan / Plan de migracion",
+            category="Architecture",
+            tags=[*shared, "migration", "rollout", "backward-compatibility", "risk"],
+            rating=5,
+            body="""ES:
+Necesito migrar de {from} a {to}. Disena un plan con:
+1) Objetivo y no-objetivos
+2) Estrategia (big-bang vs fases) y justificacion
+3) Cambios tecnicos por etapa (con checks de salida)
+4) Compatibilidad hacia atras y plan de datos (si aplica)
+5) Observabilidad: metricas/alertas para detectar problemas
+6) Plan de rollback y criterios de abortar
+7) Checklist de comunicacion (equipo, usuarios, soporte)
+Entrega como tabla por fases.
+
+Contexto:
+{context}
+
+EN:
+I need to migrate from {from} to {to}. Design a plan with:
+1) Goals and non-goals
+2) Strategy (big-bang vs phased) and rationale
+3) Technical changes per phase (with exit checks)
+4) Backward compatibility and data plan (if relevant)
+5) Observability: metrics/alerts to detect issues
+6) Rollback plan and abort criteria
+7) Communication checklist (team, users, support)
+Deliver as a phased table.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Data model critique / Critica del modelo de datos",
+            category="Architecture",
+            tags=[*shared, "data-model", "schema", "constraints", "tradeoffs"],
+            rating=5,
+            body="""ES:
+Evalua este modelo de datos. Devuelve:
+1) Invariantes y reglas de negocio implicitas
+2) Riesgos (nulos, duplicados, consistencia, cascadas)
+3) Indices y constraints recomendados
+4) Evolucion futura: como soportar nuevos casos sin romper
+5) Consultas clave y como optimizarlas
+Incluye preguntas para aclarar dominios ambiguos.
+
+Esquema:
+{schema}
+
+EN:
+Evaluate this data model. Return:
+1) Invariants and implicit business rules
+2) Risks (nulls, duplicates, consistency, cascades)
+3) Recommended indexes and constraints
+4) Future evolution: support new cases without breaking
+5) Key queries and how to optimize them
+Include questions to clarify ambiguous domain areas.
+
+Schema:
+{schema}""",
+        ),
+        PromptCreate(
+            title="Performance profiling plan / Plan de profiling de rendimiento",
+            category="Debugging",
+            tags=[*shared, "performance", "profiling", "benchmark", "latency"],
+            rating=5,
+            body="""ES:
+Quiero mejorar rendimiento sin adivinar. Propon un plan:
+1) Metricas objetivo (p50/p95/p99, CPU, RAM, I/O) y como medir
+2) Experimentos controlados (benchmarks reproducibles)
+3) Hipotesis principales (max 5) y como falsarlas
+4) Instrumentacion minima (logs, trazas, counters)
+5) Plan de cambios por impacto/ riesgo
+Devuelve comandos/herramientas sugeridas segun stack si lo conoces.
+
+Stack y sintomas:
+{details}
+
+EN:
+I want to improve performance without guessing. Propose a plan:
+1) Target metrics (p50/p95/p99, CPU, RAM, I/O) and how to measure
+2) Controlled experiments (reproducible benchmarks)
+3) Main hypotheses (max 5) and how to falsify them
+4) Minimal instrumentation (logs, traces, counters)
+5) Change plan by impact/risk
+Include suggested commands/tools based on the stack if known.
+
+Stack and symptoms:
+{details}""",
+        ),
+        PromptCreate(
+            title="Minimal reproducible example / Ejemplo minimo reproducible",
+            category="Debugging",
+            tags=[*shared, "mre", "repro", "debugging", "triage"],
+            rating=5,
+            body="""ES:
+Convierte este problema en un MRE (ejemplo minimo reproducible). Entrega:
+1) Pasos exactos para reproducir
+2) Codigo minimo (sin dependencias innecesarias)
+3) Salida esperada vs actual
+4) Hipotesis de causa raiz (2-3)
+5) Experimentos pequenos para confirmar
+Reglas: elimina ruido; si falta informacion, pregunta 3 preguntas max.
+
+Descripcion:
+{problem}
+
+EN:
+Turn this into an MRE (minimal reproducible example). Deliver:
+1) Exact reproduction steps
+2) Minimal code (no unnecessary deps)
+3) Expected vs actual output
+4) Root-cause hypotheses (2-3)
+5) Small experiments to confirm
+Rules: remove noise; if info is missing, ask at most 3 questions.
+
+Description:
+{problem}""",
+        ),
+        PromptCreate(
+            title="SQL query review / Revision de consulta SQL",
+            category="Coding",
+            tags=[*shared, "sql", "performance", "indexes", "query-plan"],
+            rating=4,
+            body="""ES:
+Revisa esta consulta SQL. Devuelve:
+1) Que hace (en lenguaje simple)
+2) Riesgos de rendimiento (joins, filtros, cardinalidad)
+3) Indices sugeridos y por que
+4) Reescrituras posibles (CTE, subqueries, agregaciones)
+5) Como verificar: EXPLAIN/ANALYZE y metricas
+Reglas: no asumas el motor; pregunta si es Postgres/MySQL/SQLite/etc.
+
+SQL:
+{sql}
+
+EN:
+Review this SQL query. Return:
+1) What it does (plain language)
+2) Performance risks (joins, filters, cardinality)
+3) Suggested indexes and why
+4) Possible rewrites (CTE, subqueries, aggregations)
+5) How to verify: EXPLAIN/ANALYZE and metrics
+Rules: don't assume the engine; ask if it's Postgres/MySQL/SQLite/etc.
+
+SQL:
+{sql}""",
+        ),
+        PromptCreate(
+            title="Unit test plan / Plan de tests unitarios",
+            category="Coding",
+            tags=[*shared, "testing", "unit-tests", "coverage", "edge-cases"],
+            rating=5,
+            body="""ES:
+Disena un plan de tests unitarios para esta funcion/modulo. Incluye:
+1) Casos felices (min 3)
+2) Bordes y errores (min 5)
+3) Propiedades/invariantes (si aplica)
+4) Mocks/fakes necesarios y como aislar I/O
+5) Nombres de tests sugeridos y estructura AAA
+Reglas: prioriza casos que puedan romper en produccion.
+
+Codigo/descripcion:
+{code}
+
+EN:
+Design a unit test plan for this function/module. Include:
+1) Happy paths (at least 3)
+2) Edge cases and errors (at least 5)
+3) Properties/invariants (if applicable)
+4) Required mocks/fakes and how to isolate I/O
+5) Suggested test names and AAA structure
+Rules: prioritize cases that can break in production.
+
+Code/description:
+{code}""",
+        ),
+        PromptCreate(
+            title="Refactor safety checklist / Checklist de refactor seguro",
+            category="Coding",
+            tags=[*shared, "refactor", "safety", "tests", "regression"],
+            rating=5,
+            body="""ES:
+Quiero refactorizar sin romper. Crea un checklist:
+1) Preparacion (tests, tipos, linters, snapshots)
+2) Estrategia (pasos pequenos, flags, compatibilidad)
+3) Senales de riesgo (cambios en contratos, fechas, precision, i18n)
+4) Validacion (pruebas, performance, observabilidad)
+5) Plan de rollback
+Devuelve una lista accionable y ordenada.
+
+Contexto:
+{context}
+
+EN:
+I want to refactor without breaking things. Create a checklist:
+1) Preparation (tests, types, linters, snapshots)
+2) Strategy (small steps, flags, compatibility)
+3) Risk signals (contract changes, dates, precision, i18n)
+4) Validation (tests, performance, observability)
+5) Rollback plan
+Return an actionable ordered list.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Docs from code / Documentacion desde el codigo",
+            category="Productivity",
+            tags=[*shared, "docs", "documentation", "readme", "developer-experience"],
+            rating=4,
+            body="""ES:
+Genera documentacion a partir de este codigo. Entrega:
+1) Resumen del proposito
+2) Conceptos clave y terminos
+3) Como ejecutar (comandos)
+4) Ejemplos de uso
+5) Errores comunes y troubleshooting
+6) API/Interfaces (si aplica)
+Reglas: no inventes; si falta algo, marca TODO.
+
+Codigo:
+{code}
+
+EN:
+Generate documentation from this code. Deliver:
+1) Purpose summary
+2) Key concepts and terms
+3) How to run (commands)
+4) Usage examples
+5) Common errors and troubleshooting
+6) API/Interfaces (if applicable)
+Rules: don't make things up; if something is missing, mark TODOs.
+
+Code:
+{code}""",
+        ),
+        PromptCreate(
+            title="Meeting prep + decision log / Preparacion de reunion + log de decisiones",
+            category="Productivity",
+            tags=[*shared, "meeting", "decisions", "notes", "alignment"],
+            rating=4,
+            body="""ES:
+Prepara una reunion sobre este tema. Devuelve:
+1) Objetivo de la reunion (1 frase)
+2) Agenda (con tiempos)
+3) Preguntas de alineamiento (max 8)
+4) Decisiones a tomar (con criterios)
+5) Plantilla para notas: decisiones, acciones, riesgos, pendientes
+Reglas: enfoca; no mas de 30 minutos salvo que se justifique.
+
+Tema:
+{topic}
+
+EN:
+Prepare a meeting on this topic. Return:
+1) Meeting goal (1 sentence)
+2) Agenda (with timings)
+3) Alignment questions (max 8)
+4) Decisions to make (with criteria)
+5) Notes template: decisions, actions, risks, open items
+Rules: stay focused; keep it under 30 minutes unless justified.
+
+Topic:
+{topic}""",
+        ),
+        PromptCreate(
+            title="Stakeholder status update / Update de estado para stakeholders",
+            category="Productivity",
+            tags=[*shared, "communication", "status", "stakeholders", "concise"],
+            rating=4,
+            body="""ES:
+Escribe un update semanal para stakeholders. Incluye:
+- Estado (verde/amarillo/rojo) y por que
+- Logros de la semana
+- Bloqueos y ayuda necesaria
+- Riesgos (con mitigacion)
+- Plan de la proxima semana
+Estilo: max 12 lineas, sin jerga, con numeros si existen.
+
+Notas:
+{notes}
+
+EN:
+Write a weekly stakeholder update. Include:
+- Status (green/yellow/red) and why
+- Wins this week
+- Blockers and help needed
+- Risks (with mitigation)
+- Plan for next week
+Style: max 12 lines, no jargon, include numbers when available.
+
+Notes:
+{notes}""",
+        ),
+        PromptCreate(
+            title="User interview script / Guion de entrevista a usuarios",
+            category="Research",
+            tags=[*shared, "user-research", "interviews", "product", "questions"],
+            rating=5,
+            body="""ES:
+Disena un guion de entrevista (30-45 min) para entender este problema. Entrega:
+1) Objetivo y supuestos a validar
+2) Preguntas de contexto (5)
+3) Preguntas profundas sobre el dolor (8-10)
+4) Tareas/escenarios para que el usuario los cuente (3)
+5) Señales de alerta (bias, leading questions) y como evitarlas
+6) Plan de sintesis (temas, quotes, severidad, frecuencia)
+
+Producto/tema:
+{topic}
+
+EN:
+Design a 30-45 min interview script to understand this problem. Deliver:
+1) Goal and assumptions to validate
+2) Context questions (5)
+3) Deep pain questions (8-10)
+4) Tasks/scenarios for the user to narrate (3)
+5) Red flags (bias, leading questions) and how to avoid them
+6) Synthesis plan (themes, quotes, severity, frequency)
+
+Product/topic:
+{topic}""",
+        ),
+        PromptCreate(
+            title="Competitive analysis table / Tabla de analisis competitivo",
+            category="Research",
+            tags=[*shared, "competitive-analysis", "market", "positioning", "table"],
+            rating=4,
+            body="""ES:
+Crea un analisis competitivo en tabla. Columnas:
+- Producto
+- Segmento
+- Propuesta de valor (1 frase)
+- Puntos fuertes (3)
+- Debilidades (3)
+- Precio (si se conoce)
+- Diferenciadores reales vs marketing
+- Oportunidades para nosotros
+Termina con 3 recomendaciones de posicionamiento.
+Reglas: si no hay datos, marca "desconocido".
+
+Lista de competidores:
+{competitors}
+
+Contexto de nuestro producto:
+{our_product}
+
+EN:
+Create a competitive analysis table. Columns:
+- Product
+- Segment
+- Value prop (1 sentence)
+- Strengths (3)
+- Weaknesses (3)
+- Pricing (if known)
+- Real differentiators vs marketing
+- Opportunities for us
+End with 3 positioning recommendations.
+Rules: if data is missing, mark as "unknown".
+
+Competitors:
+{competitors}
+
+Our product context:
+{our_product}""",
+        ),
+        PromptCreate(
+            title="A/B test design / Diseno de experimento A/B",
+            category="Marketing",
+            tags=[*shared, "ab-test", "experiment", "metrics", "hypothesis"],
+            rating=4,
+            body="""ES:
+Disena un experimento A/B. Entrega:
+1) Hipotesis (clara y falsable)
+2) Variantes A y B (cambios concretos)
+3) Metricas primarias y secundarias (con definiciones)
+4) Segmentacion y criterios de exclusion
+5) Tamaño de muestra aproximado (si no hay datos, asume rangos)
+6) Riesgos (novelty effect, selection bias) y mitigaciones
+Termina con un plan de decision: que resultado implica "lanzar".
+
+Contexto:
+{context}
+
+EN:
+Design an A/B experiment. Deliver:
+1) Hypothesis (clear and falsifiable)
+2) Variants A and B (concrete changes)
+3) Primary and secondary metrics (with definitions)
+4) Segmentation and exclusion criteria
+5) Rough sample size (assume ranges if no data)
+6) Risks (novelty effect, selection bias) and mitigations
+End with a decision plan: what result means "ship".
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Newsletter draft / Borrador de newsletter",
+            category="Marketing",
+            tags=[*shared, "newsletter", "copy", "content", "outline"],
+            rating=4,
+            body="""ES:
+Escribe un borrador de newsletter para {audience}. Devuelve:
+1) Asunto (5 opciones) + preheader
+2) Intro breve (2-3 frases)
+3) 3 secciones con titulo + bullets
+4) CTA final (2 variantes)
+Estilo: humano, claro, sin hype; evita promesas no verificables.
+
+Tema y enlaces (opcionales):
+{topic_and_links}
+
+EN:
+Write a newsletter draft for {audience}. Return:
+1) Subject lines (5 options) + preheader
+2) Short intro (2-3 sentences)
+3) 3 sections with heading + bullets
+4) Final CTA (2 variants)
+Style: human, clear, no hype; avoid unverifiable promises.
+
+Topic and links (optional):
+{topic_and_links}""",
+        ),
+        PromptCreate(
+            title="Accessibility audit checklist / Checklist de auditoria de accesibilidad",
+            category="Design",
+            tags=[*shared, "a11y", "accessibility", "wcag", "ui"],
+            rating=5,
+            body="""ES:
+Audita esta UI para accesibilidad. Devuelve:
+1) Problemas criticos (teclado, foco, contraste, labels)
+2) Problemas moderados (estructura, headings, ARIA, estados)
+3) Recomendaciones concretas con ejemplos
+4) Checklist de QA manual (pasos)
+Reglas: prioriza impacto; si falta HTML, pide el markup relevante.
+
+Descripcion/UI:
+{ui}
+
+EN:
+Audit this UI for accessibility. Return:
+1) Critical issues (keyboard, focus, contrast, labels)
+2) Moderate issues (structure, headings, ARIA, states)
+3) Concrete recommendations with examples
+4) Manual QA checklist (steps)
+Rules: prioritize impact; if HTML is missing, ask for relevant markup.
+
+UI/description:
+{ui}""",
+        ),
+        PromptCreate(
+            title="Localization style guide / Guia de estilo de localizacion",
+            category="Design",
+            tags=[*shared, "i18n", "localization", "copy", "style-guide"],
+            rating=4,
+            body="""ES:
+Crea una guia de estilo de localizacion para esta app. Incluye:
+1) Tono y voz (do/don't)
+2) Terminos clave (glosario)
+3) Reglas para fechas/horas/numeros/moneda
+4) Mensajes de error (patrones y ejemplos)
+5) Longitud maxima y truncado
+6) Checklist antes de enviar traducciones
+
+Contexto de la app:
+{context}
+
+EN:
+Create a localization style guide for this app. Include:
+1) Tone and voice (do/don't)
+2) Key terms (glossary)
+3) Rules for dates/times/numbers/currency
+4) Error messages (patterns and examples)
+5) Max length and truncation
+6) Checklist before shipping translations
+
+App context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Prompt safety and privacy check / Chequeo de seguridad y privacidad del prompt",
+            category="Prompts for ChatGPT",
+            tags=[*shared, "prompting", "safety", "privacy", "redaction"],
+            rating=5,
+            body="""ES:
+Revisa este prompt para seguridad y privacidad. Entrega:
+1) Riesgos: datos personales, credenciales, secretos, informacion sensible
+2) Preguntas para clarificar el contexto (max 5)
+3) Version segura del prompt (con placeholders)
+4) Reglas/guardrails para el modelo (lo que no debe hacer)
+Reglas: no repitas secretos si aparecen; redacta y explica.
+
+Prompt:
+{prompt}
+
+EN:
+Review this prompt for safety and privacy. Deliver:
+1) Risks: personal data, credentials, secrets, sensitive info
+2) Clarifying questions (max 5)
+3) Safer prompt rewrite (with placeholders)
+4) Guardrails for the model (what it must not do)
+Rules: do not repeat secrets if present; redact and explain.
+
+Prompt:
+{prompt}""",
+        ),
+        PromptCreate(
+            title="Agent tool contract / Contrato de herramientas para un agente",
+            category="Agents",
+            tags=[*shared, "agents", "tools", "contracts", "interfaces"],
+            rating=5,
+            body="""ES:
+Define el contrato de herramientas para un agente. Entrega:
+1) Lista de herramientas (nombre, proposito)
+2) Esquema de entradas/salidas (campos, tipos, ejemplos)
+3) Politicas: permisos, limites, rate limits, datos prohibidos
+4) Estrategia de errores (reintentos, fallback, mensajes)
+5) Observabilidad (logs/eventos) y auditoria
+Reglas: minimiza superficie; separa lectura vs escritura; evita herramientas peligrosas por defecto.
+
+Caso de uso:
+{use_case}
+
+EN:
+Define a tool contract for an agent. Deliver:
+1) Tool list (name, purpose)
+2) Input/output schema (fields, types, examples)
+3) Policies: permissions, limits, rate limits, forbidden data
+4) Error strategy (retries, fallbacks, messages)
+5) Observability (logs/events) and auditing
+Rules: minimize surface area; separate read vs write; avoid dangerous tools by default.
+
+Use case:
+{use_case}""",
+        ),
+        PromptCreate(
+            title="LLM eval rubric / Rubrica de evaluacion de LLM",
+            category="Research",
+            tags=[*shared, "evals", "rubric", "quality", "testing"],
+            rating=5,
+            body="""ES:
+Crea una rubrica para evaluar respuestas de un LLM en este caso. Incluye:
+1) Criterios (correctitud, completitud, claridad, seguridad, accionabilidad)
+2) Escala 1-5 por criterio con descriptores
+3) Ejemplos de respuesta buena vs mala (breves)
+4) Casos frontera y como puntuar
+5) Checklist para evaluadores humanos
+Devuelve tambien un formato JSON de puntuacion.
+
+Caso de uso:
+{use_case}
+
+EN:
+Create a rubric to evaluate LLM answers for this use case. Include:
+1) Criteria (correctness, completeness, clarity, safety, actionability)
+2) 1-5 scale per criterion with descriptors
+3) Brief examples of good vs bad answers
+4) Edge cases and scoring guidance
+5) Checklist for human evaluators
+Also return a JSON scoring format.
+
+Use case:
+{use_case}""",
+        ),
+        PromptCreate(
+            title="Prompt library curator / Curador de libreria de prompts",
+            category="Prompts for Codex",
+            tags=[*shared, "prompt-library", "curation", "tags", "quality"],
+            rating=4,
+            body="""ES:
+Actua como curador de una libreria de prompts. Para cada prompt, sugiere:
+1) Titulo mejorado (bilingue si aplica)
+2) Categoria
+3) Tags (5-12) consistentes
+4) Rating sugerido (1-5) y por que
+5) Version mas corta (si se puede sin perder claridad)
+Reglas: evita duplicados; estandariza placeholders; prioriza seguridad y privacidad.
+
+Prompts:
+{prompts}
+
+EN:
+Act as a prompt library curator. For each prompt, suggest:
+1) Improved title (bilingual if applicable)
+2) Category
+3) Consistent tags (5-12)
+4) Suggested rating (1-5) and why
+5) Shorter version (if possible without losing clarity)
+Rules: avoid duplicates; standardize placeholders; prioritize safety and privacy.
+
+Prompts:
+{prompts}""",
+        ),
     ]
