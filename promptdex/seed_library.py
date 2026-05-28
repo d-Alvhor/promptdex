@@ -4818,4 +4818,603 @@ Curate a prompt pack for a public repository. Deliver:
 Pack context:
 {context}""",
         ),
+        PromptCreate(
+            title="Minimal PR description / Descripcion minima de PR",
+            category="Productivity",
+            tags=[*shared, "productivity", "writing", "pull-request", "review"],
+            rating=5,
+            body="""ES:
+Escribe una descripcion de PR lista para copiar/pegar. Incluye:
+1) Contexto (1-2 frases)
+2) Cambios principales (3-6 bullets)
+3) Como probar (pasos exactos)
+4) Riesgos/impacto (si aplica)
+5) Capturas/ejemplos (si aplica)
+Reglas: no inventes hechos; pregunta si falta info.
+
+Datos:
+{context}
+
+EN:
+Write a copy/paste-ready PR description. Include:
+1) Context (1-2 sentences)
+2) Key changes (3-6 bullets)
+3) How to test (exact steps)
+4) Risks/impact (if any)
+5) Screenshots/examples (if relevant)
+Rules: do not invent facts; ask if info is missing.
+
+Inputs:
+{context}""",
+        ),
+        PromptCreate(
+            title="Codebase onboarding map (30 min) / Mapa de onboarding del codebase (30 min)",
+            category="Architecture",
+            tags=[*shared, "architecture", "onboarding", "codebase", "map"],
+            rating=5,
+            body="""ES:
+Ayudame a onboardearme a este repositorio. Entrega:
+1) Mapa de alto nivel (modulos y responsabilidades)
+2) Flujos principales (de entrada a salida)
+3) Puntos de extension (donde agregar features)
+4) Riesgos (zonas fragiles, deuda tecnica)
+5) 5 tareas pequenas para aprender (ordenadas)
+Incluye rutas de archivos concretas cuando sea posible.
+
+Repo/Contexto:
+{context}
+
+EN:
+Help me onboard to this repository. Deliver:
+1) High-level map (modules and responsibilities)
+2) Key flows (input to output)
+3) Extension points (where to add features)
+4) Risks (fragile areas, tech debt)
+5) Five small learning tasks (ordered)
+Include concrete file paths when possible.
+
+Repo/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Log triage checklist / Checklist de triaje de logs",
+            category="Debugging",
+            tags=[*shared, "debugging", "logs", "triage", "observability"],
+            rating=4,
+            body="""ES:
+Analiza estos logs y haz triaje. Devuelve:
+1) Resumen del incidente (que paso, cuando, a quien afecta)
+2) 3 hipotesis con evidencia (lineas/campos)
+3) Siguientes pasos (ordenados, minimo-toque)
+4) Que datos faltan (metricas, trazas, ids)
+5) Recomendaciones de logging (campos utiles, nivel, redaccion de PII)
+Reglas: no asumas PII; si aparece, redacta.
+
+Logs/Contexto:
+{context}
+
+EN:
+Triage these logs. Return:
+1) Incident summary (what happened, when, who is affected)
+2) Three hypotheses with evidence (lines/fields)
+3) Next steps (ordered, minimal-touch)
+4) Missing data (metrics, traces, ids)
+5) Logging improvements (useful fields, level, PII redaction)
+Rules: do not assume PII; if present, redact it.
+
+Logs/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="SQL query review / Revision de consultas SQL",
+            category="Coding",
+            tags=[*shared, "coding", "sql", "performance", "review"],
+            rating=5,
+            body="""ES:
+Revisa esta consulta SQL. Entrega:
+1) Que hace (en lenguaje simple)
+2) Posibles bugs (joins, nulls, duplicados)
+3) Riesgos de performance (filtros, indices, cardinalidad)
+4) Version mejorada (si aplica) con explicacion breve
+5) Casos de prueba (3-5) con datos minimos
+Reglas: no inventes esquema; pide columnas/tablas faltantes.
+
+SQL/Contexto:
+{context}
+
+EN:
+Review this SQL query. Deliver:
+1) What it does (plain language)
+2) Possible bugs (joins, nulls, duplicates)
+3) Performance risks (filters, indexes, cardinality)
+4) Improved version (if needed) with brief explanation
+5) 3-5 test cases with minimal data
+Rules: do not invent schema; ask for missing tables/columns.
+
+SQL/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Threat model lite / Threat model ligero",
+            category="Architecture",
+            tags=[*shared, "architecture", "security", "threat-model", "risks"],
+            rating=5,
+            body="""ES:
+Haz un threat model ligero para este sistema/feature. Entrega:
+1) Activos a proteger (datos, dinero, integridad)
+2) Actores (usuarios, atacantes, insiders)
+3) Superficies de ataque (endpoints, storage, auth, supply chain)
+4) Top 10 amenazas (probabilidad x impacto) con mitigacion
+5) Controles recomendados y que monitorear
+Reglas: mantente practico; marca suposiciones.
+
+Sistema/Contexto:
+{context}
+
+EN:
+Create a lightweight threat model for this system/feature. Deliver:
+1) Assets to protect (data, money, integrity)
+2) Actors (users, attackers, insiders)
+3) Attack surfaces (endpoints, storage, auth, supply chain)
+4) Top 10 threats (likelihood x impact) with mitigation
+5) Recommended controls and what to monitor
+Rules: stay practical; label assumptions.
+
+System/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="UI copy tone guide / Guia de tono para UI copy",
+            category="Design",
+            tags=[*shared, "design", "ux-writing", "tone", "microcopy"],
+            rating=4,
+            body="""ES:
+Define una guia de tono para el texto de UI de este producto. Incluye:
+1) Personalidad (3-5 adjetivos) y anti-personalidad
+2) Do/Don't con ejemplos
+3) Reglas para errores, confirmaciones y vacios (empty states)
+4) Glosario de terminos (preferidos vs prohibidos)
+5) Plantillas: boton, tooltip, error, banner, modal
+
+Producto/Contexto:
+{context}
+
+EN:
+Define a UI copy tone guide for this product. Include:
+1) Personality (3-5 adjectives) and anti-personality
+2) Do/Don't with examples
+3) Rules for errors, confirmations, and empty states
+4) Glossary (preferred vs forbidden terms)
+5) Templates: button, tooltip, error, banner, modal
+
+Product/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="User interview synthesis / Sintesis de entrevistas de usuario",
+            category="Research",
+            tags=[*shared, "research", "ux", "interviews", "synthesis"],
+            rating=5,
+            body="""ES:
+Sintetiza estas notas de entrevistas. Devuelve:
+1) 5-10 hallazgos (con evidencia: citas o notas)
+2) Necesidades/JTBD y como se miden
+3) Puntos de dolor y frecuencia
+4) Oportunidades (quick wins vs apuestas grandes)
+5) Preguntas pendientes para la proxima ronda
+Reglas: no extrapoles mas alla de la evidencia.
+
+Notas/Contexto:
+{context}
+
+EN:
+Synthesize these interview notes. Return:
+1) 5-10 findings (with evidence: quotes or notes)
+2) Needs/JTBD and how to measure them
+3) Pain points and frequency
+4) Opportunities (quick wins vs big bets)
+5) Open questions for the next round
+Rules: do not extrapolate beyond the evidence.
+
+Notes/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="A/B experiment plan / Plan de experimento A/B",
+            category="Marketing",
+            tags=[*shared, "marketing", "experiments", "ab-test", "metrics"],
+            rating=5,
+            body="""ES:
+Disena un experimento A/B para esta hipotesis. Entrega:
+1) Hipotesis y criterio de exito (metrica primaria + guardrails)
+2) Variantes (A vs B) con cambios exactos
+3) Segmentacion y supuestos
+4) Duracion estimada y consideraciones de muestra (sin calculos exactos si faltan datos)
+5) Plan de analisis (que mirar, como decidir)
+6) Riesgos y como mitigarlos
+
+Hipotesis/Contexto:
+{context}
+
+EN:
+Design an A/B experiment for this hypothesis. Deliver:
+1) Hypothesis and success criteria (primary metric + guardrails)
+2) Variants (A vs B) with exact changes
+3) Targeting and assumptions
+4) Estimated duration and sample considerations (no exact math if data is missing)
+5) Analysis plan (what to look at, decision rule)
+6) Risks and mitigations
+
+Hypothesis/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Meeting agenda + decisions / Agenda + decisiones de reunion",
+            category="Productivity",
+            tags=[*shared, "productivity", "meetings", "decisions", "notes"],
+            rating=4,
+            body="""ES:
+Prepara una agenda de reunion orientada a decisiones. Devuelve:
+1) Objetivo (una frase)
+2) Decisiones a tomar (max 3)
+3) Agenda con tiempos (30-45 min por defecto)
+4) Pre-reads y datos necesarios
+5) Preguntas para desbloquear
+6) Template de acta: decisiones, acciones, owner, fecha
+
+Tema/Contexto:
+{context}
+
+EN:
+Prepare a decision-oriented meeting agenda. Return:
+1) Goal (one sentence)
+2) Decisions to make (max 3)
+3) Timed agenda (default 30-45 min)
+4) Pre-reads and required data
+5) Unblocking questions
+6) Minutes template: decisions, actions, owner, due date
+
+Topic/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Agent sandbox constraints / Restricciones de sandbox para agentes",
+            category="Agents",
+            tags=[*shared, "agents", "safety", "sandbox", "permissions"],
+            rating=5,
+            body="""ES:
+Define restricciones de sandbox para un agente que usa herramientas. Incluye:
+1) Politica por defecto (deny/allow)
+2) Archivos: lecturas/escrituras permitidas y prohibidas
+3) Red: cuando se permite y como registrar dominios
+4) Operaciones peligrosas: deletes masivos, push, prod, pagos
+5) Registro (audit log) y redaccion de datos sensibles
+Devuelve una version corta (para prompt) y una larga (para docs).
+
+Contexto:
+{context}
+
+EN:
+Define sandbox constraints for a tool-using agent. Include:
+1) Default policy (deny/allow)
+2) Filesystem: allowed/prohibited reads and writes
+3) Network: when allowed and how to log domains
+4) Dangerous ops: mass deletes, push, prod, payments
+5) Audit log and sensitive-data redaction
+Return a short version (for prompts) and a long version (for docs).
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Tool-call plan / Plan de llamadas a herramientas",
+            category="Agents",
+            tags=[*shared, "agents", "tools", "planning", "verification"],
+            rating=5,
+            body="""ES:
+Antes de usar herramientas, crea un plan de ejecucion minimo. Devuelve:
+1) Objetivo y definicion de hecho (done)
+2) Riesgos (seguridad/privacidad/coste) y mitigaciones
+3) Lista de comandos/llamadas a herramientas (ordenadas) con proposito
+4) Señales de exito/fallo por paso
+5) Que no vas a hacer (out of scope)
+Reglas: no ejecutes nada hasta que el plan sea aprobado.
+
+Tarea/Contexto:
+{context}
+
+EN:
+Before using tools, create a minimal execution plan. Return:
+1) Goal and definition of done
+2) Risks (security/privacy/cost) and mitigations
+3) Ordered tool calls/commands with purpose
+4) Success/failure signals per step
+5) Explicit out-of-scope items
+Rules: do not execute anything until the plan is approved.
+
+Task/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Claude JSON contract / Contrato JSON para Claude",
+            category="Prompts for Claude",
+            tags=[*shared, "claude", "json", "structure", "prompting"],
+            rating=5,
+            body="""ES:
+Responde SOLO con JSON valido (sin markdown). Usa este esquema:
+{
+  \"summary\": \"...\",
+  \"assumptions\": [\"...\"],
+  \"steps\": [{\"name\": \"...\", \"details\": \"...\"}],
+  \"risks\": [{\"risk\": \"...\", \"mitigation\": \"...\"}]
+}
+Reglas: no incluyas texto fuera del JSON; si falta informacion, ponla en assumptions.
+
+Tarea/Contexto:
+{context}
+
+EN:
+Reply with VALID JSON only (no markdown). Use this schema:
+{
+  \"summary\": \"...\",
+  \"assumptions\": [\"...\"],
+  \"steps\": [{\"name\": \"...\", \"details\": \"...\"}],
+  \"risks\": [{\"risk\": \"...\", \"mitigation\": \"...\"}]
+}
+Rules: no text outside JSON; if info is missing, put it in assumptions.
+
+Task/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="ChatGPT study plan / Plan de estudio ChatGPT",
+            category="Prompts for ChatGPT",
+            tags=[*shared, "chatgpt", "learning", "plan", "practice"],
+            rating=4,
+            body="""ES:
+Actua como tutor. Construye un plan de estudio en 2 semanas. Incluye:
+1) Objetivo medible
+2) Modulos diarios (30-60 min) con recursos sugeridos (tipos, no links)
+3) Ejercicios practicos y criterios de correccion
+4) Mini-proyecto final con rubric
+5) Como adaptar si tengo menos tiempo
+Reglas: prioriza practica; pregunta por nivel inicial.
+
+Tema/Contexto:
+{context}
+
+EN:
+Act as a tutor. Build a 2-week study plan. Include:
+1) Measurable goal
+2) Daily modules (30-60 min) with suggested resource types (no links required)
+3) Practice exercises with grading criteria
+4) Final mini-project with rubric
+5) How to adapt if I have less time
+Rules: prioritize practice; ask about starting level.
+
+Topic/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Codex repo-safe refactor / Refactor seguro para Codex",
+            category="Prompts for Codex",
+            tags=[*shared, "codex", "refactor", "safety", "tests", "minimal-diff"],
+            rating=5,
+            favorite=True,
+            body="""ES:
+Actua como Codex y haz un refactor seguro con diff minimo. Reglas:
+1) No cambies comportamiento (salvo bugfix solicitado)
+2) Mantén commits pequenos (si aplica) y cambios localizados
+3) Actualiza tests si es estrictamente necesario
+4) Ejecuta lint/format/tests y reporta resultados
+5) Si hay riesgo, propone alternativa mas simple
+Salida:
+- Intencion del refactor
+- Plan de pasos
+- Cambios realizados (archivos)
+- Verificacion (comandos)
+
+Tarea/Contexto:
+{context}
+
+EN:
+Act as Codex and perform a repo-safe refactor with minimal diff. Rules:
+1) Do not change behavior (except requested bugfix)
+2) Keep changes small and localized
+3) Update tests only if strictly necessary
+4) Run lint/format/tests and report results
+5) If risky, propose a simpler alternative
+Output:
+- Refactor intent
+- Step plan
+- Changes made (files)
+- Verification (commands)
+
+Task/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Bug report template / Plantilla de reporte de bug",
+            category="Debugging",
+            tags=[*shared, "debugging", "bug-report", "template", "repro"],
+            rating=5,
+            body="""ES:
+Convierte esta informacion en un reporte de bug accionable. Incluye:
+1) Resumen (una frase)
+2) Entorno (OS, version, flags)
+3) Pasos para reproducir (numerados)
+4) Resultado esperado vs actual
+5) Impacto/severidad
+6) Adjuntos (logs, capturas) y redaccion de PII
+7) Sugerencia de causa raiz (si hay evidencia)
+Reglas: si faltan datos, lista preguntas concretas.
+
+Info/Contexto:
+{context}
+
+EN:
+Turn this into an actionable bug report. Include:
+1) Summary (one sentence)
+2) Environment (OS, version, flags)
+3) Steps to reproduce (numbered)
+4) Expected vs actual
+5) Impact/severity
+6) Attachments (logs, screenshots) with PII redaction
+7) Root-cause guess (only if evidence exists)
+Rules: if data is missing, ask concrete questions.
+
+Info/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Architecture diagram narrator / Narrador de diagrama de arquitectura",
+            category="Architecture",
+            tags=[*shared, "architecture", "diagram", "documentation", "systems"],
+            rating=4,
+            body="""ES:
+Describe este diagrama (o descripcion) como si fuera documentacion. Entrega:
+1) Componentes y responsabilidades
+2) Flujos principales (paso a paso)
+3) Limites y contratos (APIs, eventos, schemas)
+4) Fallos y degradacion (timeouts, retries, colas)
+5) Observabilidad (logs, metricas, trazas) y SLOs sugeridos
+Reglas: si no hay suficiente detalle, explicita supuestos.
+
+Diagrama/Contexto:
+{context}
+
+EN:
+Turn this diagram (or description) into documentation. Deliver:
+1) Components and responsibilities
+2) Key flows (step-by-step)
+3) Boundaries and contracts (APIs, events, schemas)
+4) Failure modes and degradation (timeouts, retries, queues)
+5) Observability (logs, metrics, traces) and suggested SLOs
+Rules: if detail is missing, label assumptions.
+
+Diagram/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Design critique scorecard / Scorecard de critica de diseno",
+            category="Design",
+            tags=[*shared, "design", "critique", "rubric", "usability"],
+            rating=5,
+            body="""ES:
+Evalua este diseño con una rubrica. Incluye criterios:
+- Jerarquia visual
+- Legibilidad/contraste
+- Consistencia de componentes
+- Accesibilidad (teclado, focus, aria)
+- Estados (loading, error, empty)
+- Responsividad
+Devuelve: puntuaciones 1-5 + recomendaciones concretas + quick wins.
+Reglas: no inventes requisitos; pregunta por target y constraints.
+
+Diseño/Contexto:
+{context}
+
+EN:
+Evaluate this design with a rubric. Include criteria:
+- Visual hierarchy
+- Readability/contrast
+- Component consistency
+- Accessibility (keyboard, focus, aria)
+- States (loading, error, empty)
+- Responsiveness
+Return: 1-5 scores + concrete recommendations + quick wins.
+Rules: do not invent requirements; ask about audience and constraints.
+
+Design/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Competitive analysis matrix / Matriz de analisis competitivo",
+            category="Research",
+            tags=[*shared, "research", "marketing", "competitive", "positioning"],
+            rating=4,
+            body="""ES:
+Construye una tabla de analisis competitivo. Columnas sugeridas:
+- Producto
+- Para quien
+- Propuesta de valor
+- Diferenciadores
+- Debilidades
+- Pricing (si se conoce)
+- Evidencia (fuente/resumen)
+Luego entrega: 3 oportunidades de posicionamiento + 3 riesgos.
+Reglas: marca que es suposicion vs evidencia; no alucines features.
+
+Contexto:
+{context}
+
+EN:
+Build a competitive analysis table. Suggested columns:
+- Product
+- Target user
+- Value proposition
+- Differentiators
+- Weaknesses
+- Pricing (if known)
+- Evidence (source/summary)
+Then deliver: 3 positioning opportunities + 3 risks.
+Rules: label assumptions vs evidence; do not hallucinate features.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Docs-as-code rewrite / Reescritura docs-as-code",
+            category="Productivity",
+            tags=[*shared, "productivity", "docs", "writing", "maintenance"],
+            rating=4,
+            body="""ES:
+Reescribe esta documentacion para un repo (docs-as-code). Entrega:
+1) Version revisada (estructura clara: que es, como usar, ejemplos, troubleshooting)
+2) Lista de cambios (max 10) y por que
+3) Secciones faltantes
+4) Propuesta de tabla de contenidos
+Reglas: no inventes comandos/flags; si faltan, pregunta.
+
+Docs/Contexto:
+{context}
+
+EN:
+Rewrite this documentation for a repo (docs-as-code). Deliver:
+1) Revised version (clear structure: what it is, how to use, examples, troubleshooting)
+2) Change list (max 10) and why
+3) Missing sections
+4) Proposed table of contents
+Rules: do not invent commands/flags; ask if missing.
+
+Docs/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Triage to tasks / Triaje a tareas",
+            category="Productivity",
+            tags=[*shared, "productivity", "triage", "planning", "backlog"],
+            rating=5,
+            body="""ES:
+Convierte este input (feedback/bugs/ideas) en tareas accionables. Devuelve:
+1) Lista de items con titulo, descripcion, criterio de hecho, estimacion (S/M/L)
+2) Priorizacion (impacto x esfuerzo) con razon
+3) Dependencias y riesgos
+4) Lo que queda fuera de alcance por ahora
+Reglas: evita tareas vagas; cada item debe ser verificable.
+
+Input/Contexto:
+{context}
+
+EN:
+Turn this input (feedback/bugs/ideas) into actionable tasks. Return:
+1) Items with title, description, definition of done, estimate (S/M/L)
+2) Prioritization (impact x effort) with rationale
+3) Dependencies and risks
+4) Explicit out-of-scope for now
+Rules: avoid vague tasks; every item must be verifiable.
+
+Input/Context:
+{context}""",
+        ),
     ]
