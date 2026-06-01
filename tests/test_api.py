@@ -156,4 +156,4 @@ def test_seed_library_loads_bilingual_prompts_once(client: TestClient) -> None:
     assert first_response.status_code == 201
     assert first_response.json()["imported"] >= 20
     assert second_response.json()["imported"] == 0
-    assert {"es", "en", "library-2026-05"}.issubset(tags)
+    assert {"es", "en", "library-2026-06"}.issubset(tags)

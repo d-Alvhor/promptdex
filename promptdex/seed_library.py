@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from promptdex.schemas import PromptCreate
 
-LIBRARY_VERSION_TAG = "library-2026-05"
+LIBRARY_VERSION_TAG = "library-2026-06"
 
 
 def builtin_prompt_library() -> list[PromptCreate]:
@@ -5619,7 +5619,7 @@ UI/Context:
 {context}""",
         ),
         PromptCreate(
-            title="Design token audit / Auditoria de design tokens",
+            title="Design token inconsistency audit / Auditoria de inconsistencias de tokens",
             category="Design",
             tags=[*shared, "design", "design-system", "tokens", "consistency"],
             rating=4,
@@ -5892,6 +5892,575 @@ If information is missing for a field, use null and add a \"questions\" array wi
 
 JSON schema:
 {schema}
+
+Task/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Codebase reading guide / Guia de lectura del codebase",
+            category="Productivity",
+            tags=[*shared, "onboarding", "codebase", "documentation", "map"],
+            rating=5,
+            body="""ES:
+Crea un mapa de onboarding para este repositorio. Devuelve:
+1) Vista general (que hace el proyecto en 5 lineas)
+2) Componentes principales (carpetas/servicios) y responsabilidades
+3) Flujo de datos (entrada -> procesamiento -> salida)
+4) Puntos de extension (donde agregar features)
+5) "Primeros cambios" recomendados (3 PRs pequenos)
+6) Trampas comunes y como evitarlas
+Reglas: si te falta contexto, pide 3 archivos o comandos concretos.
+
+Repo/Contexto:
+{context}
+
+EN:
+Create an onboarding map for this repository. Return:
+1) Overview (what the project does in 5 lines)
+2) Main components (folders/services) and responsibilities
+3) Data flow (input -> processing -> output)
+4) Extension points (where to add features)
+5) Recommended "first changes" (3 small PRs)
+6) Common traps and how to avoid them
+Rules: if context is missing, ask for 3 specific files or commands.
+
+Repo/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Minimal reproducible example builder / Constructor de ejemplo reproducible minimo",
+            category="Debugging",
+            tags=[*shared, "debugging", "repro", "mre", "isolation"],
+            rating=5,
+            body="""ES:
+Convierte este bug en un ejemplo reproducible minimo. Devuelve:
+1) Hipotesis del fallo (1-2)
+2) Pasos para aislar (lista corta)
+3) MRE: codigo minimo + datos de entrada (ficticios) + comando para ejecutar
+4) Resultado esperado vs observado
+5) Criterio de exito para el fix y una prueba de regresion
+Reglas: elimina dependencias y reduce a lo esencial.
+
+Bug/Contexto:
+{context}
+
+EN:
+Turn this bug into a minimal reproducible example. Return:
+1) Failure hypotheses (1-2)
+2) Isolation steps (short list)
+3) MRE: minimal code + fictional input data + command to run
+4) Expected vs observed result
+5) Fix success criteria and a regression test
+Rules: remove dependencies and reduce to essentials.
+
+Bug/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Performance regression checklist / Checklist de regresion de rendimiento",
+            category="Debugging",
+            tags=[*shared, "performance", "profiling", "regression", "benchmark"],
+            rating=4,
+            body="""ES:
+Investiga una posible regresion de rendimiento. Devuelve:
+1) Definicion de "lento" (metrica y baseline)
+2) Pasos para reproducir y medir (comandos exactos)
+3) Hipotesis (CPU, IO, DB, red, cache, N+1, locks)
+4) Instrumentacion minima (logs/metrics/tracing) y donde ponerla
+5) Plan de fix incremental (con verificacion por paso)
+Reglas: evita optimizaciones sin medir; prioriza cambios reversibles.
+
+Contexto:
+{context}
+
+EN:
+Investigate a possible performance regression. Return:
+1) Definition of "slow" (metric and baseline)
+2) Steps to reproduce and measure (exact commands)
+3) Hypotheses (CPU, IO, DB, network, cache, N+1, locks)
+4) Minimal instrumentation (logs/metrics/tracing) and where to add it
+5) Incremental fix plan (with verification per step)
+Rules: avoid optimizing without measuring; prefer reversible changes.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Dependency risk audit / Auditoria de riesgo de dependencias",
+            category="Architecture",
+            tags=[*shared, "dependencies", "supply-chain", "security", "maintenance"],
+            rating=4,
+            body="""ES:
+Audita estas dependencias (o este lockfile). Devuelve:
+1) Dependencias criticas y por que (runtime vs dev)
+2) Riesgos: licencias, mantenimiento, actualizaciones, supply chain
+3) Alternativas o simplificaciones (menos dependencias)
+4) Plan de actualizacion seguro (orden, pruebas, rollback)
+Reglas: no inventes datos; si faltan versiones o contexto, pidelos.
+
+Deps/Contexto:
+{context}
+
+EN:
+Audit these dependencies (or this lockfile). Return:
+1) Critical dependencies and why (runtime vs dev)
+2) Risks: licenses, maintenance, upgrades, supply chain
+3) Alternatives or simplifications (fewer deps)
+4) Safe upgrade plan (order, tests, rollback)
+Rules: don't invent data; ask for versions/context if missing.
+
+Deps/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Feature flag rollout plan / Plan de rollout con feature flags",
+            category="Architecture",
+            tags=[*shared, "rollout", "feature-flags", "risk", "observability"],
+            rating=5,
+            body="""ES:
+Disena un rollout con feature flags para este cambio. Devuelve:
+1) Flag(s) propuestas y naming
+2) Defaults, scopes (usuario/tenant), y estrategia de migracion
+3) Plan por fases (canary -> % -> GA) con criterios de avance/rollback
+4) Observabilidad: metricas y logs para detectar problemas
+5) Checklist de seguridad y privacidad (que NO exponer)
+Reglas: asume fallos; prioriza rollback simple.
+
+Cambio/Contexto:
+{context}
+
+EN:
+Design a feature-flagged rollout for this change. Return:
+1) Proposed flag(s) and naming
+2) Defaults, scopes (user/tenant), and migration strategy
+3) Phased plan (canary -> % -> GA) with advance/rollback criteria
+4) Observability: metrics and logs to detect issues
+5) Security and privacy checklist (what NOT to expose)
+Rules: assume failures; prioritize simple rollback.
+
+Change/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Incident postmortem draft / Borrador de postmortem de incidente",
+            category="Productivity",
+            tags=[*shared, "incident", "postmortem", "reliability", "process"],
+            rating=4,
+            body="""ES:
+Redacta un postmortem (sin culpas) para este incidente. Incluye:
+- Resumen ejecutivo
+- Impacto y duracion (timeline)
+- Deteccion y respuesta (que funciono / que no)
+- Causa raiz y factores contribuyentes
+- Acciones correctivas (dueño + fecha + prioridad)
+- Lecciones aprendidas y cambios de proceso
+Reglas: separa hechos de suposiciones; marca "desconocido" si falta info.
+
+Incidente/Contexto:
+{context}
+
+EN:
+Draft a blameless postmortem for this incident. Include:
+- Executive summary
+- Impact and duration (timeline)
+- Detection and response (what worked / what didn't)
+- Root cause and contributing factors
+- Corrective actions (owner + date + priority)
+- Lessons learned and process changes
+Rules: separate facts from assumptions; mark "unknown" if info is missing.
+
+Incident/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="API error contract kit / Kit de contrato de errores API",
+            category="Architecture",
+            tags=[*shared, "api", "errors", "contracts", "dx"],
+            rating=5,
+            body="""ES:
+Define una taxonomia de errores para esta API. Devuelve:
+1) Lista de codigos de error (estables) y cuando usarlos
+2) Esquema JSON de error (campos obligatorios)
+3) Mapeo HTTP status -> codigos (incluye 400/401/403/404/409/422/429/5xx)
+4) Reglas de mensajes (legibles + sin filtrar datos sensibles)
+5) Ejemplos de 5 errores reales y como manejarlos en el cliente
+Reglas: la consistencia es prioridad; evita sobre-diseño.
+
+API/Contexto:
+{context}
+
+EN:
+Define an error taxonomy for this API. Return:
+1) List of stable error codes and when to use them
+2) Error JSON schema (required fields)
+3) HTTP status -> code mapping (include 400/401/403/404/409/422/429/5xx)
+4) Messaging rules (human-friendly + no sensitive leaks)
+5) Examples of 5 realistic errors and how clients should handle them
+Rules: consistency first; avoid over-design.
+
+API/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Database migration safety plan / Plan seguro de migraciones de base de datos",
+            category="Architecture",
+            tags=[*shared, "database", "migrations", "safety", "rollout"],
+            rating=5,
+            body="""ES:
+Disena una migracion segura para este cambio de esquema. Devuelve:
+1) Enfoque (expand/contract si aplica)
+2) Pasos SQL o alembic-equivalente (orden exacto)
+3) Backfill (si aplica): como hacerlo sin bloquear
+4) Compatibilidad: como mantener versiones vieja/nueva funcionando
+5) Plan de rollback y validacion de datos
+Reglas: asume que hay trafico; evita locks largos; prioriza cambios compatibles.
+
+Cambio/Contexto:
+{context}
+
+EN:
+Design a safe database migration for this schema change. Return:
+1) Approach (expand/contract if applicable)
+2) SQL steps or alembic-equivalent (exact order)
+3) Backfill (if needed): how to do it without blocking
+4) Compatibility: keep old/new versions working
+5) Rollback plan and data validation
+Rules: assume production traffic; avoid long locks; prefer compatible changes.
+
+Change/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Prompt pack blueprint / Plano de pack de prompts",
+            category="Prompts",
+            tags=[*shared, "prompts", "curation", "library", "taxonomy"],
+            rating=4,
+            body="""ES:
+Crea un pack de prompts reutilizable para este tema. Devuelve:
+1) Objetivo del pack (para quien y para que)
+2) 8-12 prompts con titulos unicos, categoria y tags
+3) Para cada prompt: entradas esperadas y formato de salida
+4) Guia de uso: que prompt usar segun escenario
+Reglas: evita claims de "lo mas nuevo"; prioriza prompts atemporales y verificables.
+
+Tema/Contexto:
+{context}
+
+EN:
+Create a reusable prompt pack for this topic. Return:
+1) Pack goal (who it's for and why)
+2) 8-12 prompts with unique titles, category, and tags
+3) For each prompt: expected inputs and output format
+4) Usage guide: which prompt to use per scenario
+Rules: avoid "latest" claims; prefer timeless and verifiable prompts.
+
+Topic/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Agent handoff protocol / Protocolo de handoff de agente",
+            category="Agents",
+            tags=[*shared, "agents", "handoff", "context", "checklist"],
+            rating=5,
+            body="""ES:
+Prepara un handoff para que otro agente continue esta tarea sin perder contexto. Devuelve:
+1) Objetivo y definicion de listo
+2) Estado actual (lo hecho / lo pendiente)
+3) Archivos clave y comandos utiles
+4) Decisiones tomadas y tradeoffs
+5) Riesgos conocidos y como verificar
+6) Siguientes 3 pasos pequenos
+Reglas: escribe para alguien que no vio la conversacion.
+
+Tarea/Contexto:
+{context}
+
+EN:
+Prepare a handoff so another agent can continue without losing context. Return:
+1) Goal and definition of done
+2) Current state (done / pending)
+3) Key files and useful commands
+4) Decisions made and tradeoffs
+5) Known risks and how to verify
+6) Next 3 small steps
+Rules: write for someone who did not see the conversation.
+
+Task/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Codex PR summary and risk assessment / Resumen de PR y riesgos para Codex",
+            category="Prompts for Codex",
+            tags=[*shared, "codex", "pr", "review", "risk"],
+            rating=5,
+            body="""ES:
+Resume este PR para un reviewer ocupado. Devuelve:
+1) Que cambia y por que (3 bullets)
+2) Impacto en usuarios y compatibilidad
+3) Riesgos (P0/P1/P2) y mitigaciones
+4) Como probarlo (comandos exactos)
+5) Si falta algo: prueba, doc, feature flag, rollback
+Reglas: no asumas CI verde; pide logs si faltan.
+
+PR/Diff:
+{context}
+
+EN:
+Summarize this PR for a busy reviewer. Return:
+1) What changed and why (3 bullets)
+2) User impact and compatibility
+3) Risks (P0/P1/P2) and mitigations
+4) How to test (exact commands)
+5) Anything missing: tests, docs, feature flag, rollback
+Rules: do not assume CI is green; ask for logs if missing.
+
+PR/Diff:
+{context}""",
+        ),
+        PromptCreate(
+            title="UX microcopy rewrite / Reescritura de microcopy UX",
+            category="Design",
+            tags=[*shared, "ux", "microcopy", "writing", "accessibility"],
+            rating=4,
+            body="""ES:
+Reescribe este microcopy (UI) para claridad y accesibilidad. Devuelve:
+- 3 variantes por texto (breve, neutral, amistoso)
+- Version en tu/usted si aplica (ES)
+- Reglas: lenguaje simple, accion claro, sin culpar al usuario
+- Casos: error, empty state, loading, confirmacion
+Reglas: no inventes marca; usa placeholders si hace falta.
+
+Texto/Contexto:
+{context}
+
+EN:
+Rewrite this UI microcopy for clarity and accessibility. Return:
+- 3 variants per string (brief, neutral, friendly)
+- Rules: plain language, clear action, do not blame the user
+- Cases: error, empty state, loading, confirmation
+Rules: don't invent brand voice; use placeholders if needed.
+
+Text/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Research question to search plan / Pregunta de investigacion a plan de busqueda",
+            category="Research",
+            tags=[*shared, "research", "search", "planning", "sources"],
+            rating=5,
+            body="""ES:
+Convierte esta pregunta en un plan de busqueda. Devuelve:
+1) Terminos clave y sinonimos (ES/EN)
+2) 5-8 queries concretas (incluye filtros por fecha si aplica)
+3) Tipos de fuentes preferidas y por que (primarias vs secundarias)
+4) Señales de calidad y sesgo a vigilar
+5) Plantilla para resumir hallazgos con citas
+Reglas: separa evidencia de opinion; marca lo incierto.
+
+Pregunta/Contexto:
+{context}
+
+EN:
+Turn this question into a search plan. Return:
+1) Key terms and synonyms (ES/EN)
+2) 5-8 concrete queries (include date filters if needed)
+3) Preferred source types and why (primary vs secondary)
+4) Quality signals and biases to watch
+5) Template to summarize findings with citations
+Rules: separate evidence from opinion; mark uncertainty.
+
+Question/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Launch checklist / Checklist de lanzamiento",
+            category="Marketing",
+            tags=[*shared, "launch", "checklist", "release", "go-to-market"],
+            rating=4,
+            body="""ES:
+Crea un checklist de lanzamiento para este producto/feature. Incluye:
+- Producto (QA, accesibilidad, docs, analitica)
+- Ingenieria (migraciones, rollback, flags, monitoreo)
+- Legal/privacidad (si aplica)
+- Marketing (mensajes, landing, email, redes)
+- Soporte (FAQ, macros, escalado)
+Reglas: max 30 items; marca must-have vs nice-to-have.
+
+Lanzamiento/Contexto:
+{context}
+
+EN:
+Create a launch checklist for this product/feature. Include:
+- Product (QA, accessibility, docs, analytics)
+- Engineering (migrations, rollback, flags, monitoring)
+- Legal/privacy (if applicable)
+- Marketing (messaging, landing, email, socials)
+- Support (FAQ, macros, escalation)
+Rules: max 30 items; label must-have vs nice-to-have.
+
+Launch/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Privacy review for prompts / Revision de privacidad para prompts",
+            category="Prompts",
+            tags=[*shared, "privacy", "safety", "redaction", "best-practices"],
+            rating=5,
+            body="""ES:
+Revisa estos prompts antes de compartirlos publicamente. Devuelve:
+1) Datos sensibles detectados (PII, credenciales, claves, URLs privadas)
+2) Riesgos de re-identificacion (aunque no haya emails)
+3) Reglas de redaccion (que reemplazar por placeholders)
+4) Version sanitizada lista para OSS
+5) Checklist corto para futuras revisiones
+Reglas: no repitas datos sensibles en la salida; redacta y resume.
+
+Prompts/Contexto:
+{context}
+
+EN:
+Review these prompts before sharing publicly. Return:
+1) Sensitive data detected (PII, credentials, keys, private URLs)
+2) Re-identification risks (even without emails)
+3) Redaction rules (what to replace with placeholders)
+4) Sanitized OSS-ready version
+5) Short checklist for future reviews
+Rules: do not repeat sensitive data in your output; redact and summarize.
+
+Prompts/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="User story to acceptance criteria / Historia de usuario a criterios de aceptacion",
+            category="Productivity",
+            tags=[*shared, "product", "requirements", "acceptance-criteria", "qa"],
+            rating=5,
+            body="""ES:
+Convierte esta historia de usuario en criterios de aceptacion verificables. Devuelve:
+1) Lista de criterios (Given/When/Then si ayuda)
+2) Casos borde y no-objetivos (out of scope)
+3) Riesgos y supuestos
+4) Lista minima de pruebas (manual + automatizable)
+Reglas: cada criterio debe ser comprobable sin interpretacion.
+
+Historia/Contexto:
+{context}
+
+EN:
+Turn this user story into verifiable acceptance criteria. Return:
+1) Criteria list (Given/When/Then if helpful)
+2) Edge cases and non-goals (out of scope)
+3) Risks and assumptions
+4) Minimum test list (manual + automatable)
+Rules: every criterion must be testable without interpretation.
+
+Story/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Competitive landing page teardown / Teardown de landing page competitiva",
+            category="Marketing",
+            tags=[*shared, "marketing", "competitive", "landing-page", "analysis"],
+            rating=4,
+            body="""ES:
+Analiza esta landing page (o su contenido) como competidor. Devuelve:
+1) Propuesta de valor y a quien va dirigido
+2) Estructura (secciones) y por que funciona/no
+3) Pruebas sociales, pricing, CTAs y fricciones
+4) Copia destacable (sin copiar literalmente)
+5) 5 ideas accionables para mejorar la nuestra
+Reglas: evita plagio; extrae principios, no frases.
+
+Landing/Contexto:
+{context}
+
+EN:
+Analyze this landing page (or its content) as a competitor. Return:
+1) Value proposition and target user
+2) Structure (sections) and why it works/doesn't
+3) Social proof, pricing, CTAs, and friction points
+4) Notable copy patterns (do not copy verbatim)
+5) 5 actionable ideas to improve ours
+Rules: avoid plagiarism; extract principles, not sentences.
+
+Landing/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="LLM output quality rubric / Rubrica de calidad de salida LLM",
+            category="Prompts",
+            tags=[*shared, "evaluation", "rubric", "quality", "prompts"],
+            rating=4,
+            body="""ES:
+Define una rubrica para evaluar la salida de un LLM en esta tarea. Devuelve:
+1) Criterios (5-8) con definicion clara
+2) Niveles 1-5 por criterio (que se ve en cada nivel)
+3) Dos ejemplos: buena salida vs mala salida (resumen, no contenido extenso)
+4) Como usar la rubrica en iteraciones (feedback accionable)
+Reglas: adapta la rubrica al objetivo; evita criterios vagos.
+
+Tarea/Contexto:
+{context}
+
+EN:
+Define a rubric to evaluate LLM output for this task. Return:
+1) Criteria (5-8) with clear definitions
+2) Levels 1-5 per criterion (what each level looks like)
+3) Two examples: good vs bad output (summary only, no long content)
+4) How to use the rubric iteratively (actionable feedback)
+Rules: tailor the rubric to the goal; avoid vague criteria.
+
+Task/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="ChatGPT clarification-first response / Respuesta ChatGPT con aclaracion primero",
+            category="Prompts for ChatGPT",
+            tags=[*shared, "chatgpt", "clarifying-questions", "workflow", "quality"],
+            rating=4,
+            body="""ES:
+Responde a esta peticion con el siguiente protocolo:
+1) Si hay ambiguedad critica: haz hasta 3 preguntas cerradas (A/B/C)
+2) Si no: responde directamente en el formato pedido
+3) Al final: lista 3 supuestos y como verificarlos
+Reglas: se conciso; no inventes datos.
+
+Peticion/Contexto:
+{context}
+
+EN:
+Answer this request using this protocol:
+1) If there is critical ambiguity: ask up to 3 closed questions (A/B/C)
+2) If not: answer directly in the requested format
+3) At the end: list 3 assumptions and how to verify them
+Rules: be concise; do not invent data.
+
+Request/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Claude conflict-aware assistant / Asistente Claude consciente de conflictos",
+            category="Prompts for Claude",
+            tags=[*shared, "claude", "conflict", "constraints", "safety"],
+            rating=4,
+            body="""ES:
+Actua como asistente que detecta conflictos entre requisitos. Protocolo:
+1) Repite objetivo y restricciones
+2) Detecta conflictos (si los hay) y explica el impacto
+3) Propone 2 opciones: (a) cumplir A, relajar B (b) cumplir B, relajar A
+4) Si no hay conflicto: ejecuta la tarea
+Reglas: no inventes politicas; si algo es ilegal/inseguro, rechaza y ofrece alternativa segura.
+
+Tarea/Contexto:
+{context}
+
+EN:
+Act as an assistant that detects requirement conflicts. Protocol:
+1) Restate goal and constraints
+2) Detect conflicts (if any) and explain impact
+3) Propose 2 options: (a) satisfy A, relax B (b) satisfy B, relax A
+4) If no conflict: perform the task
+Rules: do not invent policies; if something is illegal/unsafe, refuse and offer a safe alternative.
 
 Task/Context:
 {context}""",
