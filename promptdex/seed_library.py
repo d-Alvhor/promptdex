@@ -7126,4 +7126,576 @@ Rules: be conservative with time-sensitive facts; if there's a risk of being out
 Task/Context:
 {context}""",
         ),
+        PromptCreate(
+            title="State machine design pass / Diseno de maquina de estados",
+            category="Architecture",
+            tags=[*shared, "architecture", "state-machine", "flows", "systems"],
+            rating=5,
+            body="""ES:
+Disena este flujo como una maquina de estados clara. Devuelve:
+- Estados
+- Eventos/disparadores
+- Transiciones validas
+- Guardas y efectos secundarios
+- Estados de error y recuperacion
+Incluye una tabla y 3 invariantes que no deben romperse.
+Reglas: evita estados implicitos; si faltan datos, declara supuestos.
+
+Flujo/Contexto:
+{context}
+
+EN:
+Design this flow as a clear state machine. Return:
+- States
+- Events/triggers
+- Valid transitions
+- Guards and side effects
+- Error and recovery states
+Include one table and 3 invariants that must hold.
+Rules: avoid implicit states; if data is missing, declare assumptions.
+
+Flow/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Event storming workshop brief / Brief de workshop de event storming",
+            category="Architecture",
+            tags=[*shared, "architecture", "domain", "events", "workshop"],
+            rating=4,
+            body="""ES:
+Prepara un brief de event storming para este dominio. Devuelve:
+1) Objetivo del workshop
+2) Actores/roles
+3) Eventos del dominio
+4) Comandos, politicas y agregados probables
+5) Preguntas abiertas y riesgos de modelado
+Reglas: usa lenguaje de negocio antes que detalles tecnicos.
+
+Dominio/Contexto:
+{context}
+
+EN:
+Prepare an event storming brief for this domain. Return:
+1) Workshop goal
+2) Actors/roles
+3) Domain events
+4) Likely commands, policies, and aggregates
+5) Open questions and modeling risks
+Rules: use business language before technical details.
+
+Domain/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Code reading first pass / Primera lectura de codigo",
+            category="Coding",
+            tags=[*shared, "coding", "codebase", "reading", "orientation"],
+            rating=4,
+            body="""ES:
+Haz una primera lectura de este codigo para alguien nuevo. Devuelve:
+- Que hace el modulo en 2-3 frases
+- Entradas, salidas y dependencias
+- Partes con mas riesgo o complejidad
+- 5 preguntas utiles para seguir investigando
+Reglas: describe antes de juzgar; no propongas refactors todavia.
+
+Codigo/Contexto:
+{context}
+
+EN:
+Do a first-pass reading of this code for someone new. Return:
+- What the module does in 2-3 sentences
+- Inputs, outputs, and dependencies
+- The riskiest or most complex parts
+- 5 useful follow-up questions
+Rules: describe before judging; do not propose refactors yet.
+
+Code/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Patch minimization plan / Plan de parche minimo",
+            category="Coding",
+            tags=[*shared, "coding", "patch", "scope", "risk"],
+            rating=5,
+            body="""ES:
+Reduce esta tarea al parche mas pequeno razonable. Devuelve:
+1) Cambio minimo que cumple el objetivo
+2) Archivos a tocar y por que
+3) Riesgos de alcance extra
+4) Verificaciones necesarias antes de cerrar
+Reglas: prioriza menos superficie, menos acoplamiento y menos comportamiento nuevo.
+
+Tarea/Contexto:
+{context}
+
+EN:
+Reduce this task to the smallest reasonable patch. Return:
+1) The minimal change that meets the goal
+2) Files to touch and why
+3) Scope-creep risks
+4) Required verification before closing
+Rules: prioritize less surface area, less coupling, and less new behavior.
+
+Task/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Flaky test triage / Triaje de test flaky",
+            category="Debugging",
+            tags=[*shared, "debugging", "tests", "flaky", "ci"],
+            rating=5,
+            body="""ES:
+Ayudame a diagnosticar este test flaky. Devuelve:
+- Sintoma observable
+- 3-5 hipotesis ordenadas por probabilidad
+- Como reproducir cada una
+- Instrumentacion minima
+- Fix minimo y prueba de regresion
+Reglas: no marques como flaky sin intentar aislar la causa.
+
+Test/Contexto:
+{context}
+
+EN:
+Help me diagnose this flaky test. Return:
+- Observable symptom
+- 3-5 hypotheses ordered by likelihood
+- How to reproduce each one
+- Minimal instrumentation
+- Minimal fix and regression test
+Rules: do not mark it flaky without trying to isolate the cause.
+
+Test/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Memory leak investigation / Investigacion de fuga de memoria",
+            category="Debugging",
+            tags=[*shared, "debugging", "memory", "profiling", "performance"],
+            rating=5,
+            body="""ES:
+Diseña una investigacion para esta posible fuga de memoria. Devuelve:
+1) Sintoma medible y umbral
+2) Hipotesis principales
+3) Experimentos o perfiles necesarios
+4) Datos que hay que capturar por iteracion
+5) Cambio minimo probable y como validarlo
+Reglas: diferencia leak real de cache, picos temporales o carga esperada.
+
+Sistema/Contexto:
+{context}
+
+EN:
+Design an investigation for this possible memory leak. Return:
+1) Measurable symptom and threshold
+2) Main hypotheses
+3) Required experiments or profiles
+4) Data to capture per iteration
+5) Likely minimal change and how to validate it
+Rules: distinguish a real leak from caching, temporary spikes, or expected load.
+
+System/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Responsive layout critique / Critica de layout responsive",
+            category="Design",
+            tags=[*shared, "design", "responsive", "layout", "ux"],
+            rating=4,
+            body="""ES:
+Critica este layout en movil, tablet y desktop. Evalua:
+- Jerarquia visual
+- Densidad y legibilidad
+- Priorizacion del contenido
+- Puntos de quiebre dudosos
+- Riesgos de accesibilidad o overflow
+Devuelve 5 cambios concretos por impacto.
+
+Pantalla/Contexto:
+{context}
+
+EN:
+Critique this layout on mobile, tablet, and desktop. Evaluate:
+- Visual hierarchy
+- Density and readability
+- Content prioritization
+- Questionable breakpoints
+- Accessibility or overflow risks
+Return 5 concrete improvements by impact.
+
+Screen/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Design QA before handoff / QA de diseno antes de handoff",
+            category="Design",
+            tags=[*shared, "design", "qa", "handoff", "frontend"],
+            rating=4,
+            body="""ES:
+Haz QA de este diseno antes del handoff. Devuelve un checklist con:
+- Estados faltantes
+- Inconsistencias de espaciado/tipografia/color
+- Casos vacios/error/loading
+- Dudas para producto o desarrollo
+Reglas: solo marca problemas accionables; agrupalos por severidad.
+
+Diseno/Contexto:
+{context}
+
+EN:
+QA this design before handoff. Return a checklist with:
+- Missing states
+- Spacing/type/color inconsistencies
+- Empty/error/loading cases
+- Questions for product or engineering
+Rules: only flag actionable issues; group them by severity.
+
+Design/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Homepage message matrix / Matriz de mensajes para homepage",
+            category="Marketing",
+            tags=[*shared, "marketing", "messaging", "homepage", "positioning"],
+            rating=4,
+            body="""ES:
+Construye una matriz de mensajes para la homepage. Devuelve filas por audiencia o caso de uso y columnas para:
+- Problema
+- Promesa principal
+- Prueba o razon para creer
+- Objecion esperada
+- CTA recomendado
+Reglas: evita slogans vagos; cada promesa debe ser especifica.
+
+Producto/Contexto:
+{context}
+
+EN:
+Build a message matrix for the homepage. Return rows by audience or use case and columns for:
+- Problem
+- Main promise
+- Proof or reason to believe
+- Expected objection
+- Recommended CTA
+Rules: avoid vague slogans; each promise must be specific.
+
+Product/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Launch email sequence / Secuencia de emails de lanzamiento",
+            category="Marketing",
+            tags=[*shared, "marketing", "email", "launch", "copywriting"],
+            rating=4,
+            body="""ES:
+Crea una secuencia corta de emails para un lanzamiento. Devuelve 3 emails:
+1) Teaser
+2) Lanzamiento
+3) Seguimiento
+Para cada uno incluye asunto, preheader, mensaje y CTA.
+Reglas: no inventes descuentos ni fechas; adapta el tono a la audiencia.
+
+Producto/Contexto:
+{context}
+
+EN:
+Create a short launch email sequence. Return 3 emails:
+1) Teaser
+2) Launch
+3) Follow-up
+For each include subject, preheader, body, and CTA.
+Rules: do not invent discounts or dates; adapt tone to the audience.
+
+Product/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Decision memo from debate / Memo de decision desde debate",
+            category="Productivity",
+            tags=[*shared, "productivity", "decision", "alignment", "writing"],
+            rating=4,
+            body="""ES:
+Convierte este debate en un memo de decision. Incluye:
+- Decision propuesta
+- Opciones consideradas
+- Argumentos a favor/en contra
+- Criterios usados
+- Riesgos y siguiente checkpoint
+Reglas: separa hechos de preferencias; deja claros los desacuerdos.
+
+Debate/Contexto:
+{context}
+
+EN:
+Turn this debate into a decision memo. Include:
+- Proposed decision
+- Options considered
+- Arguments for/against
+- Criteria used
+- Risks and next checkpoint
+Rules: separate facts from preferences; make disagreements explicit.
+
+Debate/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Weekly review to next actions / Revision semanal a proximas acciones",
+            category="Productivity",
+            tags=[*shared, "productivity", "review", "planning", "focus"],
+            rating=4,
+            body="""ES:
+Convierte esta revision semanal en proximas acciones claras. Devuelve:
+- Logros
+- Pendientes abiertos
+- 5 proximas acciones maximo
+- Que eliminar, delegar o posponer
+- Riesgo principal de la semana
+Reglas: prioriza foco y energia; evita listas infinitas.
+
+Revision/Contexto:
+{context}
+
+EN:
+Turn this weekly review into clear next actions. Return:
+- Wins
+- Open loops
+- At most 5 next actions
+- What to delete, delegate, or defer
+- Main risk for the week
+Rules: prioritize focus and energy; avoid endless lists.
+
+Review/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Source comparison table / Tabla comparativa de fuentes",
+            category="Research",
+            tags=[*shared, "research", "sources", "comparison", "evidence"],
+            rating=4,
+            body="""ES:
+Compara estas fuentes en una tabla. Incluye:
+- Fuente
+- Fecha
+- Tesis principal
+- Evidencia aportada
+- Limitaciones o sesgos
+- Confianza relativa
+Termina con consenso, contradicciones y que falta validar.
+
+Fuentes/Contexto:
+{context}
+
+EN:
+Compare these sources in a table. Include:
+- Source
+- Date
+- Main thesis
+- Evidence provided
+- Limitations or biases
+- Relative confidence
+End with consensus, contradictions, and what still needs validation.
+
+Sources/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Survey question quality check / Chequeo de calidad de preguntas de encuesta",
+            category="Research",
+            tags=[*shared, "research", "survey", "questions", "quality"],
+            rating=4,
+            body="""ES:
+Revisa estas preguntas de encuesta. Para cada una indica:
+- Objetivo que intenta medir
+- Riesgo de sesgo o ambiguedad
+- Version reescrita
+- Tipo de respuesta recomendado
+Reglas: evita preguntas dobles, sugerentes o invasivas.
+
+Encuesta/Contexto:
+{context}
+
+EN:
+Review these survey questions. For each one indicate:
+- The goal it is trying to measure
+- Risk of bias or ambiguity
+- Rewritten version
+- Recommended response type
+Rules: avoid double-barreled, leading, or invasive questions.
+
+Survey/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Agent tool budget planner / Planificador de presupuesto de herramientas",
+            category="Agents",
+            tags=[*shared, "agents", "tools", "budget", "execution"],
+            rating=4,
+            body="""ES:
+Define un presupuesto de uso de herramientas para este agente. Devuelve:
+- Objetivo y criterio de parada
+- Herramientas permitidas y para que
+- Limites por tipo de accion (busqueda, edicion, pruebas)
+- Cuando escalar al usuario
+- Riesgos de gastar demasiado contexto/tiempo
+Reglas: el presupuesto debe ser verificable y facil de auditar.
+
+Tarea/Contexto:
+{context}
+
+EN:
+Define a tool-use budget for this agent. Return:
+- Goal and stopping condition
+- Allowed tools and what each is for
+- Limits per action type (search, edit, tests)
+- When to escalate to the user
+- Risks of overspending time/context
+Rules: the budget must be verifiable and easy to audit.
+
+Task/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Multi-agent role split / Reparto de roles multiagente",
+            category="Agents",
+            tags=[*shared, "agents", "multi-agent", "roles", "coordination"],
+            rating=4,
+            body="""ES:
+Divide esta tarea entre varios agentes sin solapar trabajo. Devuelve:
+1) Roles sugeridos
+2) Entrada y salida esperada de cada rol
+3) Dependencias entre agentes
+4) Punto de integracion final
+5) Riesgos de coordinacion
+Reglas: separa tareas independientes; evita handoffs innecesarios.
+
+Tarea/Contexto:
+{context}
+
+EN:
+Split this task across multiple agents without overlapping work. Return:
+1) Suggested roles
+2) Expected input and output for each role
+3) Dependencies between agents
+4) Final integration point
+5) Coordination risks
+Rules: separate independent tasks; avoid unnecessary handoffs.
+
+Task/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Few-shot example selector / Selector de ejemplos few-shot",
+            category="Prompts",
+            tags=[*shared, "prompts", "few-shot", "examples", "quality"],
+            rating=4,
+            body="""ES:
+Selecciona o diseña ejemplos few-shot para esta tarea. Devuelve:
+- Que patrones deben cubrir los ejemplos
+- 3-5 ejemplos minimos con entrada/salida
+- Que errores deben evitar
+- Como evaluar si los ejemplos ayudan o confunden
+Reglas: pocos ejemplos, variados y alineados con la salida deseada.
+
+Tarea/Contexto:
+{context}
+
+EN:
+Select or design few-shot examples for this task. Return:
+- Which patterns the examples must cover
+- 3-5 minimal examples with input/output
+- Which errors they should prevent
+- How to evaluate whether the examples help or confuse
+Rules: keep examples few, varied, and aligned with the desired output.
+
+Task/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Codex repo reconnaissance / Reconocimiento de repo con Codex",
+            category="Prompts for Codex",
+            tags=[*shared, "codex", "repo", "exploration", "coding"],
+            rating=5,
+            body="""ES:
+Explora este repositorio antes de cambiar nada. Devuelve:
+1) Objetivo entendido en una frase
+2) Archivos y rutas probablemente relevantes
+3) Riesgos de tocar areas vecinas
+4) Comandos para verificar antes y despues
+5) Plan de cambio minimo
+Reglas: lee antes de editar, no asumas arquitectura y no prometas exito sin evidencia.
+
+Tarea/Contexto:
+{context}
+
+EN:
+Explore this repository before changing anything. Return:
+1) The goal as understood in one sentence
+2) Likely relevant files and paths
+3) Risks of touching neighboring areas
+4) Commands to verify before and after
+5) Minimal change plan
+Rules: read before editing, do not assume architecture, and do not claim success without evidence.
+
+Task/Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Claude long-context evidence grid / Matriz de evidencia para contexto largo Claude",
+            category="Prompts for Claude",
+            tags=[*shared, "claude", "long-context", "evidence", "xml"],
+            rating=5,
+            body="""ES:
+Analiza este contexto largo usando estructura clara. Si hay multiples documentos, tratalos como bloques separados y cita evidencia breve por seccion. Devuelve una matriz con:
+- Pregunta
+- Evidencia encontrada
+- Inferencia
+- Confianza
+- Falta por verificar
+Reglas: usa solo el material dado, separa evidencia de inferencia y marca "no consta" cuando falte soporte.
+
+Contexto:
+{context}
+
+EN:
+Analyze this long context with clear structure. If there are multiple documents, treat them as separate blocks and cite brief evidence by section. Return a grid with:
+- Question
+- Evidence found
+- Inference
+- Confidence
+- What still needs verification
+Rules: use only the provided material, separate evidence from inference, and mark "not found" when support is missing.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="ChatGPT response contract builder / Constructor de contrato de respuesta ChatGPT",
+            category="Prompts for ChatGPT",
+            tags=[*shared, "chatgpt", "structured-output", "format", "contract"],
+            rating=4,
+            body="""ES:
+Reescribe esta tarea como un contrato de respuesta claro para ChatGPT. Devuelve:
+- Objetivo
+- Contexto minimo necesario
+- Restricciones
+- Formato exacto de salida
+- Criterios de validacion
+Incluye un ejemplo breve. Reglas: pide respuesta concisa y verificable; no pidas cadena de pensamiento ni razonamiento oculto.
+
+Tarea/Contexto:
+{context}
+
+EN:
+Rewrite this task as a clear response contract for ChatGPT. Return:
+- Goal
+- Minimum necessary context
+- Constraints
+- Exact output format
+- Validation criteria
+Include one short example. Rules: ask for a concise, verifiable answer; do not request chain-of-thought or hidden reasoning.
+
+Task/Context:
+{context}""",
+        ),
     ]
