@@ -7698,4 +7698,554 @@ Include one short example. Rules: ask for a concise, verifiable answer; do not r
 Task/Context:
 {context}""",
         ),
+        PromptCreate(
+            title="Contract test case writer / Generador de casos para pruebas de contrato",
+            category="Coding",
+            tags=[*shared, "coding", "contract-tests", "api", "qa"],
+            rating=4,
+            body="""ES:
+Genera casos de prueba de contrato para esta API o integracion. Devuelve:
+- Casos felices
+- Errores esperados
+- Validaciones de esquema
+- Casos de compatibilidad hacia atras
+Reglas: cada caso debe indicar entrada, salida esperada y por que importa.
+
+Contexto:
+{context}
+
+EN:
+Generate contract test cases for this API or integration. Return:
+- Happy-path cases
+- Expected errors
+- Schema validation checks
+- Backward-compatibility cases
+Rules: each case must state input, expected output, and why it matters.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Schema migration rollout plan / Plan de despliegue de migracion de esquema",
+            category="Architecture",
+            tags=[*shared, "architecture", "database", "migration", "rollout"],
+            rating=5,
+            body="""ES:
+Disena un plan de despliegue para esta migracion de esquema. Devuelve:
+1) Cambios de datos y compatibilidad
+2) Secuencia de despliegue
+3) Riesgos de rollback y mitigaciones
+4) Monitoreo y checks posteriores
+Reglas: asume trafico real; evita ventanas de caida si no son estrictamente necesarias.
+
+Contexto:
+{context}
+
+EN:
+Design a rollout plan for this schema migration. Return:
+1) Data changes and compatibility concerns
+2) Deployment sequence
+3) Rollback risks and mitigations
+4) Monitoring and post-deploy checks
+Rules: assume real traffic; avoid downtime windows unless they are strictly necessary.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Capability map by component / Mapa de capacidades por componente",
+            category="Architecture",
+            tags=[*shared, "architecture", "components", "capabilities", "boundaries"],
+            rating=4,
+            body="""ES:
+Mapea este sistema por capacidades y componentes. Devuelve una tabla con:
+- Capacidad
+- Componente responsable
+- Entradas y salidas
+- Dependencias
+- Riesgos de frontera
+Reglas: describe limites claros y evita mezclar responsabilidades.
+
+Contexto:
+{context}
+
+EN:
+Map this system by capabilities and components. Return a table with:
+- Capability
+- Responsible component
+- Inputs and outputs
+- Dependencies
+- Boundary risks
+Rules: describe clear boundaries and avoid mixing responsibilities.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Log triage to root cause / Triaje de logs a causa raiz",
+            category="Debugging",
+            tags=[*shared, "debugging", "logs", "root-cause", "triage"],
+            rating=5,
+            body="""ES:
+Analiza estos logs para acercarte a la causa raiz. Devuelve:
+1) Patron observable
+2) Hipotesis ordenadas por evidencia
+3) Logs o metricas faltantes
+4) Siguiente experimento minimo
+Reglas: separa sintomas de causas; cita lineas o fragmentos relevantes.
+
+Contexto:
+{context}
+
+EN:
+Analyze these logs to move toward the root cause. Return:
+1) Observable pattern
+2) Hypotheses ordered by evidence
+3) Missing logs or metrics
+4) Next minimal experiment
+Rules: separate symptoms from causes; cite relevant lines or fragments.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Regression blast radius map / Mapa de radio de regresion",
+            category="Debugging",
+            tags=[*shared, "debugging", "regression", "risk", "testing"],
+            rating=5,
+            body="""ES:
+Estima el radio de una posible regresion para este cambio. Devuelve:
+- Flujos afectados
+- Sistemas o modulos vecinos
+- Datos o configuraciones sensibles
+- Pruebas prioritarias
+Reglas: prioriza por impacto al usuario y probabilidad tecnica.
+
+Contexto:
+{context}
+
+EN:
+Estimate the blast radius of a possible regression for this change. Return:
+- Affected flows
+- Neighboring systems or modules
+- Sensitive data or configurations
+- Priority tests
+Rules: prioritize by user impact and technical likelihood.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Design token naming pass / Revision de nombres de design tokens",
+            category="Design",
+            tags=[*shared, "design", "tokens", "naming", "systems"],
+            rating=4,
+            body="""ES:
+Revisa este set de design tokens y mejora su nomenclatura. Devuelve:
+1) Problemas de consistencia
+2) Convencion propuesta
+3) Renombres sugeridos
+4) Riesgos de adopcion
+Reglas: prioriza claridad semantica y escalabilidad antes que preferencias cosmeticas.
+
+Contexto:
+{context}
+
+EN:
+Review this design token set and improve its naming. Return:
+1) Consistency issues
+2) Proposed convention
+3) Suggested renames
+4) Adoption risks
+Rules: prioritize semantic clarity and scalability over cosmetic preferences.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Empty state concept generator / Generador de conceptos para estados vacios",
+            category="Design",
+            tags=[*shared, "design", "empty-states", "ux", "copy"],
+            rating=4,
+            body="""ES:
+Propone estados vacios utiles para esta pantalla. Devuelve 3 opciones con:
+- Titulo
+- Mensaje
+- CTA principal
+- Ayuda secundaria o ejemplo
+Reglas: cada opcion debe reducir incertidumbre y mover al usuario a la siguiente accion.
+
+Contexto:
+{context}
+
+EN:
+Propose useful empty states for this screen. Return 3 options with:
+- Title
+- Message
+- Primary CTA
+- Secondary help or example
+Rules: each option should reduce uncertainty and move the user to the next action.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Pricing page value narrative / Narrativa de valor para pricing page",
+            category="Marketing",
+            tags=[*shared, "marketing", "pricing", "messaging", "value"],
+            rating=4,
+            body="""ES:
+Construye la narrativa de valor para una pagina de precios. Devuelve:
+- Mensaje principal
+- Diferencia entre planes
+- Objeciones previsibles
+- CTA por tipo de comprador
+Reglas: no inventes precios ni descuentos; enfocate en claridad de valor.
+
+Contexto:
+{context}
+
+EN:
+Build the value narrative for a pricing page. Return:
+- Main message
+- Difference between plans
+- Predictable objections
+- CTA by buyer type
+Rules: do not invent prices or discounts; focus on value clarity.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Case study extraction brief / Brief para extraer case studies",
+            category="Marketing",
+            tags=[*shared, "marketing", "case-study", "customer-proof", "storytelling"],
+            rating=4,
+            body="""ES:
+Extrae un case study util desde estas notas o materiales. Devuelve:
+1) Contexto del cliente
+2) Problema inicial
+3) Solucion aplicada
+4) Resultado y evidencia
+5) Quote o takeaway principal
+Reglas: no exageres resultados; marca claramente cualquier dato no verificado.
+
+Contexto:
+{context}
+
+EN:
+Extract a useful case study from these notes or materials. Return:
+1) Customer context
+2) Starting problem
+3) Applied solution
+4) Result and evidence
+5) Main quote or takeaway
+Rules: do not exaggerate outcomes; clearly mark any unverified data.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Deep work session planner / Planificador de sesion de trabajo profundo",
+            category="Productivity",
+            tags=[*shared, "productivity", "focus", "planning", "execution"],
+            rating=4,
+            body="""ES:
+Convierte esta lista de tareas en una sesion de trabajo profundo. Devuelve:
+- Objetivo de la sesion
+- Orden recomendado
+- Bloques de tiempo
+- Que posponer o eliminar
+- Criterio de cierre
+Reglas: limita la sesion a trabajo realista y con foco sostenido.
+
+Contexto:
+{context}
+
+EN:
+Turn this task list into a deep work session. Return:
+- Session goal
+- Recommended order
+- Time blocks
+- What to defer or remove
+- Closing criterion
+Rules: keep the session realistic and focused on sustained execution.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Inbox to action sorter / Clasificador de inbox a acciones",
+            category="Productivity",
+            tags=[*shared, "productivity", "inbox", "triage", "prioritization"],
+            rating=4,
+            body="""ES:
+Clasifica este inbox de mensajes o tareas en acciones concretas. Devuelve:
+- Responder ahora
+- Programar
+- Delegar
+- Archivar
+- Bloqueos o datos faltantes
+Reglas: cada item debe acabar en una accion clara o una razon explicita para no actuar.
+
+Contexto:
+{context}
+
+EN:
+Sort this inbox of messages or tasks into concrete actions. Return:
+- Reply now
+- Schedule
+- Delegate
+- Archive
+- Blockers or missing data
+Rules: every item must end in a clear action or an explicit reason not to act.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Literature review scaffold / Estructura para revision bibliografica",
+            category="Research",
+            tags=[*shared, "research", "literature-review", "synthesis", "academic"],
+            rating=4,
+            body="""ES:
+Construye una estructura para revisar esta literatura o conjunto de papers. Devuelve:
+1) Temas o clusters
+2) Hallazgos recurrentes
+3) Metodos usados
+4) Vacios de evidencia
+5) Proxima pregunta de investigacion
+Reglas: distingue consenso de resultados aislados.
+
+Contexto:
+{context}
+
+EN:
+Build a scaffold for reviewing this literature or paper set. Return:
+1) Themes or clusters
+2) Recurring findings
+3) Methods used
+4) Evidence gaps
+5) Next research question
+Rules: distinguish consensus from isolated results.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Evidence gap finder / Detector de huecos de evidencia",
+            category="Research",
+            tags=[*shared, "research", "evidence", "gaps", "analysis"],
+            rating=5,
+            body="""ES:
+Encuentra huecos de evidencia en este analisis o propuesta. Devuelve:
+- Afirmaciones fuertes sin soporte suficiente
+- Que fuente o dato faltaria
+- Riesgo de decidir con informacion incompleta
+- Prioridad de validacion
+Reglas: no confundas opinion bien argumentada con evidencia verificada.
+
+Contexto:
+{context}
+
+EN:
+Find evidence gaps in this analysis or proposal. Return:
+- Strong claims without enough support
+- Which source or data is missing
+- Risk of deciding with incomplete information
+- Validation priority
+Rules: do not confuse a well-argued opinion with verified evidence.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Agent rollback protocol / Protocolo de rollback para agentes",
+            category="Agents",
+            tags=[*shared, "agents", "rollback", "safety", "recovery"],
+            rating=5,
+            body="""ES:
+Define un protocolo de rollback para este agente o automatizacion. Devuelve:
+1) Disparadores de rollback
+2) Estado minimo a preservar
+3) Pasos de recuperacion
+4) Verificaciones antes de reintentar
+Reglas: el protocolo debe ser simple, auditable y seguro ante fallos parciales.
+
+Contexto:
+{context}
+
+EN:
+Define a rollback protocol for this agent or automation. Return:
+1) Rollback triggers
+2) Minimum state to preserve
+3) Recovery steps
+4) Checks before retrying
+Rules: the protocol must be simple, auditable, and safe under partial failure.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Tool-result verifier / Verificador de resultados de herramientas",
+            category="Agents",
+            tags=[*shared, "agents", "tools", "verification", "evidence"],
+            rating=5,
+            body="""ES:
+Define como verificar resultados obtenidos con herramientas. Devuelve:
+- Que evidencia cuenta como valida
+- Como detectar salidas parciales o inconsistentes
+- Que reintentos son aceptables
+- Cuando escalar al usuario
+Reglas: no asumas que una tool tuvo exito solo por devolver texto.
+
+Contexto:
+{context}
+
+EN:
+Define how to verify results obtained with tools. Return:
+- What evidence counts as valid
+- How to detect partial or inconsistent outputs
+- Which retries are acceptable
+- When to escalate to the user
+Rules: do not assume a tool succeeded just because it returned text.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Codex test selection pass / Seleccion de pruebas con Codex",
+            category="Prompts for Codex",
+            tags=[*shared, "codex", "testing", "verification", "repo"],
+            rating=5,
+            body="""ES:
+Ayudame a elegir que pruebas correr para este cambio. Devuelve:
+1) Pruebas minimas imprescindibles
+2) Pruebas opcionales si falla algo
+3) Que no merece ejecutarse
+4) Por que cada eleccion reduce riesgo
+Reglas: usa el diff y el contexto del repo; evita correr toda la suite sin justificacion.
+
+Contexto:
+{context}
+
+EN:
+Help me choose which tests to run for this change. Return:
+1) Minimum must-run checks
+2) Optional tests if something fails
+3) What is not worth running
+4) Why each choice reduces risk
+Rules: use the diff and repo context; avoid running the whole suite without justification.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Codex safe-edit checklist / Checklist de edicion segura para Codex",
+            category="Prompts for Codex",
+            tags=[*shared, "codex", "editing", "safety", "workflow"],
+            rating=5,
+            body="""ES:
+Prepara un checklist de edicion segura para esta tarea en Codex. Incluye:
+- Archivos a leer antes
+- Riesgos de cambios colaterales
+- Verificaciones antes de editar
+- Verificaciones antes de cerrar
+Reglas: no tocar archivos ajenos sin necesidad; preferir el parche minimo.
+
+Contexto:
+{context}
+
+EN:
+Prepare a safe-edit checklist for this task in Codex. Include:
+- Files to read first
+- Risks of collateral changes
+- Checks before editing
+- Checks before closing
+Rules: do not touch unrelated files unless necessary; prefer the smallest patch.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Claude prompt compression pass / Compresion de prompts para Claude",
+            category="Prompts for Claude",
+            tags=[*shared, "claude", "prompting", "compression", "clarity"],
+            rating=4,
+            body="""ES:
+Comprime este prompt para Claude sin perder intencion. Devuelve:
+1) Version resumida
+2) Que detalles mantuviste
+3) Que relleno eliminaste
+4) Riesgos de comprimir demasiado
+Reglas: preserva objetivo, restricciones y formato esperado; elimina redundancia.
+
+Contexto:
+{context}
+
+EN:
+Compress this prompt for Claude without losing intent. Return:
+1) Shorter version
+2) Which details you preserved
+3) Which filler you removed
+4) Risks of compressing too far
+Rules: preserve goal, constraints, and expected output format; remove redundancy.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Claude synthesis with citations / Sintesis con citas para Claude",
+            category="Prompts for Claude",
+            tags=[*shared, "claude", "synthesis", "citations", "research"],
+            rating=5,
+            body="""ES:
+Sintetiza este material con citas breves y verificables. Devuelve:
+- Resumen ejecutivo
+- 3-7 hallazgos con evidencia citada
+- Contradicciones o incertidumbres
+- Preguntas abiertas
+Reglas: usa solo el material proporcionado y separa evidencia de interpretacion.
+
+Contexto:
+{context}
+
+EN:
+Synthesize this material with brief verifiable citations. Return:
+- Executive summary
+- 3-7 findings with cited evidence
+- Contradictions or uncertainties
+- Open questions
+Rules: use only the provided material and separate evidence from interpretation.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="ChatGPT prompt evaluator / Evaluador de prompts para ChatGPT",
+            category="Prompts for ChatGPT",
+            tags=[*shared, "chatgpt", "prompting", "evaluation", "quality"],
+            rating=4,
+            body="""ES:
+Evalua este prompt para ChatGPT antes de usarlo. Devuelve:
+1) Objetivo entendido
+2) Ambiguedades o huecos
+3) Mejora minima recomendada
+4) Version revisada
+Reglas: busca claridad, contexto suficiente y formato de salida verificable; no pidas cadena de pensamiento.
+
+Contexto:
+{context}
+
+EN:
+Evaluate this prompt for ChatGPT before using it. Return:
+1) Goal as understood
+2) Ambiguities or gaps
+3) Minimum recommended improvement
+4) Revised version
+Rules: look for clarity, enough context, and a verifiable output format; do not ask for chain-of-thought.
+
+Context:
+{context}""",
+        ),
     ]
