@@ -8248,4 +8248,564 @@ Rules: look for clarity, enough context, and a verifiable output format; do not 
 Context:
 {context}""",
         ),
+        PromptCreate(
+            title="Code comment cleanup pass / Limpieza de comentarios de codigo",
+            category="Coding",
+            tags=[*shared, "coding", "comments", "readability", "maintenance"],
+            rating=4,
+            body="""ES:
+Revisa este archivo o diff y mejora solo los comentarios. Devuelve:
+1) Comentarios redundantes o ruidosos
+2) Comentarios que faltan en logica no obvia
+3) Reescrituras sugeridas
+4) Riesgos de sobreexplicar
+Reglas: conserva comentarios utiles; evita narrar lineas evidentes.
+
+Contexto:
+{context}
+
+EN:
+Review this file or diff and improve comments only. Return:
+1) Redundant or noisy comments
+2) Missing comments around non-obvious logic
+3) Suggested rewrites
+4) Risks of over-explaining
+Rules: keep useful comments; avoid narrating obvious lines.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="CLI task runner spec / Especificacion para CLI task runner",
+            category="Coding",
+            tags=[*shared, "coding", "cli", "automation", "spec"],
+            rating=4,
+            body="""ES:
+Disena una especificacion minima para este comando o task runner. Devuelve:
+1) Entradas y banderas
+2) Salida esperada
+3) Manejo de errores
+4) Casos de prueba basicos
+Reglas: prioriza ergonomia, observabilidad y comportamiento predecible.
+
+Contexto:
+{context}
+
+EN:
+Design a minimal spec for this command or task runner. Return:
+1) Inputs and flags
+2) Expected output
+3) Error handling
+4) Basic test cases
+Rules: prioritize ergonomics, observability, and predictable behavior.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Config diff anomaly finder / Detector de anomalias en diffs de config",
+            category="Debugging",
+            tags=[*shared, "debugging", "config", "diff", "risk"],
+            rating=5,
+            body="""ES:
+Analiza este diff de configuracion y busca anomalias. Devuelve:
+1) Cambios con mayor riesgo
+2) Incompatibilidades o defaults peligrosos
+3) Entornos o casos donde podria fallar
+4) Verificaciones minimas antes de desplegar
+Reglas: enfocate en comportamiento y efectos colaterales, no en estilo.
+
+Contexto:
+{context}
+
+EN:
+Analyze this configuration diff and look for anomalies. Return:
+1) Highest-risk changes
+2) Incompatibilities or dangerous defaults
+3) Environments or cases where it could fail
+4) Minimum checks before deployment
+Rules: focus on behavior and side effects, not style.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Incident timeline rebuilder / Reconstruccion de timeline de incidente",
+            category="Debugging",
+            tags=[*shared, "debugging", "incident", "timeline", "ops"],
+            rating=5,
+            body="""ES:
+Reconstruye la linea temporal de este incidente. Devuelve:
+1) Eventos en orden
+2) Punto de deteccion
+3) Punto probable de inicio
+4) Huecos de informacion
+5) Siguiente evidencia a buscar
+Reglas: separa hechos, inferencias y suposiciones.
+
+Contexto:
+{context}
+
+EN:
+Rebuild the timeline of this incident. Return:
+1) Events in order
+2) Detection point
+3) Probable start point
+4) Information gaps
+5) Next evidence to seek
+Rules: separate facts, inferences, and assumptions.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Service boundary stress test / Prueba de limites de servicio",
+            category="Architecture",
+            tags=[*shared, "architecture", "services", "boundaries", "stress-test"],
+            rating=5,
+            body="""ES:
+Pon a prueba los limites de este servicio o modulo. Devuelve:
+1) Responsabilidades legitimas
+2) Responsabilidades sospechosas o mezcladas
+3) Dependencias que tensan el limite
+4) Cambio minimo para clarificar fronteras
+Reglas: busca cohesiones bajas y acoplamientos innecesarios.
+
+Contexto:
+{context}
+
+EN:
+Stress-test the boundaries of this service or module. Return:
+1) Legitimate responsibilities
+2) Suspicious or mixed responsibilities
+3) Dependencies that strain the boundary
+4) Minimum change to clarify edges
+Rules: look for low cohesion and unnecessary coupling.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Feature flag rollout matrix / Matriz de rollout con feature flags",
+            category="Architecture",
+            tags=[*shared, "architecture", "feature-flags", "rollout", "risk"],
+            rating=5,
+            body="""ES:
+Disena una matriz de rollout con feature flags para este cambio. Devuelve:
+1) Etapas de activacion
+2) Segmentos o cohorts
+3) Metricas de avance o rollback
+4) Riesgos por etapa
+Reglas: asume que el rollback debe ser rapido y observable.
+
+Contexto:
+{context}
+
+EN:
+Design a feature-flag rollout matrix for this change. Return:
+1) Activation stages
+2) Segments or cohorts
+3) Metrics for advancing or rolling back
+4) Risks by stage
+Rules: assume rollback must be fast and observable.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Mobile-first state inventory / Inventario de estados mobile-first",
+            category="Design",
+            tags=[*shared, "design", "mobile", "ui", "states"],
+            rating=4,
+            body="""ES:
+Haz un inventario mobile-first de esta interfaz. Devuelve:
+1) Estados principales
+2) Estados vacios, carga y error
+3) Riesgos de densidad o jerarquia en pantallas pequenas
+4) Ajustes prioritarios
+Reglas: piensa primero en uso real con una mano y poca atencion.
+
+Contexto:
+{context}
+
+EN:
+Create a mobile-first inventory for this interface. Return:
+1) Main states
+2) Empty, loading, and error states
+3) Density or hierarchy risks on small screens
+4) Priority adjustments
+Rules: think first about real one-handed use with limited attention.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Interaction copy consistency pass / Revision de consistencia del copy de interaccion",
+            category="Design",
+            tags=[*shared, "design", "ux-writing", "copy", "consistency"],
+            rating=4,
+            body="""ES:
+Revisa la consistencia del copy de interaccion en esta experiencia. Devuelve:
+1) Tono dominante detectado
+2) Inconsistencias de voz o termino
+3) Reescrituras clave
+4) Reglas breves para mantener consistencia
+Reglas: prioriza claridad, accion y confianza del usuario.
+
+Contexto:
+{context}
+
+EN:
+Review interaction copy consistency in this experience. Return:
+1) Detected dominant tone
+2) Voice or terminology inconsistencies
+3) Key rewrites
+4) Short rules to preserve consistency
+Rules: prioritize clarity, action, and user trust.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="ICP objection map / Mapa de objeciones del ICP",
+            category="Marketing",
+            tags=[*shared, "marketing", "icp", "objections", "sales"],
+            rating=4,
+            body="""ES:
+Mapea objeciones previsibles para este ICP. Devuelve:
+1) Objecion
+2) Que miedo o duda revela
+3) Respuesta breve
+4) Evidencia que la haria creible
+Reglas: evita humo comercial; habla en lenguaje del comprador.
+
+Contexto:
+{context}
+
+EN:
+Map likely objections for this ICP. Return:
+1) Objection
+2) Which fear or doubt it reveals
+3) Short response
+4) Evidence that would make it credible
+Rules: avoid marketing fluff; speak in the buyer's language.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Feature launch FAQ draft / Borrador de FAQ para lanzamiento",
+            category="Marketing",
+            tags=[*shared, "marketing", "launch", "faq", "messaging"],
+            rating=4,
+            body="""ES:
+Escribe un FAQ inicial para lanzar esta feature. Devuelve 8-12 preguntas con respuestas breves sobre:
+- Que cambia
+- Para quien es
+- Limitaciones
+- Precios o disponibilidad si aplica
+- Soporte y siguientes pasos
+Reglas: no prometas roadmap ni fechas no confirmadas.
+
+Contexto:
+{context}
+
+EN:
+Write a starter FAQ for launching this feature. Return 8-12 questions with short answers covering:
+- What changes
+- Who it is for
+- Limitations
+- Pricing or availability if relevant
+- Support and next steps
+Rules: do not promise roadmap items or unconfirmed dates.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Decision debt cleanup / Limpieza de deuda de decisiones",
+            category="Productivity",
+            tags=[*shared, "productivity", "decisions", "prioritization", "clarity"],
+            rating=4,
+            body="""ES:
+Convierte estas decisiones pendientes o difusas en una lista accionable. Devuelve:
+1) Decision a tomar
+2) Owner
+3) Fecha objetivo
+4) Informacion minima faltante
+5) Coste de no decidir
+Reglas: separa decisiones reales de tareas de ejecucion.
+
+Contexto:
+{context}
+
+EN:
+Turn these pending or fuzzy decisions into an actionable list. Return:
+1) Decision to make
+2) Owner
+3) Target date
+4) Minimum missing information
+5) Cost of not deciding
+Rules: separate real decisions from execution tasks.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Async update writer / Redactor de update asincrono",
+            category="Productivity",
+            tags=[*shared, "productivity", "communication", "status", "writing"],
+            rating=4,
+            body="""ES:
+Redacta un update asincrono claro sobre este trabajo. Devuelve:
+- Contexto breve
+- Lo completado
+- Riesgos o bloqueos
+- Siguientes pasos
+- Lo que necesita el lector
+Reglas: escribe para que alguien se ponga al dia en menos de un minuto.
+
+Contexto:
+{context}
+
+EN:
+Write a clear async update about this work. Return:
+- Brief context
+- What is done
+- Risks or blockers
+- Next steps
+- What the reader needs to do
+Rules: write so someone can get up to speed in under a minute.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Source credibility filter / Filtro de credibilidad de fuentes",
+            category="Research",
+            tags=[*shared, "research", "sources", "credibility", "evaluation"],
+            rating=5,
+            body="""ES:
+Evalua la credibilidad de estas fuentes. Devuelve:
+1) Tipo de fuente
+2) Senales de confianza o sesgo
+3) Que afirmaciones merecen verificacion adicional
+4) Uso recomendado de cada fuente
+Reglas: no trates autoridad aparente como evidencia suficiente.
+
+Contexto:
+{context}
+
+EN:
+Evaluate the credibility of these sources. Return:
+1) Source type
+2) Trust or bias signals
+3) Which claims need more verification
+4) Recommended use of each source
+Rules: do not treat apparent authority as sufficient evidence.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Hypothesis tracker / Registro de hipotesis",
+            category="Research",
+            tags=[*shared, "research", "hypotheses", "analysis", "evidence"],
+            rating=4,
+            body="""ES:
+Convierte este problema o investigacion en un registro de hipotesis. Devuelve una tabla con:
+- Hipotesis
+- Evidencia a favor
+- Evidencia en contra
+- Como probarla
+- Estado actual
+Reglas: cada hipotesis debe poder refutarse con evidencia observable.
+
+Contexto:
+{context}
+
+EN:
+Turn this problem or research effort into a hypothesis tracker. Return a table with:
+- Hypothesis
+- Evidence for
+- Evidence against
+- How to test it
+- Current status
+Rules: each hypothesis should be falsifiable with observable evidence.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Agent stopping-condition contract / Contrato de condicion de parada para agentes",
+            category="Agents",
+            tags=[*shared, "agents", "stopping", "safety", "workflow"],
+            rating=5,
+            body="""ES:
+Define un contrato de condicion de parada para este agente. Devuelve:
+1) Senales de exito
+2) Limites de tiempo o iteraciones
+3) Casos para escalar al usuario
+4) Salidas minimas esperadas antes de parar
+Reglas: evita bucles abiertos y criterios de cierre vagos.
+
+Contexto:
+{context}
+
+EN:
+Define a stopping-condition contract for this agent. Return:
+1) Success signals
+2) Time or iteration limits
+3) Cases that require escalating to the user
+4) Minimum outputs expected before stopping
+Rules: avoid open loops and vague completion criteria.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Delegation packet builder / Constructor de paquete de delegacion",
+            category="Agents",
+            tags=[*shared, "agents", "delegation", "handoff", "execution"],
+            rating=5,
+            body="""ES:
+Construye un paquete de delegacion para otro agente o colaborador. Devuelve:
+1) Objetivo concreto
+2) Contexto minimo
+3) Entradas y archivos relevantes
+4) Restricciones
+5) Verificacion de salida
+Reglas: el receptor debe poder empezar sin otra reunion ni contexto oculto.
+
+Contexto:
+{context}
+
+EN:
+Build a delegation packet for another agent or collaborator. Return:
+1) Concrete objective
+2) Minimum context
+3) Relevant inputs and files
+4) Constraints
+5) Output verification
+Rules: the receiver should be able to start without another meeting or hidden context.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Codex patch review prompt / Prompt de revision de parche para Codex",
+            category="Prompts for Codex",
+            tags=[*shared, "codex", "patch", "review", "coding"],
+            rating=5,
+            body="""ES:
+Usa Codex para revisar este parche antes de darlo por bueno. Devuelve:
+1) Riesgos funcionales
+2) Riesgos de regresion
+3) Pruebas que faltan
+4) Cambios minimos recomendados
+Reglas: prioriza hallazgos concretos con archivo, linea y razon.
+
+Contexto:
+{context}
+
+EN:
+Use Codex to review this patch before treating it as done. Return:
+1) Functional risks
+2) Regression risks
+3) Missing tests
+4) Minimum recommended changes
+Rules: prioritize concrete findings with file, line, and reason.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Codex repository risk scan / Escaneo de riesgos del repo para Codex",
+            category="Prompts for Codex",
+            tags=[*shared, "codex", "repo", "risk", "verification"],
+            rating=5,
+            body="""ES:
+Pide a Codex un escaneo de riesgos antes de implementar. Devuelve:
+1) Areas sensibles del repo
+2) Archivos con alto coste de error
+3) Dependencias o pruebas relevantes
+4) Guardrails para editar con seguridad
+Reglas: basate en evidencia del repo; no inventes convenciones.
+
+Contexto:
+{context}
+
+EN:
+Ask Codex for a risk scan before implementation. Return:
+1) Sensitive areas of the repo
+2) Files with high cost of mistakes
+3) Relevant dependencies or tests
+4) Guardrails for safe editing
+Rules: ground the scan in repo evidence; do not invent conventions.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Claude artifact planning brief / Brief de planificacion de artefactos para Claude",
+            category="Prompts for Claude",
+            tags=[*shared, "claude", "artifacts", "planning", "structure"],
+            rating=4,
+            body="""ES:
+Prepara una tarea para Claude cuando quieres un artefacto util y bien estructurado. Usa bloques claros como:
+<objetivo>...</objetivo>
+<contexto>...</contexto>
+<restricciones>...</restricciones>
+<entregable>...</entregable>
+Pide:
+1) Estructura propuesta
+2) Borrador inicial
+3) Riesgos o huecos
+Reglas: da contexto suficiente, se explicito con el formato y separa hechos de supuestos.
+
+Contexto:
+{context}
+
+EN:
+Prepare a task for Claude when you want a useful, well-structured artifact. Use clear blocks such as:
+<goal>...</goal>
+<context>...</context>
+<constraints>...</constraints>
+<deliverable>...</deliverable>
+Ask for:
+1) Proposed structure
+2) First draft
+3) Risks or gaps
+Rules: provide enough context, be explicit about format, and separate facts from assumptions.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="ChatGPT JSON schema repair / Reparacion de esquema JSON para ChatGPT",
+            category="Prompts for ChatGPT",
+            tags=[*shared, "chatgpt", "json", "schema", "structured-output"],
+            rating=4,
+            body="""ES:
+Reescribe esta tarea para que ChatGPT devuelva JSON consistente con un esquema. Devuelve:
+1) Campos requeridos
+2) Validaciones o enums
+3) Casos nulos o vacios
+4) Prompt revisado
+Reglas: pide salida estricta, evita prose extra y define claramente formatos de fecha, listas y ids.
+
+Contexto:
+{context}
+
+EN:
+Rewrite this task so ChatGPT returns JSON consistent with a schema. Return:
+1) Required fields
+2) Validations or enums
+3) Null or empty cases
+4) Revised prompt
+Rules: ask for strict output, avoid extra prose, and define date formats, lists, and ids clearly.
+
+Context:
+{context}""",
+        ),
     ]
