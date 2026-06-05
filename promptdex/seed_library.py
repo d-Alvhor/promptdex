@@ -8808,4 +8808,542 @@ Rules: ask for strict output, avoid extra prose, and define date formats, lists,
 Context:
 {context}""",
         ),
+        PromptCreate(
+            title="Code change impact map / Mapa de impacto del cambio de codigo",
+            category="Coding",
+            tags=[*shared, "coding", "impact", "refactor", "review"],
+            rating=4,
+            body="""ES:
+Antes de editar, traza el impacto probable de este cambio. Devuelve:
+1) Modulos afectados
+2) Interfaces o comportamientos en riesgo
+3) Pruebas que deberian ejecutarse
+4) Orden recomendado de cambios
+Reglas: prioriza dependencias reales y marca claramente lo que es inferencia.
+
+Contexto:
+{context}
+
+EN:
+Before editing, map the likely impact of this change. Return:
+1) Affected modules
+2) Interfaces or behaviors at risk
+3) Tests that should run
+4) Recommended order of changes
+Rules: prioritize real dependencies and clearly label any inference.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Stack trace to hypothesis tree / Stack trace a arbol de hipotesis",
+            category="Debugging",
+            tags=[*shared, "debugging", "stack-trace", "hypotheses", "triage"],
+            rating=5,
+            body="""ES:
+Convierte este stack trace en un plan de diagnostico. Devuelve:
+1) Explicacion breve del fallo
+2) 3-5 hipotesis ordenadas por probabilidad
+3) Evidencia que apoya o contradice cada hipotesis
+4) Siguiente experimento minimo
+Reglas: no saltes a arreglos; trabaja desde la evidencia.
+
+Contexto:
+{context}
+
+EN:
+Turn this stack trace into a diagnostic plan. Return:
+1) A short explanation of the failure
+2) 3-5 hypotheses ordered by likelihood
+3) Evidence supporting or contradicting each hypothesis
+4) The next minimum experiment
+Rules: do not jump to fixes; work from evidence.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="API backward-compatibility check / Chequeo de compatibilidad hacia atras API",
+            category="Architecture",
+            tags=[*shared, "architecture", "api", "compatibility", "contracts"],
+            rating=5,
+            body="""ES:
+Evalua si este cambio de API rompe compatibilidad hacia atras. Devuelve:
+1) Consumidores potencialmente afectados
+2) Cambios breaking vs no breaking
+3) Mitigaciones o transiciones recomendadas
+4) Casos de prueba de compatibilidad
+Reglas: considera esquema, semantica, errores y defaults.
+
+Contexto:
+{context}
+
+EN:
+Evaluate whether this API change breaks backward compatibility. Return:
+1) Potentially affected consumers
+2) Breaking vs non-breaking changes
+3) Recommended mitigations or transitions
+4) Compatibility test cases
+Rules: consider schema, semantics, errors, and defaults.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Architectural fitness function sketch / Boceto de fitness functions de arquitectura",
+            category="Architecture",
+            tags=[*shared, "architecture", "quality", "fitness-functions", "testing"],
+            rating=4,
+            body="""ES:
+Propone fitness functions para vigilar esta arquitectura. Devuelve:
+1) Riesgos que conviene monitorizar
+2) Checks automatizables o manuales
+3) Umbrales o criterios de fallo
+4) Frecuencia recomendada
+Reglas: elige pocas senales, pero que realmente protejan decisiones importantes.
+
+Contexto:
+{context}
+
+EN:
+Propose fitness functions to watch this architecture. Return:
+1) Risks worth monitoring
+2) Automatable or manual checks
+3) Thresholds or failure criteria
+4) Recommended frequency
+Rules: choose a small number of signals that truly protect important decisions.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="UI state completeness pass / Revision de completitud de estados UI",
+            category="Design",
+            tags=[*shared, "design", "ui", "states", "ux"],
+            rating=4,
+            body="""ES:
+Revisa esta interfaz buscando estados faltantes. Devuelve:
+1) Estados base
+2) Estados vacios, loading, error y exito
+3) Estados edge o de permisos
+4) Recomendaciones de prioridad
+Reglas: piensa en el flujo real del usuario, no solo en la pantalla feliz.
+
+Contexto:
+{context}
+
+EN:
+Review this interface for missing states. Return:
+1) Base states
+2) Empty, loading, error, and success states
+3) Edge or permission-related states
+4) Priority recommendations
+Rules: think about the real user flow, not only the happy screen.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Form flow friction review / Revision de friccion en formularios",
+            category="Design",
+            tags=[*shared, "design", "forms", "ux", "conversion"],
+            rating=4,
+            body="""ES:
+Analiza este formulario para detectar friccion. Devuelve:
+1) Campos dudosos o innecesarios
+2) Riesgos de abandono
+3) Mejoras de copy, orden o validacion
+4) Ideas para reducir esfuerzo
+Reglas: equilibra claridad, velocidad y confianza del usuario.
+
+Contexto:
+{context}
+
+EN:
+Analyze this form for friction. Return:
+1) Doubtful or unnecessary fields
+2) Drop-off risks
+3) Improvements to copy, order, or validation
+4) Ideas to reduce effort
+Rules: balance clarity, speed, and user trust.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Homepage CTA experiment matrix / Matriz de experimentos CTA para homepage",
+            category="Marketing",
+            tags=[*shared, "marketing", "homepage", "cta", "experiments"],
+            rating=4,
+            body="""ES:
+Disena una matriz de experimentos para el CTA principal de una homepage. Devuelve:
+1) Hipotesis
+2) Variantes de mensaje
+3) Audiencia o segmento
+4) Metrica principal y guardrails
+Reglas: cambia una variable clave por experimento y explica por que.
+
+Contexto:
+{context}
+
+EN:
+Design an experiment matrix for the primary CTA on a homepage. Return:
+1) Hypotheses
+2) Message variants
+3) Audience or segment
+4) Primary metric and guardrails
+Rules: change one key variable per experiment and explain why.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Customer proof mining / Extraccion de prueba de cliente",
+            category="Marketing",
+            tags=[*shared, "marketing", "proof", "messaging", "customers"],
+            rating=4,
+            body="""ES:
+Extrae prueba creible desde testimonios, notas o entrevistas. Devuelve:
+1) Frases o hechos reutilizables
+2) Beneficio que respaldan
+3) Nivel de credibilidad
+4) Donde usarlos en marketing
+Reglas: separa citas literales de interpretaciones y evita exagerar.
+
+Contexto:
+{context}
+
+EN:
+Mine credible proof from testimonials, notes, or interviews. Return:
+1) Reusable phrases or facts
+2) The benefit they support
+3) Credibility level
+4) Where to use them in marketing
+Rules: separate direct quotes from interpretations and avoid exaggeration.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Weekly priorities reset / Reinicio semanal de prioridades",
+            category="Productivity",
+            tags=[*shared, "productivity", "priorities", "planning", "focus"],
+            rating=4,
+            body="""ES:
+Convierte esta lista de trabajo en prioridades semanales realistas. Devuelve:
+1) Top 3 objetivos
+2) Tareas de apoyo
+3) Lo que debe posponerse o eliminarse
+4) Riesgos y bloqueos
+Reglas: optimiza por foco y capacidad limitada, no por ambicion abstracta.
+
+Contexto:
+{context}
+
+EN:
+Turn this work list into realistic weekly priorities. Return:
+1) Top 3 goals
+2) Supporting tasks
+3) What should be postponed or removed
+4) Risks and blockers
+Rules: optimize for focus and limited capacity, not abstract ambition.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Decision follow-through tracker / Rastreador de seguimiento de decisiones",
+            category="Productivity",
+            tags=[*shared, "productivity", "decisions", "execution", "tracking"],
+            rating=4,
+            body="""ES:
+Convierte decisiones tomadas en seguimiento ejecutable. Devuelve:
+1) Decision y razon breve
+2) Acciones pendientes
+3) Owner y fecha
+4) Senales para revisar la decision
+Reglas: marca explicitamente dependencias y acciones sin responsable.
+
+Contexto:
+{context}
+
+EN:
+Turn completed decisions into executable follow-through. Return:
+1) Decision and short rationale
+2) Pending actions
+3) Owner and date
+4) Signals that should trigger review
+Rules: explicitly mark dependencies and any action without an owner.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Research evidence table / Tabla de evidencia de investigacion",
+            category="Research",
+            tags=[*shared, "research", "evidence", "analysis", "sources"],
+            rating=5,
+            body="""ES:
+Organiza esta investigacion en una tabla de evidencia. Devuelve columnas para:
+1) Fuente
+2) Fecha
+3) Hallazgo
+4) Confianza
+5) Limitaciones
+6) Implicacion
+Reglas: distingue claramente observaciones de conclusiones.
+
+Contexto:
+{context}
+
+EN:
+Organize this research into an evidence table. Return columns for:
+1) Source
+2) Date
+3) Finding
+4) Confidence
+5) Limitations
+6) Implication
+Rules: clearly distinguish observations from conclusions.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Counterargument harvest / Recoleccion de contraargumentos",
+            category="Research",
+            tags=[*shared, "research", "argumentation", "evidence", "decision-making"],
+            rating=4,
+            body="""ES:
+Busca los mejores contraargumentos a esta tesis o propuesta. Devuelve:
+1) Objeciones fuertes
+2) Evidencia que las respalda
+3) Que habria que comprobar
+4) Como cambiaria la decision si fueran ciertas
+Reglas: prioriza objeciones serias, no hombres de paja.
+
+Contexto:
+{context}
+
+EN:
+Find the strongest counterarguments to this thesis or proposal. Return:
+1) Strong objections
+2) Evidence supporting them
+3) What would need to be checked
+4) How the decision would change if they were true
+Rules: prioritize serious objections, not straw men.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Agent tool failure escalation / Escalado por fallo de herramientas del agente",
+            category="Agents",
+            tags=[*shared, "agents", "tools", "failure", "escalation"],
+            rating=5,
+            body="""ES:
+Disena un protocolo cuando un agente pierde herramientas o falla repetidamente. Devuelve:
+1) Sintomas a detectar
+2) Reintentos permitidos
+3) Informacion minima para escalar
+4) Criterio para detenerse
+Reglas: evita bucles; favorece diagnostico claro y handoff util.
+
+Contexto:
+{context}
+
+EN:
+Design a protocol for when an agent loses tools or fails repeatedly. Return:
+1) Symptoms to detect
+2) Allowed retries
+3) Minimum information required for escalation
+4) Criteria for stopping
+Rules: avoid loops; favor clear diagnosis and a useful handoff.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Delegation acceptance checklist / Checklist de aceptacion de delegacion",
+            category="Agents",
+            tags=[*shared, "agents", "delegation", "quality", "handoff"],
+            rating=4,
+            body="""ES:
+Evalua si una tarea esta lista para delegarse a otro agente o colaborador. Devuelve:
+1) Objetivo claro
+2) Contexto imprescindible
+3) Riesgos o limites
+4) Criterios de aceptacion
+Reglas: si falta contexto critico, marca la delegacion como no lista.
+
+Contexto:
+{context}
+
+EN:
+Evaluate whether a task is ready to be delegated to another agent or collaborator. Return:
+1) Clear objective
+2) Essential context
+3) Risks or limits
+4) Acceptance criteria
+Rules: if critical context is missing, mark the delegation as not ready.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Codex commit readiness pass / Revision de commit listo para Codex",
+            category="Prompts for Codex",
+            tags=[*shared, "codex", "commit", "verification", "git"],
+            rating=5,
+            body="""ES:
+Pide a Codex una revision final antes de hacer commit. Devuelve:
+1) Resumen del cambio
+2) Riesgos pendientes
+3) Verificaciones recomendadas o faltantes
+4) Mensaje de commit propuesto
+Reglas: no asumir que algo esta listo sin evidencia del diff y los checks.
+
+Contexto:
+{context}
+
+EN:
+Ask Codex for a final pass before committing. Return:
+1) Change summary
+2) Remaining risks
+3) Recommended or missing verifications
+4) Proposed commit message
+Rules: do not assume something is ready without evidence from the diff and checks.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Codex task-to-files map / Mapa de tarea a archivos para Codex",
+            category="Prompts for Codex",
+            tags=[*shared, "codex", "repo", "mapping", "planning"],
+            rating=5,
+            body="""ES:
+Usa Codex para mapear una tarea a archivos concretos del repo. Devuelve:
+1) Archivos probablemente implicados
+2) Por que cada archivo importa
+3) Orden de lectura o edicion
+4) Riesgos de tocar cada zona
+Reglas: apoya el mapa en nombres, referencias y estructura real del repo.
+
+Contexto:
+{context}
+
+EN:
+Use Codex to map a task to concrete files in the repo. Return:
+1) Files likely involved
+2) Why each file matters
+3) Recommended reading or edit order
+4) Risks of touching each area
+Rules: ground the map in real repo names, references, and structure.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Claude counterexample finder / Buscador de contraejemplos para Claude",
+            category="Prompts for Claude",
+            tags=[*shared, "claude", "reasoning", "counterexamples", "analysis"],
+            rating=4,
+            body="""ES:
+Pide a Claude que intente romper tu propuesta con contraejemplos. Usa:
+<propuesta>...</propuesta>
+<supuestos>...</supuestos>
+<criterio>Busca escenarios donde falle o sea insuficiente.</criterio>
+Devuelve contraejemplos, por que importan y si requieren cambiar la propuesta.
+
+EN:
+Ask Claude to stress-test your proposal with counterexamples. Use:
+<proposal>...</proposal>
+<assumptions>...</assumptions>
+<criterion>Look for scenarios where it fails or is insufficient.</criterion>
+Return counterexamples, why they matter, and whether they require changing the proposal.""",
+        ),
+        PromptCreate(
+            title="Claude extraction contract builder / Constructor de contrato de extraccion para Claude",
+            category="Prompts for Claude",
+            tags=[*shared, "claude", "extraction", "contract", "xml"],
+            rating=4,
+            body="""ES:
+Prepara una tarea de extraccion para Claude con contrato claro. Usa:
+<fuente>...</fuente>
+<campos>...</campos>
+<reglas>...</reglas>
+<salida>JSON valido</salida>
+Pide:
+1) Datos extraidos
+2) Campos no encontrados
+3) Citas cortas de respaldo
+Reglas: usar solo la fuente proporcionada.
+
+EN:
+Prepare an extraction task for Claude with a clear contract. Use:
+<source>...</source>
+<fields>...</fields>
+<rules>...</rules>
+<output>Valid JSON</output>
+Ask for:
+1) Extracted data
+2) Missing fields
+3) Short supporting quotes
+Rules: use only the provided source.""",
+        ),
+        PromptCreate(
+            title="ChatGPT output rubric aligner / Alineador de rubrica de salida para ChatGPT",
+            category="Prompts for ChatGPT",
+            tags=[*shared, "chatgpt", "rubric", "evaluation", "format"],
+            rating=4,
+            body="""ES:
+Reescribe esta tarea para que ChatGPT responda alineado con una rubrica. Devuelve:
+1) Criterios explicitos
+2) Formato de salida
+3) Senales de respuesta insuficiente
+4) Prompt final
+Reglas: convierte expectativas vagas en checks observables y evita pedir pensamiento oculto.
+
+Contexto:
+{context}
+
+EN:
+Rewrite this task so ChatGPT answers in line with a rubric. Return:
+1) Explicit criteria
+2) Output format
+3) Signals of an insufficient answer
+4) Final prompt
+Rules: turn vague expectations into observable checks and avoid asking for hidden reasoning.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="ChatGPT options brief / Brief de opciones para ChatGPT",
+            category="Prompts for ChatGPT",
+            tags=[*shared, "chatgpt", "options", "comparison", "decision"],
+            rating=4,
+            body="""ES:
+Pide a ChatGPT que compare opciones sin relleno. Devuelve:
+1) Tabla de opciones
+2) Criterios usados
+3) Trade-offs clave
+4) Recomendacion con condicion
+Reglas: no inventar datos; marcar supuestos y separar hechos de opinion.
+
+Contexto:
+{context}
+
+EN:
+Ask ChatGPT to compare options without filler. Return:
+1) Options table
+2) Criteria used
+3) Key trade-offs
+4) Conditional recommendation
+Rules: do not invent data; mark assumptions and separate facts from opinion.
+
+Context:
+{context}""",
+        ),
     ]
