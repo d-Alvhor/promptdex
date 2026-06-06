@@ -9346,4 +9346,546 @@ Rules: do not invent data; mark assumptions and separate facts from opinion.
 Context:
 {context}""",
         ),
+        PromptCreate(
+            title="Function contract clarifier / Aclarador de contratos de funciones",
+            category="Coding",
+            tags=[*shared, "coding", "functions", "contracts", "interfaces"],
+            rating=4,
+            body="""ES:
+Aclara el contrato de esta funcion o modulo. Devuelve:
+1) Entradas y precondiciones
+2) Salidas y postcondiciones
+3) Errores o resultados no validos
+4) Casos borde que deben probarse
+Reglas: separa comportamiento actual de comportamiento deseado.
+
+Contexto:
+{context}
+
+EN:
+Clarify the contract of this function or module. Return:
+1) Inputs and preconditions
+2) Outputs and postconditions
+3) Errors or invalid results
+4) Edge cases that should be tested
+Rules: separate current behavior from desired behavior.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Test fixture minimization / Minimizacion de fixtures de test",
+            category="Coding",
+            tags=[*shared, "coding", "tests", "fixtures", "maintenance"],
+            rating=4,
+            body="""ES:
+Reduce el peso de estos fixtures de test. Devuelve:
+1) Datos realmente necesarios
+2) Campos o relaciones redundantes
+3) Version minima util para cada caso
+4) Riesgos de simplificar demasiado
+Reglas: preserva legibilidad y cobertura relevante.
+
+Contexto:
+{context}
+
+EN:
+Reduce the weight of these test fixtures. Return:
+1) Data that is actually needed
+2) Redundant fields or relationships
+3) Minimum useful version for each case
+4) Risks of oversimplifying
+Rules: preserve readability and relevant coverage.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Environment drift triage / Triaje de deriva de entorno",
+            category="Debugging",
+            tags=[*shared, "debugging", "environment", "drift", "repro"],
+            rating=4,
+            body="""ES:
+Diagnostica un fallo que aparece solo en ciertos entornos. Devuelve:
+1) Diferencias probables entre entornos
+2) Evidencia que falta para confirmarlas
+3) Orden recomendado de comprobaciones
+4) Experimento minimo para aislar la deriva
+Reglas: prioriza cambios de config, versiones y datos antes de culpar al codigo.
+
+Contexto:
+{context}
+
+EN:
+Diagnose a failure that appears only in certain environments. Return:
+1) Likely environment differences
+2) Missing evidence needed to confirm them
+3) Recommended order of checks
+4) Minimum experiment to isolate the drift
+Rules: prioritize config, version, and data changes before blaming the code.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Heisenbug evidence plan / Plan de evidencia para heisenbug",
+            category="Debugging",
+            tags=[*shared, "debugging", "heisenbug", "instrumentation", "evidence"],
+            rating=4,
+            body="""ES:
+Prepara un plan para capturar evidencia de un bug intermitente. Devuelve:
+1) Sintomas observables
+2) Instrumentacion minima a anadir
+3) Variables o eventos que conviene registrar
+4) Criterio para considerar reproducido el fallo
+Reglas: no cambies demasiadas cosas a la vez; protege rendimiento y privacidad.
+
+Contexto:
+{context}
+
+EN:
+Prepare a plan to capture evidence for an intermittent bug. Return:
+1) Observable symptoms
+2) Minimum instrumentation to add
+3) Variables or events worth logging
+4) Criteria for considering the failure reproduced
+Rules: do not change too many things at once; protect performance and privacy.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Boundary event inventory / Inventario de eventos de frontera",
+            category="Architecture",
+            tags=[*shared, "architecture", "boundaries", "events", "integration"],
+            rating=4,
+            body="""ES:
+Mapea los eventos que cruzan fronteras entre componentes o servicios. Devuelve:
+1) Evento
+2) Emisor y receptor
+3) Contrato minimo
+4) Riesgo si llega tarde, duplicado o fuera de orden
+Reglas: enfocate en fronteras reales, no en implementaciones internas.
+
+Contexto:
+{context}
+
+EN:
+Map the events that cross boundaries between components or services. Return:
+1) Event
+2) Producer and consumer
+3) Minimum contract
+4) Risk if it arrives late, duplicated, or out of order
+Rules: focus on real boundaries, not internal implementation details.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Configuration surface audit / Auditoria de superficie de configuracion",
+            category="Architecture",
+            tags=[*shared, "architecture", "configuration", "operations", "risk"],
+            rating=4,
+            body="""ES:
+Audita la superficie de configuracion de este sistema. Devuelve:
+1) Variables, flags o archivos relevantes
+2) Que cambia cada uno
+3) Defaults peligrosos o ambiguos
+4) Recomendaciones para simplificar o documentar
+Reglas: separa configuracion operativa, funcional y de seguridad.
+
+Contexto:
+{context}
+
+EN:
+Audit the configuration surface of this system. Return:
+1) Relevant variables, flags, or files
+2) What each one changes
+3) Dangerous or ambiguous defaults
+4) Recommendations to simplify or document it
+Rules: separate operational, functional, and security configuration.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Table UX stress test / Prueba de estres UX para tablas",
+            category="Design",
+            tags=[*shared, "design", "tables", "ux", "usability"],
+            rating=4,
+            body="""ES:
+Evalua esta tabla o data grid bajo uso real. Devuelve:
+1) Tareas que soporta bien
+2) Puntos de friccion al escanear, ordenar o filtrar
+3) Estados que faltan
+4) Mejoras ordenadas por impacto
+Reglas: considera desktop, mobile, accesibilidad y densidad de informacion.
+
+Contexto:
+{context}
+
+EN:
+Evaluate this table or data grid under real use. Return:
+1) Tasks it supports well
+2) Friction points when scanning, sorting, or filtering
+3) Missing states
+4) Improvements ordered by impact
+Rules: consider desktop, mobile, accessibility, and information density.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Permission flow copy audit / Auditoria de copy para flujos de permisos",
+            category="Design",
+            tags=[*shared, "design", "permissions", "copy", "ux-writing"],
+            rating=4,
+            body="""ES:
+Revisa el copy de este flujo de permisos o consentimientos. Devuelve:
+1) Mensajes confusos o alarmistas
+2) Lo que falta para decidir con confianza
+3) Riesgos de confianza o cumplimiento
+4) Versiones reescritas mas claras
+Reglas: se transparente sin manipular al usuario.
+
+Contexto:
+{context}
+
+EN:
+Review the copy in this permissions or consent flow. Return:
+1) Confusing or alarmist messages
+2) What is missing for a confident decision
+3) Trust or compliance risks
+4) Clearer rewritten versions
+Rules: be transparent without manipulating the user.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Comparison page outline / Esquema de pagina comparativa",
+            category="Marketing",
+            tags=[*shared, "marketing", "comparison", "messaging", "positioning"],
+            rating=4,
+            body="""ES:
+Escribe el esquema de una pagina comparativa honesta. Devuelve:
+1) H1 y subtitulo
+2) Criterios de comparacion
+3) Diferencias clave sin claims no verificables
+4) CTA y objeciones previsibles
+Reglas: evita atacar; enfoca en ajuste al caso de uso.
+
+Contexto:
+{context}
+
+EN:
+Write the outline of an honest comparison page. Return:
+1) H1 and subtitle
+2) Comparison criteria
+3) Key differences without unverifiable claims
+4) CTA and likely objections
+Rules: avoid attacks; focus on fit for the use case.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Onboarding email angle finder / Buscador de angulos para email de onboarding",
+            category="Marketing",
+            tags=[*shared, "marketing", "email", "onboarding", "activation"],
+            rating=4,
+            body="""ES:
+Genera angulos para un email de onboarding. Devuelve:
+1) 5 enfoques distintos
+2) A quien sirve mejor cada uno
+3) Riesgo principal de cada enfoque
+4) Recomendacion final con asunto y CTA
+Reglas: prioriza activacion temprana y claridad.
+
+Contexto:
+{context}
+
+EN:
+Generate angles for an onboarding email. Return:
+1) 5 distinct approaches
+2) Who each one serves best
+3) Main risk of each approach
+4) Final recommendation with subject line and CTA
+Rules: prioritize early activation and clarity.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Decision pre-read builder / Constructor de pre-read de decision",
+            category="Productivity",
+            tags=[*shared, "productivity", "decision", "alignment", "writing"],
+            rating=4,
+            body="""ES:
+Convierte este tema en un pre-read para decidir rapido. Devuelve:
+1) Decision a tomar
+2) Contexto minimo compartido
+3) Opciones con trade-offs
+4) Recomendacion y decisiones pendientes
+Reglas: elimina historia irrelevante; deja claro que requiere feedback.
+
+Contexto:
+{context}
+
+EN:
+Turn this topic into a pre-read for fast decision-making. Return:
+1) Decision to make
+2) Minimum shared context
+3) Options with trade-offs
+4) Recommendation and pending decisions
+Rules: remove irrelevant history; make it clear what needs feedback.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Backlog pruning pass / Revision de poda de backlog",
+            category="Productivity",
+            tags=[*shared, "productivity", "backlog", "prioritization", "scope"],
+            rating=4,
+            body="""ES:
+Ayudame a podar este backlog. Devuelve:
+1) Items para hacer ahora
+2) Items para postergar
+3) Items para eliminar o fusionar
+4) Criterio usado
+Reglas: castiga ambiguedad, dependencia alta y poco impacto.
+
+Contexto:
+{context}
+
+EN:
+Help me prune this backlog. Return:
+1) Items to do now
+2) Items to postpone
+3) Items to delete or merge
+4) Criteria used
+Rules: penalize ambiguity, heavy dependencies, and low impact.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Source triangulation memo / Memo de triangulacion de fuentes",
+            category="Research",
+            tags=[*shared, "research", "sources", "triangulation", "evidence"],
+            rating=4,
+            body="""ES:
+Triangula estas fuentes sobre la misma pregunta. Devuelve:
+1) Puntos de acuerdo
+2) Puntos en conflicto
+3) Hipotesis que explican la diferencia
+4) Conclusiones provisionales con confianza
+Reglas: cita cada conclusion con la evidencia que la soporta.
+
+Contexto:
+{context}
+
+EN:
+Triangulate these sources around the same question. Return:
+1) Points of agreement
+2) Points in conflict
+3) Hypotheses that explain the difference
+4) Provisional conclusions with confidence
+Rules: tie every conclusion to the evidence that supports it.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Research assumption ledger / Registro de supuestos de investigacion",
+            category="Research",
+            tags=[*shared, "research", "assumptions", "risk", "analysis"],
+            rating=4,
+            body="""ES:
+Haz visible los supuestos de esta investigacion o propuesta. Devuelve:
+1) Supuesto
+2) Que evidencia lo respalda hoy
+3) Como podria fallar
+4) Como validarlo rapido
+Reglas: diferencia hechos observados de supuestos convenientes.
+
+Contexto:
+{context}
+
+EN:
+Make the assumptions behind this research or proposal explicit. Return:
+1) Assumption
+2) What evidence supports it today
+3) How it could fail
+4) How to validate it quickly
+Rules: distinguish observed facts from convenient assumptions.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Agent checkpoint rescue brief / Brief de rescate de checkpoint de agente",
+            category="Agents",
+            tags=[*shared, "agents", "checkpoint", "handoff", "recovery"],
+            rating=4,
+            body="""ES:
+Prepara un brief para retomar una tarea atascada desde un checkpoint. Devuelve:
+1) Estado confirmado
+2) Lo que sigue siendo incierto
+3) Siguiente intento recomendado
+4) Condicion para escalar o abandonar
+Reglas: no mezcles hechos con conjeturas; conserva contexto util y breve.
+
+Contexto:
+{context}
+
+EN:
+Prepare a brief to resume a stuck task from a checkpoint. Return:
+1) Confirmed state
+2) What is still uncertain
+3) Recommended next attempt
+4) Condition for escalating or abandoning
+Rules: do not mix facts with guesses; preserve useful context concisely.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Tool output contradiction scan / Escaneo de contradicciones entre tools",
+            category="Agents",
+            tags=[*shared, "agents", "tools", "verification", "consistency"],
+            rating=4,
+            body="""ES:
+Compara estas salidas de herramientas y detecta contradicciones. Devuelve:
+1) Afirmaciones incompatibles
+2) Que fuente parece mas fiable y por que
+3) Dato adicional que resolveria la duda
+4) Recomendacion operativa provisional
+Reglas: favorece evidencia primaria y timestamps concretos.
+
+Contexto:
+{context}
+
+EN:
+Compare these tool outputs and detect contradictions. Return:
+1) Incompatible claims
+2) Which source appears more reliable and why
+3) Additional data that would resolve the doubt
+4) Provisional operational recommendation
+Rules: favor primary evidence and concrete timestamps.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Prompt ambiguity detector / Detector de ambiguedad de prompts",
+            category="Prompts",
+            tags=[*shared, "prompts", "ambiguity", "quality", "editing"],
+            rating=4,
+            body="""ES:
+Analiza este prompt y senala ambiguedades que pueden romper la calidad. Devuelve:
+1) Frases vagas o conflictivas
+2) Informacion que falta
+3) Riesgos de interpretacion
+4) Version reescrita mas precisa
+Reglas: mejora claridad sin hacerlo innecesariamente largo.
+
+Prompt:
+{context}
+
+EN:
+Analyze this prompt and flag ambiguities that could break quality. Return:
+1) Vague or conflicting phrases
+2) Missing information
+3) Interpretation risks
+4) A more precise rewritten version
+Rules: improve clarity without making it unnecessarily long.
+
+Prompt:
+{context}""",
+        ),
+        PromptCreate(
+            title="Codex verification scope check / Chequeo de alcance de verificacion para Codex",
+            category="Prompts for Codex",
+            tags=[*shared, "codex", "verification", "testing", "scope"],
+            rating=5,
+            body="""ES:
+Pide a Codex que revise si el plan de verificacion cubre el cambio real. Devuelve:
+1) Archivos o flujos afectados
+2) Checks que cubren cada zona
+3) Huecos de verificacion
+4) Minimo set adicional recomendado
+Reglas: no asumir cobertura; relaciona cada check con un riesgo concreto.
+
+Contexto:
+{context}
+
+EN:
+Ask Codex to review whether the verification plan covers the actual change. Return:
+1) Affected files or flows
+2) Checks that cover each area
+3) Verification gaps
+4) Recommended minimum additional set
+Rules: do not assume coverage; tie each check to a concrete risk.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Claude evidence-first brief / Brief guiado por evidencia para Claude",
+            category="Prompts for Claude",
+            tags=[*shared, "claude", "evidence", "analysis", "xml"],
+            rating=4,
+            body="""ES:
+Estructura una tarea para Claude priorizando evidencia sobre opinion. Usa:
+<contexto>...</contexto>
+<pregunta>...</pregunta>
+<fuentes>...</fuentes>
+<salida>tabla + conclusion breve</salida>
+Pide:
+1) Evidencia relevante
+2) Huecos o conflictos
+3) Conclusion condicionada por la evidencia
+Reglas: distinguir citas, inferencias y opinion.
+
+EN:
+Structure a task for Claude that prioritizes evidence over opinion. Use:
+<context>...</context>
+<question>...</question>
+<sources>...</sources>
+<output>table + short conclusion</output>
+Ask for:
+1) Relevant evidence
+2) Gaps or conflicts
+3) A conclusion conditioned on the evidence
+Rules: distinguish quotes, inferences, and opinion.""",
+        ),
+        PromptCreate(
+            title="ChatGPT scope guard / Control de alcance para ChatGPT",
+            category="Prompts for ChatGPT",
+            tags=[*shared, "chatgpt", "scope", "constraints", "quality"],
+            rating=4,
+            body="""ES:
+Reescribe esta tarea para que ChatGPT no se salga del alcance. Devuelve:
+1) Objetivo exacto
+2) Lo que queda fuera
+3) Supuestos permitidos
+4) Prompt final con formato de salida
+Reglas: si falta contexto critico, pedirlo primero y evitar relleno.
+
+Contexto:
+{context}
+
+EN:
+Rewrite this task so ChatGPT stays within scope. Return:
+1) Exact objective
+2) What stays out of scope
+3) Allowed assumptions
+4) Final prompt with output format
+Rules: if critical context is missing, ask for it first and avoid filler.
+
+Context:
+{context}""",
+        ),
     ]
