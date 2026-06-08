@@ -9888,4 +9888,538 @@ Rules: if critical context is missing, ask for it first and avoid filler.
 Context:
 {context}""",
         ),
+        PromptCreate(
+            title="Error-path test design / Diseno de pruebas para rutas de error",
+            category="Debugging",
+            tags=[*shared, "debugging", "tests", "edge-cases", "reliability"],
+            rating=4,
+            body="""ES:
+Disena pruebas para rutas de error y casos limite de este cambio. Devuelve:
+1) Fallos probables
+2) Casos prioritarios
+3) Datos o fixtures minimos
+4) Que protege cada prueba
+Reglas: prioriza riesgo real y evita tests redundantes.
+
+Contexto:
+{context}
+
+EN:
+Design tests for error paths and edge cases in this change. Return:
+1) Likely failure modes
+2) Priority cases
+3) Minimum data or fixtures
+4) What each test protects
+Rules: prioritize real risk and avoid redundant tests.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Refactor seam finder / Detector de puntos de corte para refactor",
+            category="Coding",
+            tags=[*shared, "coding", "refactor", "architecture", "maintainability"],
+            rating=4,
+            body="""ES:
+Identifica por donde conviene empezar un refactor seguro. Devuelve:
+1) Puntos de corte naturales
+2) Dependencias que conviene aislar
+3) Riesgos de romper comportamiento
+4) Secuencia minima de cambios
+Reglas: busca pasos pequenos, reversibles y faciles de verificar.
+
+Contexto:
+{context}
+
+EN:
+Identify where a safe refactor should begin. Return:
+1) Natural seams
+2) Dependencies worth isolating
+3) Risks of breaking behavior
+4) Minimum change sequence
+Rules: prefer small, reversible, easy-to-verify steps.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Domain language alignment / Alineacion de lenguaje de dominio",
+            category="Architecture",
+            tags=[*shared, "architecture", "domain", "naming", "ubiquitous-language"],
+            rating=4,
+            body="""ES:
+Revisa este documento o codigo y alinea el lenguaje de dominio. Devuelve:
+1) Terminos inconsistentes
+2) Termino recomendado
+3) Riesgo de confusion actual
+4) Glosario minimo sugerido
+Reglas: favorece nombres especificos y consistentes entre producto, codigo y docs.
+
+Contexto:
+{context}
+
+EN:
+Review this doc or code and align the domain language. Return:
+1) Inconsistent terms
+2) Recommended term
+3) Current confusion risk
+4) Suggested minimum glossary
+Rules: favor specific names that stay consistent across product, code, and docs.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Service dependency map / Mapa de dependencias de servicios",
+            category="Architecture",
+            tags=[*shared, "architecture", "services", "dependencies", "interfaces"],
+            rating=4,
+            body="""ES:
+Construye un mapa de dependencias para este sistema o modulo. Devuelve:
+1) Componentes principales
+2) Dependencias entrantes y salientes
+3) Interfaces o contratos clave
+4) Acoplamientos peligrosos
+Reglas: separa dependencias runtime, datos y despliegue.
+
+Contexto:
+{context}
+
+EN:
+Build a dependency map for this system or module. Return:
+1) Main components
+2) Incoming and outgoing dependencies
+3) Key interfaces or contracts
+4) Dangerous couplings
+Rules: separate runtime, data, and deployment dependencies.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="UX empty-state decision tree / Arbol de decision para estados vacios UX",
+            category="Design",
+            tags=[*shared, "design", "ux", "empty-states", "flows"],
+            rating=4,
+            body="""ES:
+Disena estados vacios utiles para esta experiencia. Devuelve:
+1) Tipos de estado vacio detectados
+2) Objetivo de cada uno
+3) Copy y CTA recomendado
+4) Riesgos de confusion o bloqueo
+Reglas: cada estado vacio debe orientar la siguiente accion.
+
+Contexto:
+{context}
+
+EN:
+Design useful empty states for this experience. Return:
+1) Empty-state types found
+2) Goal of each one
+3) Recommended copy and CTA
+4) Risks of confusion or blockage
+Rules: each empty state should guide the next action.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Navigation friction audit / Auditoria de friccion de navegacion",
+            category="Design",
+            tags=[*shared, "design", "ux", "navigation", "audit"],
+            rating=4,
+            body="""ES:
+Audita la navegacion de esta interfaz. Devuelve:
+1) Puntos de friccion
+2) Tareas frecuentes afectadas
+3) Cambio recomendado
+4) Impacto esperado
+Reglas: prioriza claridad, orientacion y menor numero de pasos.
+
+Contexto:
+{context}
+
+EN:
+Audit the navigation in this interface. Return:
+1) Friction points
+2) Affected frequent tasks
+3) Recommended change
+4) Expected impact
+Rules: prioritize clarity, orientation, and fewer steps.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Message hierarchy builder / Constructor de jerarquia de mensajes",
+            category="Marketing",
+            tags=[*shared, "marketing", "messaging", "positioning", "copy"],
+            rating=4,
+            body="""ES:
+Construye una jerarquia de mensajes para esta pagina o campana. Devuelve:
+1) Mensaje principal
+2) 3 mensajes de apoyo
+3) Pruebas o evidencias que los sostienen
+4) CTA alineado
+Reglas: elimina mensajes que compitan entre si y prioriza claridad.
+
+Contexto:
+{context}
+
+EN:
+Build a message hierarchy for this page or campaign. Return:
+1) Primary message
+2) 3 supporting messages
+3) Proof points that support them
+4) Aligned CTA
+Rules: remove competing messages and prioritize clarity.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Objection handling snippet pack / Pack de respuestas a objeciones",
+            category="Marketing",
+            tags=[*shared, "marketing", "sales", "objections", "copy"],
+            rating=4,
+            body="""ES:
+Crea respuestas breves para objeciones frecuentes. Devuelve:
+1) Objecion
+2) Respuesta corta
+3) Respuesta con mas contexto
+4) Prueba o ejemplo que la refuerza
+Reglas: evita exageraciones y promesas no verificables.
+
+Contexto:
+{context}
+
+EN:
+Create short responses for common objections. Return:
+1) Objection
+2) Short answer
+3) Answer with more context
+4) Proof or example that strengthens it
+Rules: avoid hype and unverifiable promises.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Async status snapshot / Snapshot de estado asincrono",
+            category="Productivity",
+            tags=[*shared, "productivity", "status", "async", "communication"],
+            rating=4,
+            body="""ES:
+Convierte este trabajo en un update asincrono claro. Devuelve:
+1) Estado actual
+2) Lo completado
+3) Bloqueos o riesgos
+4) Proximo paso concreto
+Reglas: separa hechos, decisiones y necesidades de ayuda.
+
+Contexto:
+{context}
+
+EN:
+Turn this work into a clear async update. Return:
+1) Current status
+2) What was completed
+3) Blockers or risks
+4) Next concrete step
+Rules: separate facts, decisions, and needed help.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Calendar triage planner / Planificador de triaje del calendario",
+            category="Productivity",
+            tags=[*shared, "productivity", "calendar", "focus", "planning"],
+            rating=4,
+            body="""ES:
+Ayudame a ordenar este calendario o lista de reuniones. Devuelve:
+1) Reuniones para mantener
+2) Reuniones para delegar o acortar
+3) Bloques de foco recomendados
+4) Criterio usado
+Reglas: protege trabajo profundo y reduce reuniones de bajo valor.
+
+Contexto:
+{context}
+
+EN:
+Help me sort this calendar or meeting list. Return:
+1) Meetings to keep
+2) Meetings to delegate or shorten
+3) Recommended focus blocks
+4) Criteria used
+Rules: protect deep work and reduce low-value meetings.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Research scope boundary / Limites de alcance de investigacion",
+            category="Research",
+            tags=[*shared, "research", "scope", "questions", "planning"],
+            rating=4,
+            body="""ES:
+Define el alcance de esta investigacion antes de empezar. Devuelve:
+1) Pregunta central
+2) Subpreguntas validas
+3) Lo que queda fuera
+4) Criterio de suficiencia para cerrar
+Reglas: reduce deriva de alcance y evita recopilar datos irrelevantes.
+
+Contexto:
+{context}
+
+EN:
+Define the scope of this research before starting. Return:
+1) Central question
+2) Valid subquestions
+3) What stays out of scope
+4) Sufficiency criteria for closing
+Rules: reduce scope drift and avoid collecting irrelevant data.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Citation-backed comparison brief / Brief comparativo con citas",
+            category="Research",
+            tags=[*shared, "research", "comparison", "sources", "evidence"],
+            rating=4,
+            body="""ES:
+Compara estas opciones con apoyo explicito en fuentes. Devuelve:
+1) Criterios de comparacion
+2) Tabla por opcion
+3) Citas o evidencia clave por fila
+4) Recomendacion con nivel de confianza
+Reglas: no mezcles evidencia con opinion sin marcarlo.
+
+Contexto:
+{context}
+
+EN:
+Compare these options with explicit support from sources. Return:
+1) Comparison criteria
+2) Table by option
+3) Key quote or evidence per row
+4) Recommendation with confidence level
+Rules: do not mix evidence with opinion without labeling it.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Agent retry budget / Presupuesto de reintentos del agente",
+            category="Agents",
+            tags=[*shared, "agents", "retries", "budget", "control"],
+            rating=4,
+            body="""ES:
+Disena un presupuesto de reintentos para esta tarea de agente. Devuelve:
+1) Tipos de fallo esperados
+2) Cuantos reintentos merece cada uno
+3) Senal para escalar a humano
+4) Estado minimo a preservar entre intentos
+Reglas: evita bucles infinitos y castiga errores repetidos sin nueva evidencia.
+
+Contexto:
+{context}
+
+EN:
+Design a retry budget for this agent task. Return:
+1) Expected failure types
+2) How many retries each deserves
+3) Signal for escalating to a human
+4) Minimum state to preserve between attempts
+Rules: avoid infinite loops and penalize repeated errors without new evidence.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Tool preflight checklist / Checklist preflight de herramientas",
+            category="Agents",
+            tags=[*shared, "agents", "tools", "checklist", "safety"],
+            rating=4,
+            body="""ES:
+Prepara un checklist rapido antes de ejecutar herramientas. Devuelve:
+1) Herramientas necesarias
+2) Permisos o dependencias a confirmar
+3) Riesgos de cada accion
+4) Fallback si una herramienta falla
+Reglas: confirma el objetivo antes de acciones costosas o destructivas.
+
+Contexto:
+{context}
+
+EN:
+Prepare a quick checklist before running tools. Return:
+1) Needed tools
+2) Permissions or dependencies to confirm
+3) Risks of each action
+4) Fallback if a tool fails
+Rules: confirm the goal before costly or destructive actions.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Codex change-plan reducer / Reductor de plan de cambios para Codex",
+            category="Prompts for Codex",
+            tags=[*shared, "codex", "planning", "scope", "editing"],
+            rating=4,
+            body="""ES:
+Pide a Codex que reduzca esta tarea a un plan minimo y ejecutable. Devuelve:
+1) Cambio mas pequeno que entrega valor
+2) Archivos probables
+3) Riesgos que hay que comprobar
+4) Verificacion minima
+Reglas: evita sobre-ingenieria y mantente dentro del repo existente.
+
+Contexto:
+{context}
+
+EN:
+Ask Codex to reduce this task to a minimal executable plan. Return:
+1) Smallest valuable change
+2) Likely files
+3) Risks that need checking
+4) Minimum verification
+Rules: avoid over-engineering and stay within the existing repo.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Codex local verification memo / Memo de verificacion local para Codex",
+            category="Prompts for Codex",
+            tags=[*shared, "codex", "verification", "tests", "local"],
+            rating=4,
+            body="""ES:
+Pide a Codex un memo breve de verificacion local despues de un cambio. Devuelve:
+1) Comandos ejecutados
+2) Que cubre cada uno
+3) Riesgos no cubiertos
+4) Recomendacion antes de hacer commit
+Reglas: reporta solo checks realmente ejecutados y sus resultados.
+
+Contexto:
+{context}
+
+EN:
+Ask Codex for a short local verification memo after a change. Return:
+1) Commands executed
+2) What each one covers
+3) Risks still uncovered
+4) Recommendation before committing
+Rules: report only checks that were actually run and their results.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Claude nuance-preserving summary / Resumen que preserva matices para Claude",
+            category="Prompts for Claude",
+            tags=[*shared, "claude", "summary", "nuance", "analysis"],
+            rating=4,
+            body="""ES:
+Pide a Claude un resumen que conserve matices y desacuerdos. Devuelve:
+1) Tesis principal
+2) Matices o excepciones
+3) Desacuerdos entre fuentes o participantes
+4) Conclusiones que NO se pueden sostener
+Reglas: no simplifiques en exceso; marca incertidumbre de forma explicita.
+
+Contexto:
+{context}
+
+EN:
+Ask Claude for a summary that preserves nuance and disagreement. Return:
+1) Main thesis
+2) Nuances or exceptions
+3) Disagreements across sources or participants
+4) Conclusions that are NOT supported
+Rules: do not oversimplify; label uncertainty explicitly.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Claude evidence extraction table / Tabla de extraccion de evidencia para Claude",
+            category="Prompts for Claude",
+            tags=[*shared, "claude", "evidence", "table", "extraction"],
+            rating=4,
+            body="""ES:
+Usa Claude para extraer evidencia en formato tabular. Devuelve columnas:
+fuente | fecha | afirmacion | evidencia textual | confianza | nota
+Reglas: si falta soporte textual, dejalo explicito y no lo eleves a hecho.
+
+Contexto:
+{context}
+
+EN:
+Use Claude to extract evidence in tabular form. Return columns:
+source | date | claim | textual evidence | confidence | note
+Rules: if textual support is missing, say so explicitly and do not elevate it to fact.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="ChatGPT rubric-to-draft / De rubrica a borrador para ChatGPT",
+            category="Prompts for ChatGPT",
+            tags=[*shared, "chatgpt", "writing", "rubric", "drafting"],
+            rating=4,
+            body="""ES:
+Convierte esta rubrica en un borrador util con ChatGPT. Devuelve:
+1) Supuestos que haras
+2) Borrador inicial
+3) Auto-chequeo contra la rubrica
+4) Puntos que necesitan input humano
+Reglas: si la rubrica es ambigua, dilo antes de escribir.
+
+Contexto:
+{context}
+
+EN:
+Turn this rubric into a useful draft with ChatGPT. Return:
+1) Assumptions you will make
+2) Initial draft
+3) Self-check against the rubric
+4) Points that need human input
+Rules: if the rubric is ambiguous, say so before writing.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="ChatGPT concise option comparer / Comparador conciso de opciones para ChatGPT",
+            category="Prompts for ChatGPT",
+            tags=[*shared, "chatgpt", "options", "decision", "comparison"],
+            rating=4,
+            body="""ES:
+Haz que ChatGPT compare estas opciones con brevedad y utilidad. Devuelve:
+1) Tabla corta por criterio
+2) Mejor opcion segun objetivo
+3) Riesgo principal de esa recomendacion
+4) Siguiente decision a tomar
+Reglas: evita texto inflado y fuerza una recomendacion condicionada.
+
+Contexto:
+{context}
+
+EN:
+Have ChatGPT compare these options with brevity and usefulness. Return:
+1) Short table by criterion
+2) Best option for the goal
+3) Main risk of that recommendation
+4) Next decision to make
+Rules: avoid inflated text and force a conditional recommendation.
+
+Context:
+{context}""",
+        ),
     ]

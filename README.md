@@ -18,7 +18,7 @@ No accounts. No cloud sync. No external APIs. Your prompts stay local.
 - Copy prompt text and track `last_used_at`
 - Sort by newest, rating, favorites, updated, and last used
 - Export and import JSON backups
-- Built-in bilingual Spanish/English starter library with 382 prompts, curated for June 2026 workflows
+- Built-in bilingual Spanish/English starter library with 402 prompts, curated for June 2026 workflows
 - Playful Pokedex-inspired responsive UI
 
 ## Quick Start
