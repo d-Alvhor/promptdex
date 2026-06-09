@@ -10422,4 +10422,546 @@ Rules: avoid inflated text and force a conditional recommendation.
 Context:
 {context}""",
         ),
+        PromptCreate(
+            title="Dependency upgrade risk pass / Revision de riesgo en upgrade de dependencias",
+            category="Coding",
+            tags=[*shared, "coding", "dependencies", "risk", "upgrade"],
+            rating=4,
+            body="""ES:
+Evalua este cambio de dependencias antes de aplicarlo. Devuelve:
+1) Riesgos por paquete
+2) Compatibilidad probable
+3) Pruebas minimas a correr
+4) Senal para rollback
+Reglas: distingue cambios mayores, menores y de seguridad; no asumas compatibilidad sin evidencia.
+
+Contexto:
+{context}
+
+EN:
+Evaluate this dependency change before applying it. Return:
+1) Risks by package
+2) Likely compatibility impact
+3) Minimum tests to run
+4) Rollback signal
+Rules: distinguish major, minor, and security changes; do not assume compatibility without evidence.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Commit message distiller / Destilador de mensajes de commit",
+            category="Coding",
+            tags=[*shared, "coding", "git", "commit", "writing"],
+            rating=4,
+            body="""ES:
+Condensa este diff en un mensaje de commit util. Devuelve:
+1) Subject de 50-72 caracteres
+2) Body opcional con motivo y alcance
+3) Riesgo o follow-up si aplica
+Reglas: describe lo que cambio y por que; evita mensajes vagos como update o fixes.
+
+Contexto:
+{context}
+
+EN:
+Condense this diff into a useful commit message. Return:
+1) A 50-72 character subject
+2) Optional body with motivation and scope
+3) Risk or follow-up if needed
+Rules: describe what changed and why; avoid vague messages like update or fixes.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Stack trace to next probe / Stack trace a siguiente prueba",
+            category="Debugging",
+            tags=[*shared, "debugging", "stack-trace", "instrumentation", "triage"],
+            rating=4,
+            body="""ES:
+Convierte este stack trace en la siguiente accion de depuracion. Devuelve:
+1) Hipotesis mas probable
+2) Punto exacto para instrumentar
+3) Dato que confirmaria o descartaria la hipotesis
+4) Siguiente paso si sale negativo
+Reglas: no intentes arreglar todavia; primero reduce incertidumbre.
+
+Contexto:
+{context}
+
+EN:
+Turn this stack trace into the next debugging action. Return:
+1) Most likely hypothesis
+2) Exact place to instrument
+3) Data that would confirm or reject it
+4) Next step if it comes back negative
+Rules: do not try to fix it yet; reduce uncertainty first.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Repro environment checklist / Checklist de entorno para reproducir",
+            category="Debugging",
+            tags=[*shared, "debugging", "reproduction", "environment", "checklist"],
+            rating=4,
+            body="""ES:
+Prepara un checklist para reproducir este fallo de forma fiable. Devuelve:
+1) Versiones y configuraciones a confirmar
+2) Datos o fixtures necesarios
+3) Pasos exactos de reproduccion
+4) Variantes que podrian invalidar el resultado
+Reglas: separa precondiciones de pasos y marca lo que aun es supuesto.
+
+Contexto:
+{context}
+
+EN:
+Prepare a checklist to reproduce this failure reliably. Return:
+1) Versions and settings to confirm
+2) Needed data or fixtures
+3) Exact reproduction steps
+4) Variants that could invalidate the result
+Rules: separate preconditions from steps and label anything still assumed.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Migration rollback plan / Plan de rollback para migraciones",
+            category="Architecture",
+            tags=[*shared, "architecture", "migration", "rollback", "data"],
+            rating=4,
+            body="""ES:
+Disena un plan de rollback para esta migracion. Devuelve:
+1) Riesgos de datos y disponibilidad
+2) Precondiciones antes de desplegar
+3) Pasos de rollback y orden
+4) Verificaciones despues de volver atras
+Reglas: distingue cambios reversibles de irreversibles y senala ventanas de peligro.
+
+Contexto:
+{context}
+
+EN:
+Design a rollback plan for this migration. Return:
+1) Data and availability risks
+2) Preconditions before deploy
+3) Rollback steps and order
+4) Verification after reverting
+Rules: distinguish reversible from irreversible changes and flag danger windows.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Batch job contract / Contrato para proceso batch",
+            category="Architecture",
+            tags=[*shared, "architecture", "batch", "contracts", "operations"],
+            rating=4,
+            body="""ES:
+Define el contrato de este proceso batch. Devuelve:
+1) Entradas y salidas
+2) Frecuencia y SLA esperado
+3) Idempotencia y reintentos
+4) Observabilidad y alertas minimas
+Reglas: deja claro que ocurre con datos tardios, parciales o duplicados.
+
+Contexto:
+{context}
+
+EN:
+Define the contract for this batch job. Return:
+1) Inputs and outputs
+2) Expected cadence and SLA
+3) Idempotency and retries
+4) Minimum observability and alerts
+Rules: make clear what happens with late, partial, or duplicate data.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Form friction audit / Auditoria de friccion en formularios",
+            category="Design",
+            tags=[*shared, "design", "forms", "ux", "audit"],
+            rating=4,
+            body="""ES:
+Audita este formulario como experiencia de producto. Devuelve:
+1) Campos o pasos que generan friccion
+2) Problemas de claridad, validacion o confianza
+3) Mejoras ordenadas por impacto
+4) Riesgo de abandono por cada cambio no hecho
+Reglas: incluye accesibilidad, mobile y estados de error.
+
+Contexto:
+{context}
+
+EN:
+Audit this form as a product experience. Return:
+1) Fields or steps that create friction
+2) Clarity, validation, or trust issues
+3) Improvements ordered by impact
+4) Drop-off risk for each change not made
+Rules: include accessibility, mobile, and error states.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Empty-state content kit / Kit de contenido para estados vacios",
+            category="Design",
+            tags=[*shared, "design", "empty-state", "copy", "ux"],
+            rating=4,
+            body="""ES:
+Escribe un kit de contenido para este estado vacio. Devuelve:
+1) Titulo
+2) Texto de apoyo
+3) CTA principal y secundario
+4) Variante si el usuario es nuevo vs recurrente
+Reglas: evita genericidad; explica valor y proximo paso con claridad.
+
+Contexto:
+{context}
+
+EN:
+Write a content kit for this empty state. Return:
+1) Title
+2) Supporting text
+3) Primary and secondary CTA
+4) Variant for new vs returning users
+Rules: avoid generic filler; explain value and the next step clearly.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Pricing page message audit / Auditoria de mensaje para pagina de precios",
+            category="Marketing",
+            tags=[*shared, "marketing", "pricing", "messaging", "conversion"],
+            rating=4,
+            body="""ES:
+Revisa el mensaje de esta pagina de precios. Devuelve:
+1) Promesa principal
+2) Dudas o objeciones no resueltas
+3) Cambios de copy de mayor impacto
+4) Riesgo de confusion entre planes
+Reglas: prioriza claridad, comparabilidad y reduccion de ansiedad de compra.
+
+Contexto:
+{context}
+
+EN:
+Review the messaging on this pricing page. Return:
+1) Main promise
+2) Unresolved doubts or objections
+3) Highest-impact copy changes
+4) Risk of confusion across plans
+Rules: prioritize clarity, comparability, and reduced purchase anxiety.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Case study skeleton / Esqueleto de case study",
+            category="Marketing",
+            tags=[*shared, "marketing", "case-study", "storytelling", "proof"],
+            rating=4,
+            body="""ES:
+Convierte este resultado de cliente en un case study creible. Devuelve:
+1) Situacion inicial
+2) Problema concreto
+3) Solucion aplicada
+4) Resultado medible
+5) Cita o prueba recomendada
+Reglas: evita exageraciones y marca lo que aun necesita validacion.
+
+Contexto:
+{context}
+
+EN:
+Turn this customer outcome into a credible case study. Return:
+1) Starting situation
+2) Concrete problem
+3) Applied solution
+4) Measurable result
+5) Recommended quote or proof point
+Rules: avoid exaggeration and flag anything that still needs validation.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Inbox to weekly priorities / Inbox a prioridades semanales",
+            category="Productivity",
+            tags=[*shared, "productivity", "priorities", "planning", "triage"],
+            rating=4,
+            body="""ES:
+Convierte este inbox de tareas e ideas en prioridades semanales. Devuelve:
+1) Top 3 prioridades
+2) Lo que debes aplazar o eliminar
+3) Dependencias o bloqueos
+4) Primer paso concreto para cada prioridad
+Reglas: optimiza por impacto y capacidad real, no por culpa acumulada.
+
+Contexto:
+{context}
+
+EN:
+Turn this inbox of tasks and ideas into weekly priorities. Return:
+1) Top 3 priorities
+2) What should be delayed or dropped
+3) Dependencies or blockers
+4) First concrete step for each priority
+Rules: optimize for impact and real capacity, not accumulated guilt.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Decision log formatter / Formateador de registro de decisiones",
+            category="Productivity",
+            tags=[*shared, "productivity", "decisions", "documentation", "ops"],
+            rating=4,
+            body="""ES:
+Organiza estas decisiones sueltas en un log reutilizable. Devuelve:
+1) Decision
+2) Fecha o contexto
+3) Motivo
+4) Consecuencia
+5) Senal para revisarla
+Reglas: separa hechos de interpretaciones y elimina duplicados.
+
+Contexto:
+{context}
+
+EN:
+Organize these scattered decisions into a reusable log. Return:
+1) Decision
+2) Date or context
+3) Reasoning
+4) Consequence
+5) Signal to revisit it
+Rules: separate facts from interpretation and remove duplicates.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Interview guide stress test / Prueba de estres de guia de entrevistas",
+            category="Research",
+            tags=[*shared, "research", "interviews", "questions", "quality"],
+            rating=4,
+            body="""ES:
+Evalua esta guia de entrevistas antes de usarla. Devuelve:
+1) Preguntas sesgadas o ambiguas
+2) Cobertura de objetivos
+3) Huecos criticos
+4) Version mejorada de las 5 preguntas mas debiles
+Reglas: protege neutralidad y evita preguntas dobles o dirigidas.
+
+Contexto:
+{context}
+
+EN:
+Evaluate this interview guide before using it. Return:
+1) Biased or ambiguous questions
+2) Coverage of the goals
+3) Critical gaps
+4) Improved versions of the 5 weakest questions
+Rules: protect neutrality and avoid double-barreled or leading questions.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Evidence gap map / Mapa de huecos de evidencia",
+            category="Research",
+            tags=[*shared, "research", "evidence", "gaps", "planning"],
+            rating=4,
+            body="""ES:
+Mapea lo que sabemos y lo que aun no tiene evidencia. Devuelve:
+1) Afirmaciones con soporte
+2) Afirmaciones debiles o sin soporte
+3) Evidencia necesaria para subir confianza
+4) Orden recomendado para investigar
+Reglas: no rellenes huecos con intuicion sin etiquetarla.
+
+Contexto:
+{context}
+
+EN:
+Map what we know and what still lacks evidence. Return:
+1) Supported claims
+2) Weakly supported or unsupported claims
+3) Evidence needed to raise confidence
+4) Recommended investigation order
+Rules: do not fill gaps with intuition unless it is clearly labeled.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Agent failure handoff note / Nota de handoff por fallo del agente",
+            category="Agents",
+            tags=[*shared, "agents", "handoff", "failures", "reporting"],
+            rating=4,
+            body="""ES:
+Redacta una nota de handoff cuando un agente no pudo completar la tarea. Devuelve:
+1) Objetivo intentado
+2) Lo que si se verifico
+3) Bloqueo exacto
+4) Siguiente mejor accion para humano u otro agente
+Reglas: no ocultes incertidumbre ni presentes intentos fallidos como progreso falso.
+
+Contexto:
+{context}
+
+EN:
+Draft a handoff note for when an agent could not complete the task. Return:
+1) Goal attempted
+2) What was verified
+3) Exact blocker
+4) Best next action for a human or another agent
+Rules: do not hide uncertainty or present failed attempts as false progress.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Tool result normalizer / Normalizador de resultados de herramientas",
+            category="Agents",
+            tags=[*shared, "agents", "tools", "normalization", "workflow"],
+            rating=4,
+            body="""ES:
+Normaliza estos resultados de herramientas para la siguiente decision. Devuelve:
+1) Hechos confirmados
+2) Senales contradictorias
+3) Datos incompletos
+4) Decision segura que ya puede tomarse
+Reglas: conserva la procedencia de cada dato y separa salida cruda de interpretacion.
+
+Contexto:
+{context}
+
+EN:
+Normalize these tool results for the next decision. Return:
+1) Confirmed facts
+2) Contradictory signals
+3) Incomplete data
+4) Safe decision that can already be made
+Rules: preserve the origin of each datum and separate raw output from interpretation.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Prompt variable schema / Esquema de variables del prompt",
+            category="Prompts",
+            tags=[*shared, "prompts", "templates", "variables", "quality"],
+            rating=4,
+            body="""ES:
+Convierte este prompt libre en una plantilla mantenible. Devuelve:
+1) Variables con nombre claro
+2) Campos obligatorios y opcionales
+3) Valores por defecto seguros
+4) Version final del prompt con placeholders
+Reglas: reduce ambiguedad y evita variables que mezclen varias ideas.
+
+Contexto:
+{context}
+
+EN:
+Turn this freeform prompt into a maintainable template. Return:
+1) Clearly named variables
+2) Required and optional fields
+3) Safe default values
+4) Final prompt version with placeholders
+Rules: reduce ambiguity and avoid variables that mix multiple ideas.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Codex safe edit boundary / Limite seguro de edicion para Codex",
+            category="Prompts for Codex",
+            tags=[*shared, "codex", "editing", "scope", "safety"],
+            rating=4,
+            body="""ES:
+Pide a Codex que establezca limites de edicion antes de cambiar codigo. Devuelve:
+1) Archivos dentro y fuera de alcance
+2) Riesgos de tocar cada zona
+3) Verificacion necesaria por archivo
+4) Senal para detenerse y pedir confirmacion humana
+Reglas: mantente en el cambio minimo util y no expandas alcance sin evidencia.
+
+Contexto:
+{context}
+
+EN:
+Ask Codex to establish edit boundaries before changing code. Return:
+1) Files in and out of scope
+2) Risks of touching each area
+3) Needed verification per file
+4) Signal to stop and ask for human confirmation
+Rules: stay within the smallest useful change and do not expand scope without evidence.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Claude context packing brief / Brief de empaquetado de contexto para Claude",
+            category="Prompts for Claude",
+            tags=[*shared, "claude", "context", "xml", "brief"],
+            rating=4,
+            body="""ES:
+Empaqueta este contexto para Claude de forma clara y trazable. Devuelve:
+1) <contexto> con hechos relevantes
+2) <objetivo> con una sola tarea principal
+3) <restricciones> y criterios de calidad
+4) <salida> con formato exacto
+Reglas: separa fuentes, marca incertidumbre y pide aclaracion si falta una pieza critica.
+
+Contexto:
+{context}
+
+EN:
+Pack this context for Claude in a clear traceable way. Return:
+1) <context> with relevant facts
+2) <goal> with one primary task
+3) <constraints> and quality criteria
+4) <output> with the exact format
+Rules: separate sources, label uncertainty, and ask for clarification if a critical piece is missing.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="ChatGPT answer format lock / Bloqueo de formato de respuesta ChatGPT",
+            category="Prompts for ChatGPT",
+            tags=[*shared, "chatgpt", "format", "structured-output", "clarity"],
+            rating=4,
+            body="""ES:
+Haz que ChatGPT responda con un formato estable y facil de reutilizar. Devuelve:
+1) Secciones o claves esperadas
+2) Restricciones de longitud o estilo
+3) Regla para marcar incertidumbre
+4) Prompt final listo para usar
+Reglas: define el formato por adelantado, evita pedir razonamiento oculto y prioriza salida verificable.
+
+Contexto:
+{context}
+
+EN:
+Make ChatGPT respond in a stable reusable format. Return:
+1) Expected sections or keys
+2) Length or style constraints
+3) Rule for labeling uncertainty
+4) Final ready-to-use prompt
+Rules: define the format up front, avoid asking for hidden reasoning, and prioritize verifiable output.
+
+Context:
+{context}""",
+        ),
     ]
