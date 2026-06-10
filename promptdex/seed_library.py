@@ -10964,4 +10964,544 @@ Rules: define the format up front, avoid asking for hidden reasoning, and priori
 Context:
 {context}""",
         ),
+        PromptCreate(
+            title="Legacy module orientation / Orientacion en modulo legacy",
+            category="Coding",
+            tags=[*shared, "coding", "legacy", "orientation", "codebase"],
+            rating=4,
+            body="""ES:
+Ayudame a entender este modulo legacy antes de tocarlo. Devuelve:
+1) Responsabilidad principal
+2) Dependencias de entrada y salida
+3) Riesgos de cambio
+4) Tres puntos seguros para empezar
+Reglas: distingue hechos observables de inferencias y senala cualquier zona que necesite lectura adicional.
+
+Contexto:
+{context}
+
+EN:
+Help me understand this legacy module before changing it. Return:
+1) Primary responsibility
+2) Incoming and outgoing dependencies
+3) Change risks
+4) Three safe starting points
+Rules: distinguish observable facts from inference and flag any area that needs more reading.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Logging signal design / Diseno de senales de logging",
+            category="Coding",
+            tags=[*shared, "coding", "logging", "observability", "diagnostics"],
+            rating=4,
+            body="""ES:
+Disena logging util para esta funcionalidad. Devuelve:
+1) Eventos que merece la pena registrar
+2) Campos por evento
+3) Niveles recomendados
+4) Datos que nunca deben loguearse
+Reglas: optimiza para diagnostico real sin ruido ni datos sensibles.
+
+Contexto:
+{context}
+
+EN:
+Design useful logging for this feature. Return:
+1) Events worth logging
+2) Fields per event
+3) Recommended log levels
+4) Data that must never be logged
+Rules: optimize for real diagnosis without noise or sensitive data.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Flaky test stabilizer / Estabilizador de tests flaky",
+            category="Debugging",
+            tags=[*shared, "debugging", "tests", "flaky", "stability"],
+            rating=4,
+            body="""ES:
+Analiza este test flaky y propon una estabilizacion responsable. Devuelve:
+1) Sintoma observable
+2) Posibles causas ordenadas por probabilidad
+3) Prueba o instrumentacion para discriminar causas
+4) Arreglo minimo y proteccion contra regresion
+Reglas: no enmascares el problema con sleeps ni retries ciegos.
+
+Contexto:
+{context}
+
+EN:
+Analyze this flaky test and propose a responsible stabilization plan. Return:
+1) Observable symptom
+2) Possible causes ordered by likelihood
+3) Probe or instrumentation to separate causes
+4) Smallest fix and regression protection
+Rules: do not hide the problem with sleeps or blind retries.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Incident timeline reconstructor / Reconstruccion de linea de tiempo de incidente",
+            category="Debugging",
+            tags=[*shared, "debugging", "incidents", "timeline", "analysis"],
+            rating=4,
+            body="""ES:
+Reconstruye la linea de tiempo de este incidente. Devuelve:
+1) Secuencia de eventos con marcas temporales
+2) Senales que apoyan cada paso
+3) Huecos o contradicciones
+4) Siguiente evidencia mas util para cerrar el analisis
+Reglas: no inventes causalidad cuando solo hay correlacion.
+
+Contexto:
+{context}
+
+EN:
+Reconstruct the timeline of this incident. Return:
+1) Event sequence with timestamps
+2) Signals supporting each step
+3) Gaps or contradictions
+4) Most useful next evidence to close the analysis
+Rules: do not invent causality when there is only correlation.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Cache invalidation checklist / Checklist de invalidacion de cache",
+            category="Architecture",
+            tags=[*shared, "architecture", "cache", "consistency", "review"],
+            rating=4,
+            body="""ES:
+Revisa este diseno de cache antes de implementarlo. Devuelve:
+1) Que se cachea y por que
+2) Eventos que invalidan o refrescan
+3) Riesgos de datos obsoletos
+4) Minimas pruebas para ganar confianza
+Reglas: prioriza correccion y simplicidad antes que tasa de aciertos.
+
+Contexto:
+{context}
+
+EN:
+Review this cache design before implementation. Return:
+1) What is cached and why
+2) Events that invalidate or refresh it
+3) Risks of stale data
+4) Minimum tests to gain confidence
+Rules: prioritize correctness and simplicity before hit rate.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Background job idempotency pass / Revision de idempotencia para jobs",
+            category="Architecture",
+            tags=[*shared, "architecture", "jobs", "idempotency", "backend"],
+            rating=4,
+            body="""ES:
+Evalua la idempotencia de este proceso en background. Devuelve:
+1) Efectos secundarios esperados
+2) Duplicaciones o reintentos peligrosos
+3) Claves o controles para deduplicar
+4) Casos de prueba criticos
+Reglas: asume que el sistema puede reintentar en el peor momento.
+
+Contexto:
+{context}
+
+EN:
+Evaluate the idempotency of this background process. Return:
+1) Expected side effects
+2) Dangerous duplicates or retries
+3) Keys or controls to deduplicate
+4) Critical test cases
+Rules: assume the system may retry at the worst possible moment.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Onboarding friction map / Mapa de friccion de onboarding",
+            category="Design",
+            tags=[*shared, "design", "ux", "onboarding", "friction"],
+            rating=4,
+            body="""ES:
+Mapea la friccion de este onboarding. Devuelve:
+1) Pasos con mayor carga cognitiva
+2) Dudas o miedos del usuario en cada paso
+3) Senales de abandono probables
+4) Mejoras de alto impacto y bajo coste
+Reglas: protege claridad, momentum y confianza desde el primer minuto.
+
+Contexto:
+{context}
+
+EN:
+Map the friction in this onboarding flow. Return:
+1) Steps with the highest cognitive load
+2) User doubts or fears at each step
+3) Likely abandonment signals
+4) High-impact, low-cost improvements
+Rules: protect clarity, momentum, and trust from minute one.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Table density tune-up / Ajuste de densidad para tablas",
+            category="Design",
+            tags=[*shared, "design", "tables", "ui", "readability"],
+            rating=4,
+            body="""ES:
+Critica esta tabla para uso diario. Devuelve:
+1) Problemas de densidad y jerarquia
+2) Columnas que compiten por atencion
+3) Mejoras en espaciado, tipografia y estados
+4) Recomendacion mobile si aplica
+Reglas: optimiza para escaneo rapido sin perder contexto.
+
+Contexto:
+{context}
+
+EN:
+Critique this table for everyday use. Return:
+1) Density and hierarchy problems
+2) Columns competing for attention
+3) Improvements to spacing, typography, and states
+4) Mobile recommendation if applicable
+Rules: optimize for fast scanning without losing context.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Feature launch FAQ / FAQ de lanzamiento de feature",
+            category="Marketing",
+            tags=[*shared, "marketing", "launch", "faq", "messaging"],
+            rating=4,
+            body="""ES:
+Prepara una FAQ para lanzar esta feature. Devuelve:
+1) Preguntas probables de usuarios
+2) Respuestas claras y honestas
+3) Limitaciones que conviene explicar
+4) CTA final segun audiencia
+Reglas: evita hype vacio y no prometas lo que el producto aun no hace.
+
+Contexto:
+{context}
+
+EN:
+Prepare an FAQ for launching this feature. Return:
+1) Likely user questions
+2) Clear honest answers
+3) Limitations worth explaining
+4) Final CTA by audience
+Rules: avoid empty hype and do not promise what the product does not yet do.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Newsletter angle matrix / Matriz de angulos para newsletter",
+            category="Marketing",
+            tags=[*shared, "marketing", "newsletter", "angles", "content"],
+            rating=4,
+            body="""ES:
+Genera angulos para una newsletter sobre este tema. Devuelve una tabla con:
+1) Angulo
+2) Audiencia ideal
+3) Gancho de asunto
+4) Riesgo de sonar generico
+Reglas: prioriza especificidad y utilidad real sobre slogans bonitos.
+
+Contexto:
+{context}
+
+EN:
+Generate angles for a newsletter about this topic. Return a table with:
+1) Angle
+2) Ideal audience
+3) Subject-line hook
+4) Risk of sounding generic
+Rules: prioritize specificity and real usefulness over pretty slogans.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Decision pre-read builder / Constructor de pre-read para decisiones",
+            category="Productivity",
+            tags=[*shared, "productivity", "decisions", "writing", "alignment"],
+            rating=4,
+            body="""ES:
+Convierte este tema en un pre-read para decidir rapido. Devuelve:
+1) Decision a tomar
+2) Contexto minimo necesario
+3) Opciones con trade-offs
+4) Recomendacion y decision pendiente
+Reglas: reduce ruido y deja visibles los supuestos clave.
+
+Contexto:
+{context}
+
+EN:
+Turn this topic into a pre-read for fast decision-making. Return:
+1) Decision to make
+2) Minimum necessary context
+3) Options with trade-offs
+4) Recommendation and pending decision
+Rules: reduce noise and keep key assumptions visible.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Focus block planner / Planificador de bloques de foco",
+            category="Productivity",
+            tags=[*shared, "productivity", "planning", "focus", "execution"],
+            rating=4,
+            body="""ES:
+Organiza este trabajo en bloques de foco realistas. Devuelve:
+1) Bloques de 30-90 minutos
+2) Objetivo medible por bloque
+3) Dependencias previas
+4) Punto de corte si el tiempo no alcanza
+Reglas: planifica para energia limitada, no para una version idealizada del dia.
+
+Contexto:
+{context}
+
+EN:
+Organize this work into realistic focus blocks. Return:
+1) 30-90 minute blocks
+2) Measurable goal per block
+3) Upstream dependencies
+4) Cut line if time runs short
+Rules: plan for limited energy, not for an idealized day.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Source credibility ladder / Escalera de credibilidad de fuentes",
+            category="Research",
+            tags=[*shared, "research", "sources", "credibility", "evaluation"],
+            rating=4,
+            body="""ES:
+Evalua la credibilidad de estas fuentes. Devuelve:
+1) Ranking de mayor a menor confianza
+2) Motivo principal por fuente
+3) Conflictos de interes o limitaciones
+4) Como triangulacion adicional cambiaria la conclusion
+Reglas: separa autoridad aparente de evidencia verificable.
+
+Contexto:
+{context}
+
+EN:
+Evaluate the credibility of these sources. Return:
+1) Ranking from highest to lowest trust
+2) Main reason for each source
+3) Conflicts of interest or limitations
+4) How extra triangulation could change the conclusion
+Rules: separate apparent authority from verifiable evidence.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Contradiction resolution brief / Brief de resolucion de contradicciones",
+            category="Research",
+            tags=[*shared, "research", "contradictions", "analysis", "synthesis"],
+            rating=4,
+            body="""ES:
+Aclara estas fuentes o notas contradictorias. Devuelve:
+1) Puntos exactos en conflicto
+2) Explicaciones plausibles
+3) Evidencia que pesa mas y por que
+4) Decision provisional con nivel de confianza
+Reglas: no fuerces una falsa sintesis cuando el desacuerdo sigue abierto.
+
+Contexto:
+{context}
+
+EN:
+Clarify these contradictory sources or notes. Return:
+1) Exact points in conflict
+2) Plausible explanations
+3) Evidence that carries more weight and why
+4) Provisional decision with confidence level
+Rules: do not force a false synthesis when the disagreement remains open.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Agent recovery checkpoint / Checkpoint de recuperacion del agente",
+            category="Agents",
+            tags=[*shared, "agents", "recovery", "checkpoints", "handoff"],
+            rating=4,
+            body="""ES:
+Prepara un checkpoint para que otro agente retome el trabajo sin perder contexto. Devuelve:
+1) Estado actual verificable
+2) Decisiones ya tomadas
+3) Riesgos o callejones sin salida
+4) Siguiente accion con comando o prueba sugerida
+Reglas: prioriza continuidad real sobre resumenes bonitos.
+
+Contexto:
+{context}
+
+EN:
+Prepare a checkpoint so another agent can resume the work without losing context. Return:
+1) Verifiable current state
+2) Decisions already made
+3) Risks or dead ends
+4) Next action with a suggested command or test
+Rules: prioritize real continuity over pretty summaries.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Multi-tool sequencing brief / Brief de secuenciacion multi-herramienta",
+            category="Agents",
+            tags=[*shared, "agents", "tools", "sequencing", "planning"],
+            rating=4,
+            body="""ES:
+Planifica el uso de varias herramientas para esta tarea. Devuelve:
+1) Orden recomendado
+2) Que evidencia debe salir de cada paso
+3) Que pasos pueden ir en paralelo
+4) Senales para detenerse y reevaluar
+Reglas: evita llamadas redundantes y no uses herramientas caras sin una pregunta concreta.
+
+Contexto:
+{context}
+
+EN:
+Plan the use of multiple tools for this task. Return:
+1) Recommended order
+2) What evidence each step should produce
+3) Which steps can run in parallel
+4) Signals to stop and reassess
+Rules: avoid redundant calls and do not use expensive tools without a concrete question.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Codex verification evidence pack / Pack de evidencia de verificacion para Codex",
+            category="Prompts for Codex",
+            tags=[*shared, "codex", "verification", "tests", "reporting"],
+            rating=4,
+            body="""ES:
+Pide a Codex un reporte final basado en evidencia. Devuelve:
+1) Cambios realizados
+2) Comandos de verificacion ejecutados
+3) Resultado exacto de cada comando
+4) Riesgos o huecos pendientes
+Reglas: no permitas afirmaciones de exito sin comandos frescos ni salida comprobable.
+
+Contexto:
+{context}
+
+EN:
+Ask Codex for an evidence-based final report. Return:
+1) Changes made
+2) Verification commands run
+3) Exact result of each command
+4) Remaining risks or gaps
+Rules: do not allow success claims without fresh commands and checkable output.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Codex repo change journal / Diario de cambios del repo para Codex",
+            category="Prompts for Codex",
+            tags=[*shared, "codex", "git", "changes", "handoff"],
+            rating=4,
+            body="""ES:
+Haz que Codex deje un diario de cambios breve mientras trabaja. Devuelve:
+1) Archivos tocados y motivo
+2) Decisiones relevantes
+3) Verificaciones intermedias
+4) Preguntas que deberian escalarse
+Reglas: registra lo necesario para entender el diff sin convertirlo en ruido.
+
+Contexto:
+{context}
+
+EN:
+Have Codex leave a short change journal while it works. Return:
+1) Files touched and why
+2) Relevant decisions
+3) Intermediate verifications
+4) Questions that should be escalated
+Rules: record what is needed to understand the diff without turning it into noise.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Claude source-grounded comparison / Comparacion guiada por fuentes para Claude",
+            category="Prompts for Claude",
+            tags=[*shared, "claude", "comparison", "sources", "analysis"],
+            rating=4,
+            body="""ES:
+Pide a Claude una comparacion basada solo en las fuentes dadas. Devuelve:
+1) Criterios de comparacion
+2) Tabla por opcion
+3) Citas o referencias cortas por afirmacion importante
+4) Conclusion con incertidumbres abiertas
+Reglas: marca cualquier dato ausente y evita rellenarlo con conocimiento externo no proporcionado.
+
+Contexto:
+{context}
+
+EN:
+Ask Claude for a comparison grounded only in the provided sources. Return:
+1) Comparison criteria
+2) Table by option
+3) Short citations or references for important claims
+4) Conclusion with open uncertainties
+Rules: mark any missing data and avoid filling it with outside knowledge that was not provided.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="ChatGPT assumption register / Registro de supuestos para ChatGPT",
+            category="Prompts for ChatGPT",
+            tags=[*shared, "chatgpt", "assumptions", "planning", "clarity"],
+            rating=4,
+            body="""ES:
+Haz que ChatGPT explicite sus supuestos antes de desarrollar una respuesta compleja. Devuelve:
+1) Supuestos detectados
+2) Impacto de cada supuesto
+3) Que preguntar si falta una pieza critica
+4) Respuesta provisional con etiquetas de confianza
+Reglas: prioriza transparencia y evita presentar inferencias como hechos.
+
+Contexto:
+{context}
+
+EN:
+Make ChatGPT surface its assumptions before developing a complex answer. Return:
+1) Assumptions detected
+2) Impact of each assumption
+3) What to ask if a critical piece is missing
+4) Provisional answer with confidence labels
+Rules: prioritize transparency and avoid presenting inferences as facts.
+
+Context:
+{context}""",
+        ),
     ]
