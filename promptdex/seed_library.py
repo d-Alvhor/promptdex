@@ -11504,4 +11504,544 @@ Rules: prioritize transparency and avoid presenting inferences as facts.
 Context:
 {context}""",
         ),
+        PromptCreate(
+            title="Code path explainer / Explicador de ruta de codigo",
+            category="Coding",
+            tags=[*shared, "coding", "code-reading", "flow", "understanding"],
+            rating=4,
+            body="""ES:
+Explica esta ruta de codigo de extremo a extremo. Devuelve:
+1) Punto de entrada
+2) Pasos clave y dependencias
+3) Datos que cambian en el camino
+4) Lugares donde un cambio podria romper comportamiento
+Reglas: separa hechos observables de inferencias y manten el recorrido facil de seguir.
+
+Contexto:
+{context}
+
+EN:
+Explain this code path end to end. Return:
+1) Entry point
+2) Key steps and dependencies
+3) Data that changes along the way
+4) Places where a change could break behavior
+Rules: separate observable facts from inference and keep the walkthrough easy to follow.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Safe rename plan / Plan de renombrado seguro",
+            category="Coding",
+            tags=[*shared, "coding", "refactor", "renaming", "safety"],
+            rating=4,
+            body="""ES:
+Planifica un renombrado seguro para esta entidad. Devuelve:
+1) Lugares que deben cambiar
+2) Riesgos de referencias indirectas
+3) Orden recomendado de cambios
+4) Verificaciones minimas antes de hacer commit
+Reglas: prioriza un diff pequeno, reversible y facil de revisar.
+
+Contexto:
+{context}
+
+EN:
+Plan a safe rename for this entity. Return:
+1) Places that must change
+2) Risks from indirect references
+3) Recommended order of changes
+4) Minimum verifications before commit
+Rules: prioritize a small, reversible diff that is easy to review.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Boundary-condition probe / Sonda de condiciones de frontera",
+            category="Debugging",
+            tags=[*shared, "debugging", "edge-cases", "testing", "analysis"],
+            rating=4,
+            body="""ES:
+Investiga este problema desde sus condiciones de frontera. Devuelve:
+1) Limites de entrada o estado que merecen prueba
+2) Sintomas esperados al cruzar cada limite
+3) Sonda o test minimo para comprobarlo
+4) Hipotesis mas probable si falla
+Reglas: busca casos pequenos y discriminativos antes de tocar la implementacion.
+
+Contexto:
+{context}
+
+EN:
+Investigate this issue through its boundary conditions. Return:
+1) Input or state limits worth testing
+2) Expected symptoms when crossing each limit
+3) Minimum probe or test to check it
+4) Most likely hypothesis if it fails
+Rules: look for small discriminating cases before touching the implementation.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Crash signature triage / Triaje de firmas de crash",
+            category="Debugging",
+            tags=[*shared, "debugging", "crash", "triage", "stability"],
+            rating=4,
+            body="""ES:
+Haz triage de esta firma de crash. Devuelve:
+1) Patron comun entre los fallos
+2) Contexto que falta para agrupar mejor
+3) Hipotesis iniciales ordenadas por impacto
+4) Siguiente captura de evidencia mas rentable
+Reglas: no confundas stack trace repetido con causa raiz demostrada.
+
+Contexto:
+{context}
+
+EN:
+Triage this crash signature. Return:
+1) Shared pattern across failures
+2) Missing context that would improve grouping
+3) Initial hypotheses ordered by impact
+4) Most cost-effective next evidence capture
+Rules: do not confuse a repeated stack trace with a proven root cause.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Webhook contract review / Revision de contrato de webhooks",
+            category="Architecture",
+            tags=[*shared, "architecture", "webhooks", "contracts", "integration"],
+            rating=4,
+            body="""ES:
+Revisa este contrato de webhooks antes de publicarlo. Devuelve:
+1) Eventos y payloads esenciales
+2) Riesgos de compatibilidad o reintento
+3) Garantias que el consumidor necesitara
+4) Pruebas de contrato minimas
+Reglas: optimiza para integraciones robustas y cambios evolutivos.
+
+Contexto:
+{context}
+
+EN:
+Review this webhook contract before publishing it. Return:
+1) Essential events and payloads
+2) Compatibility or retry risks
+3) Guarantees the consumer will need
+4) Minimum contract tests
+Rules: optimize for robust integrations and evolutionary change.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="State transition audit / Auditoria de transiciones de estado",
+            category="Architecture",
+            tags=[*shared, "architecture", "state", "transitions", "consistency"],
+            rating=4,
+            body="""ES:
+Audita esta maquina o flujo de estados. Devuelve:
+1) Estados validos
+2) Transiciones permitidas y prohibidas
+3) Invariantes que deben mantenerse
+4) Casos donde el sistema podria quedar atascado o incoherente
+Reglas: favorece claridad operacional antes que formalismo excesivo.
+
+Contexto:
+{context}
+
+EN:
+Audit this state machine or state flow. Return:
+1) Valid states
+2) Allowed and forbidden transitions
+3) Invariants that must hold
+4) Cases where the system could get stuck or inconsistent
+Rules: favor operational clarity over excessive formalism.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Dashboard glanceability pass / Revision de legibilidad instantanea de dashboard",
+            category="Design",
+            tags=[*shared, "design", "dashboard", "hierarchy", "ux"],
+            rating=4,
+            body="""ES:
+Evalua este dashboard para lectura en pocos segundos. Devuelve:
+1) Que se entiende de un vistazo
+2) Que compite por atencion sin aportar
+3) Donde faltan jerarquia o contexto
+4) Mejoras para que la accion importante sea obvia
+Reglas: diseña para escaneo rapido y decisiones frecuentes.
+
+Contexto:
+{context}
+
+EN:
+Evaluate this dashboard for understanding in a few seconds. Return:
+1) What is clear at a glance
+2) What competes for attention without adding value
+3) Where hierarchy or context is missing
+4) Improvements that make the important action obvious
+Rules: design for fast scanning and frequent decisions.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Settings information architecture pass / Revision de arquitectura de informacion para ajustes",
+            category="Design",
+            tags=[*shared, "design", "settings", "information-architecture", "usability"],
+            rating=4,
+            body="""ES:
+Reordena esta pantalla de ajustes para que sea facil de entender. Devuelve:
+1) Grupos o secciones naturales
+2) Ajustes que conviene destacar o esconder
+3) Etiquetas mas claras
+4) Riesgos de confusion o cambios irreversibles
+Reglas: protege descubribilidad, confianza y seguridad del usuario.
+
+Contexto:
+{context}
+
+EN:
+Reorganize this settings screen so it is easy to understand. Return:
+1) Natural groups or sections
+2) Settings that should be highlighted or tucked away
+3) Clearer labels
+4) Risks of confusion or irreversible changes
+Rules: protect discoverability, trust, and user safety.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Comparison page proof grid / Matriz de prueba para pagina comparativa",
+            category="Marketing",
+            tags=[*shared, "marketing", "comparison", "proof", "messaging"],
+            rating=4,
+            body="""ES:
+Construye una pagina comparativa creible para este producto. Devuelve:
+1) Claims principales
+2) Evidencia o prueba necesaria por claim
+3) Riesgo de sonar injusto o poco creible
+4) CTA final adecuado
+Reglas: evita ataques vagos a competidores y sustenta cada ventaja.
+
+Contexto:
+{context}
+
+EN:
+Build a credible comparison page for this product. Return:
+1) Main claims
+2) Evidence or proof needed for each claim
+3) Risk of sounding unfair or not credible
+4) Appropriate final CTA
+Rules: avoid vague attacks on competitors and support every advantage.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Lifecycle email intent map / Mapa de intencion para emails de ciclo de vida",
+            category="Marketing",
+            tags=[*shared, "marketing", "email", "lifecycle", "retention"],
+            rating=4,
+            body="""ES:
+Mapea emails de ciclo de vida para este producto. Devuelve:
+1) Momento o disparador
+2) Intencion del mensaje
+3) Valor concreto para el usuario
+4) CTA y riesgo de fatiga
+Reglas: prioriza utilidad y timing sobre volumen de envios.
+
+Contexto:
+{context}
+
+EN:
+Map lifecycle emails for this product. Return:
+1) Moment or trigger
+2) Message intent
+3) Concrete value for the user
+4) CTA and fatigue risk
+Rules: prioritize usefulness and timing over send volume.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Decision follow-up agenda / Agenda de seguimiento de decisiones",
+            category="Productivity",
+            tags=[*shared, "productivity", "decisions", "meetings", "execution"],
+            rating=4,
+            body="""ES:
+Convierte esta decision ya tomada en una agenda de seguimiento. Devuelve:
+1) Verificaciones pendientes
+2) Dependencias y responsables
+3) Riesgos que deben revisarse en la siguiente reunion
+4) Criterio para considerar la decision realmente cerrada
+Reglas: enfoca la agenda en avance y accountability, no en volver a debatir.
+
+Contexto:
+{context}
+
+EN:
+Turn this decision that has already been made into a follow-up agenda. Return:
+1) Pending checks
+2) Dependencies and owners
+3) Risks to review in the next meeting
+4) Criteria for considering the decision truly closed
+Rules: focus the agenda on progress and accountability, not on reopening the debate.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Scope cut planner / Planificador de recorte de alcance",
+            category="Productivity",
+            tags=[*shared, "productivity", "scope", "prioritization", "delivery"],
+            rating=4,
+            body="""ES:
+Ayudame a recortar alcance sin romper el objetivo principal. Devuelve:
+1) Elementos core vs opcionales
+2) Secuencia de recortes recomendada
+3) Riesgo de cada recorte
+4) Version minima que aun merece lanzarse
+Reglas: protege el resultado util para el usuario antes que la exhaustividad.
+
+Contexto:
+{context}
+
+EN:
+Help me cut scope without breaking the main goal. Return:
+1) Core vs optional elements
+2) Recommended sequence of cuts
+3) Risk of each cut
+4) Smallest version still worth shipping
+Rules: protect a useful user outcome before completeness.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Methodology sanity check / Revision de metodologia",
+            category="Research",
+            tags=[*shared, "research", "methodology", "quality", "evidence"],
+            rating=4,
+            body="""ES:
+Revisa la metodologia de este analisis o estudio. Devuelve:
+1) Supuestos metodologicos clave
+2) Sesgos o limitaciones probables
+3) Controles que aumentarian confianza
+4) Conclusiones que no deberian afirmarse todavia
+Reglas: diferencia entre debilidad metodologica y dato simplemente incompleto.
+
+Contexto:
+{context}
+
+EN:
+Review the methodology of this analysis or study. Return:
+1) Key methodological assumptions
+2) Likely biases or limitations
+3) Controls that would increase confidence
+4) Conclusions that should not be claimed yet
+Rules: distinguish a methodological weakness from merely incomplete data.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Claim-to-source trace / Trazabilidad de afirmaciones a fuentes",
+            category="Research",
+            tags=[*shared, "research", "sources", "traceability", "claims"],
+            rating=4,
+            body="""ES:
+Traza estas afirmaciones hasta sus fuentes. Devuelve:
+1) Afirmacion
+2) Fuente mas directa que la respalda
+3) Fuerza de la evidencia
+4) Huecos donde falta respaldo real
+Reglas: prioriza la fuente primaria y marca cuando una cita depende de otra cita.
+
+Contexto:
+{context}
+
+EN:
+Trace these claims back to their sources. Return:
+1) Claim
+2) Most direct supporting source
+3) Strength of the evidence
+4) Gaps where real support is missing
+Rules: prioritize the primary source and label when a citation depends on another citation.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Agent capability boundary check / Chequeo de limites de capacidad del agente",
+            category="Agents",
+            tags=[*shared, "agents", "capabilities", "boundaries", "planning"],
+            rating=4,
+            body="""ES:
+Evalua si esta tarea encaja en las capacidades de un agente. Devuelve:
+1) Lo que puede hacer de forma fiable
+2) Lo que requiere supervision humana
+3) Riesgos de autonomia excesiva
+4) Punto exacto donde conviene escalar
+Reglas: evita optimismo gratuito y define limites operativos claros.
+
+Contexto:
+{context}
+
+EN:
+Evaluate whether this task fits within an agent's capabilities. Return:
+1) What it can do reliably
+2) What needs human supervision
+3) Risks of excessive autonomy
+4) Exact point where escalation is appropriate
+Rules: avoid free optimism and define clear operating limits.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Escalation trigger table / Tabla de disparadores de escalado",
+            category="Agents",
+            tags=[*shared, "agents", "escalation", "risk", "operations"],
+            rating=4,
+            body="""ES:
+Define disparadores de escalado para este flujo con agentes. Devuelve:
+1) Situacion observable
+2) Riesgo asociado
+3) Accion automatica permitida
+4) Momento de parar y pedir ayuda humana
+Reglas: usa senales concretas y verificables, no intuiciones vagas.
+
+Contexto:
+{context}
+
+EN:
+Define escalation triggers for this agent workflow. Return:
+1) Observable situation
+2) Associated risk
+3) Allowed automatic action
+4) Moment to stop and ask for human help
+Rules: use concrete verifiable signals, not vague intuition.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Codex diff risk narrator / Narrador de riesgos del diff para Codex",
+            category="Prompts for Codex",
+            tags=[*shared, "codex", "diff", "risk", "review"],
+            rating=4,
+            body="""ES:
+Pide a Codex que lea un diff y narre solo los riesgos relevantes. Devuelve:
+1) Cambios con mayor riesgo funcional
+2) Archivos que merecen verificacion extra
+3) Casos borde que podrian haberse escapado
+4) Cambio pequeno que reduciria riesgo
+Reglas: evita rescribir el diff; prioriza juicio tecnico y evidencia.
+
+Contexto:
+{context}
+
+EN:
+Ask Codex to read a diff and narrate only the meaningful risks. Return:
+1) Changes with the highest functional risk
+2) Files that deserve extra verification
+3) Edge cases that may have been missed
+4) Small change that would reduce risk
+Rules: avoid rewriting the diff; prioritize technical judgment and evidence.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Codex shell command rehearsal / Ensayo de comandos shell para Codex",
+            category="Prompts for Codex",
+            tags=[*shared, "codex", "shell", "verification", "planning"],
+            rating=4,
+            body="""ES:
+Haz que Codex ensaye los comandos shell antes de una tarea delicada. Devuelve:
+1) Comandos que planea ejecutar
+2) Que evidencia espera obtener
+3) Riesgos de cada comando
+4) Comandos que requieren confirmacion humana
+Reglas: empieza por inspeccion y verificacion; evita acciones destructivas por defecto.
+
+Contexto:
+{context}
+
+EN:
+Have Codex rehearse its shell commands before a delicate task. Return:
+1) Commands it plans to run
+2) What evidence each command should produce
+3) Risks of each command
+4) Commands that require human confirmation
+Rules: start with inspection and verification; avoid destructive actions by default.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="Claude source packet organizer / Organizador de paquete de fuentes para Claude",
+            category="Prompts for Claude",
+            tags=[*shared, "claude", "sources", "context", "organization"],
+            rating=4,
+            body="""ES:
+Prepara un paquete de fuentes para Claude antes de una sintesis compleja. Devuelve:
+1) Orden recomendado de documentos
+2) Etiquetas XML o secciones sugeridas
+3) Metadatos minimos por fuente
+4) Pregunta final que Claude deberia responder
+Reglas: separa claramente contexto, fuentes y tarea; marca incertidumbre y conflictos.
+
+Contexto:
+{context}
+
+EN:
+Prepare a source packet for Claude before a complex synthesis. Return:
+1) Recommended document order
+2) Suggested XML tags or sections
+3) Minimum metadata per source
+4) Final question Claude should answer
+Rules: clearly separate context, sources, and task; label uncertainty and conflicts.
+
+Context:
+{context}""",
+        ),
+        PromptCreate(
+            title="ChatGPT constraints-to-template / De restricciones a plantilla ChatGPT",
+            category="Prompts for ChatGPT",
+            tags=[*shared, "chatgpt", "constraints", "template", "prompting"],
+            rating=4,
+            body="""ES:
+Convierte estas restricciones en una plantilla eficaz para ChatGPT. Devuelve:
+1) Objetivo final reformulado
+2) Restricciones agrupadas por importancia
+3) Formato de salida recomendado
+4) Prompt final listo para reutilizar
+Reglas: manten el prompt directo, orientado al resultado y sin pedir razonamiento oculto.
+
+Contexto:
+{context}
+
+EN:
+Turn these constraints into an effective template for ChatGPT. Return:
+1) Reframed final goal
+2) Constraints grouped by importance
+3) Recommended output format
+4) Final reusable prompt
+Rules: keep the prompt direct, outcome-oriented, and free of hidden-reasoning requests.
+
+Context:
+{context}""",
+        ),
     ]
